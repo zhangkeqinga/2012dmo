@@ -1,0 +1,83 @@
+//
+//  BullPch.pch
+//  Bull
+//
+//  Created by Dong on 15-3-20.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#ifndef Bull_BullPch_pch
+#define Bull_BullPch_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "NavigationController.h"
+
+#import "Utils_URL.h"
+#import "UnitPath.h"
+#import "UtilsMacro.h"
+#import "PathUtilities.h"
+#import "ValidateUtil.h"  
+
+#import "WaitingLoadingViewController.h"
+#import "AlertUtils.h"
+#import "AlertUtil.h"
+#import "JSessionInfo.h"
+
+#import "Masonry.h"
+#import "MRProgress.h"
+
+#import "DoctorModel.h"
+
+#import "Users.h"
+#import "FuncationModel.h"
+#import "ProductModel.h"
+
+
+
+//第三方
+#import "AFURLRequestSerialization.h"
+#import "AFHTTPRequestOperationManager.h"
+
+
+#define UMengAPPKey [NSString stringWithFormat:@"559636cb67e58eca6e00140b"]
+//#import "MobClick.h"
+#import "Reachability.h"
+
+#import "UrlParamsUtil.h"
+
+//#define YTOnLineTime        ([UrlParamsUtil getOneLineTime])   //在线时长
+
+#define YTOnLineTime       [NSString stringWithFormat:@"%d",7]   //在线时长
+
+//=====
+
+#import "UIButton+EnlargeEdge.h"
+#import "SBJsonParser.h"
+
+//=====
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+
+//=====
+#define kIsLogin @"isLogin" //是否登录
+#define kIsRegistered @"isRegistered" //是否注册
+
+
+#define APPIDNUMBER @"1234567" //是否注册
+
+/**
+ * 版本判断
+ */
+
+#define MoreHight 20
+
+#define iOS8 [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0
+#define iOS7 [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
+
+#define kUserDefaults [NSUserDefaults standardUserDefaults]
+
+#define kRGBAColor(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+
+#endif

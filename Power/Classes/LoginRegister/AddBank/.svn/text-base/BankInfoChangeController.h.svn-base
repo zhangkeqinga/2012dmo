@@ -1,0 +1,33 @@
+//
+//  BankInfoChangeController.h
+//  Bull
+//
+//  Created by mac on 15/7/8.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "BasedViewController.h"
+#import "AFURLRequestSerialization.h"
+#import "ProCityPicker.h"
+
+@interface BankInfoChangeController : BasedViewController<ProCityPickerDelegate>
+{
+    ProCityPicker *proCityPickView;
+
+}
+
+@property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> * requestSerializer;
+
+@property(nonatomic,strong) ProCityPicker *procityPickView;
+@property(nonatomic,strong) UIView         *pickerView;
+@property(nonatomic,strong) BankModel      *bankModels_;
+@property(nonatomic,strong) NSMutableDictionary   *bankDic;
+
+
+@property(nonatomic,strong) IBOutlet UIImageView *bankImgView;
+@property(nonatomic,strong) IBOutlet UILabel *bankLbName;
+@property(nonatomic,strong) IBOutlet UITextField *bankAdress;
+@property(nonatomic,strong) IBOutlet UITextField *bankBranch;
+
+
+@end

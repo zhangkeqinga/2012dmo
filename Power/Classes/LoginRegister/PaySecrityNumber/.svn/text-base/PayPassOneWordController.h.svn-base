@@ -1,0 +1,15 @@
+//
+//  PayPassOneWordController.h
+//  BGPreferentialShare
+//
+//  Created by Dong on 15-3-12.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+//登陆  login-4  快捷支付
+
+#import "BasedViewController.h"
+#import "PayPassTwoWordController.h"
+
+@interface PayPassOneWordController : BasedViewController<UITextFieldDelegate>
+
+@end

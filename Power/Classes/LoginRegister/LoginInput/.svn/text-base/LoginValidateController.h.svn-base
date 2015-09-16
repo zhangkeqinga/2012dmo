@@ -1,0 +1,32 @@
+//
+//  LoginValidateController.h
+//  Bull
+//
+//  Created by Dong on 15-3-25.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+//注册 login-3-2
+#import "BasedViewController.h"
+#import "PayPassOneWordController.h"
+#import "AFURLRequestSerialization.h"
+
+@interface LoginValidateController : BasedViewController
+{
+    NSTimeInterval secondsCountDown;
+
+}
+
+@property (nonatomic,strong) NSTimer *countDownTimer;
+
+@property (nonatomic,strong) IBOutlet UILabel *timeSeconds;
+@property (nonatomic,strong) NSString *phoneString;
+@property (nonatomic,strong) NSString *secrityString;
+@property (nonatomic,strong) NSString *confirmSec;
+
+@property (nonatomic,strong)IBOutlet UITextField *validateText;
+
+@property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> * requestSerializer;
+
+
+
+@end

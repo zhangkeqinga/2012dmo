@@ -1,0 +1,158 @@
+//
+//  LoginChangePwdController.m
+//  Bull
+//
+//  Created by mac on 15/7/6.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "LoginChangePwdController.h"
+#import "AFHTTPRequestOperationManager.h"
+
+@interface LoginChangePwdController ()
+
+@end
+
+@implementation LoginChangePwdController
+
+@synthesize oldSecrity;
+@synthesize frshSecrity;
+@synthesize sureSecrity;
+@synthesize phoneString;
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+
+
+- (IBAction)nextAction:(id)sender{
+    //验证这些信息是否符合要求
+    
+    if ( [@"" isEqual:oldSecrity.text] ) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请输入原始密码" inView:self.view lastTime:1.0];
+    }
+    
+    if ( [@"" isEqual:frshSecrity.text] ) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请输入密码" inView:self.view lastTime:1.0];
+    }
+    
+    if ( [@"" isEqual:sureSecrity.text] ) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请输入确认密码" inView:self.view lastTime:1.0];
+    }
+    
+    if ( ![frshSecrity.text isEqual:sureSecrity.text] ) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"确认密码不一致" inView:self.view lastTime:1.0];
+    }
+    
+    if (self.loginOrRegister) {
+    
+    }else{
+        
+        if (![self isnotNetWorking]) {
+            return;
+        }
+        
+        [self initRequest];
+    }
+        
+    
+}
+
+
+- (void)initRequest{
+    
+    NSString *phone=[NSString stringWithFormat:@"13817356764"];
+    NSString *oldpwd=[NSString stringWithFormat:@"123456"];
+    NSString *password=[NSString stringWithFormat:@"654321"];
+    NSString *confirmPwd=[NSString stringWithFormat:@"654321"];
+
+    phone=self.phoneString;
+    oldpwd= oldSecrity.text;
+    password= frshSecrity.text;
+    confirmPwd= sureSecrity.text;
+    
+    DLog(@"phone=%@ password=%@ vetiryCode=%@",phone,password,confirmPwd);
+    
+    [self showWaitLoading];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    //http://www.cocoachina.com/bbs/read.php?tid=303382
+    //2.设置登录参数
+    NSDictionary *dict = @{ @"phone":phone,
+                            @"oldpwd":oldpwd ,
+                            @"password":password ,
+                            @"confirmPwd":confirmPwd };
+    
+    
+    NSString *urlString=[NSString stringWithFormat:@"%@",changePSW];
+    DLog(@"urlString == %@&%@",urlString,dict);
+
+    
+    //3.请求
+    [manager POST:changePSW parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+//        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        
+        
+        NSString * isOk=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        
+        if ([@"2001" isEqual:isOk]) { // 修改密码成功
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"密码修改成功" inView:self.view lastTime:1.0];
+            
+            [self performSelector:@selector(isGoLoginview) withObject:nil afterDelay:1.0];
+            
+        }else  {
+            
+//            AlertUtils *alert = [AlertUtils sharedInstance];
+//            [alert showWithText:messages inView:self.view lastTime:1.0];
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"密码修改失败" inView:self.view lastTime:1.0];
+
+        }
+        
+        DLog(@"POST --> %@", responseObject);
+        
+        [self hideWaitLoading];
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        DLog(@"%@", error);
+        
+        [self hideWaitLoading];
+        
+    }];
+    
+    
+}
+
+- (void)isGoLoginview{
+    [self isLoginOut];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginOut" object:nil];
+    
+}
+
+//登陆判断
+- (void)isLoginOut{
+    [Users logoutSystem];//删除个人信息
+}
+
+
+@end

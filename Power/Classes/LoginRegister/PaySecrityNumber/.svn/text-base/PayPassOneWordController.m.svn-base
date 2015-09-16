@@ -1,0 +1,159 @@
+//
+//  PayPassOneWordController.m
+//  BGPreferentialShare
+//
+//  Created by Dong on 15-3-12.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "PayPassOneWordController.h"
+#import "JSessionInfo.h"
+
+@interface PayPassOneWordController ()
+
+@property (nonatomic,strong) IBOutlet UITextField *secretField;
+
+@property (nonatomic,strong) IBOutlet UILabel *secretField1;
+@property (nonatomic,strong) IBOutlet UILabel *secretField2;
+@property (nonatomic,strong) IBOutlet UILabel *secretField3;
+@property (nonatomic,strong) IBOutlet UILabel *secretField4;
+@property (nonatomic,strong) IBOutlet UILabel *secretField5;
+@property (nonatomic,strong) IBOutlet UILabel *secretField6;
+@property (nonatomic,strong) NSString *secretString;
+
+@end
+
+@implementation PayPassOneWordController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+}
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [_secretField becomeFirstResponder];
+    _secretField.clearsOnBeginEditing = YES;
+    _secretField.keyboardType = UIKeyboardTypeNumberPad;
+    _secretField.returnKeyType =UIReturnKeyDone;
+    _secretField.delegate=self;
+    
+     
+    
+    [self realCodeText];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    [_secretField resignFirstResponder];
+    [_secretField1 resignFirstResponder];
+    [_secretField2 resignFirstResponder];
+    [_secretField3 resignFirstResponder];
+    [_secretField4 resignFirstResponder];
+    [_secretField5 resignFirstResponder];
+    
+}
+
+
+
+- (void)realCodeText{
+    
+    _secretField.text=@"";
+    _secretField1.text =@"";
+    _secretField2.text =@"";
+    _secretField3.text =@"";
+    _secretField4.text =@"";
+    _secretField5.text =@"";
+    _secretField6.text =@"";
+
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    NSLog(@"textField=%@",textField.text );
+    NSLog(@"string=%@",string );
+    NSLog(@"range=%lu",(unsigned long)range.location);
+
+    if (range.location ==0) {
+        _secretField1.text =string;
+    }
+    else if (range.location ==1) {
+        _secretField2.text =string;
+
+    }
+    else if (range.location ==2) {
+        _secretField3.text =string;
+
+    }
+    else if (range.location ==3) {
+        _secretField4.text =string;
+
+    }
+    else if (range.location ==4) {
+        _secretField5.text =string;
+
+    }
+    else if (range.location ==5) {
+        _secretField6.text =string;
+
+    }else if (range.location==6) {
+        _secretField.text =[NSString stringWithFormat:@"%@%@%@%@%@",_secretField1.text,_secretField2.text,_secretField3.text,_secretField4.text,_secretField5.text];;
+
+    }
+    
+    _secretString = [NSString stringWithFormat:@"%@%@%@%@%@%@",_secretField1.text,_secretField2.text,_secretField3.text,_secretField4.text,_secretField5.text,_secretField6.text];
+    
+    [JSessionInfo sharedInstance].secretNum = _secretString;
+    
+    return YES;
+}
+
+
+
+- (IBAction)nextAction:(id)sender{
+    
+    if ([@"" isEqual: _secretField6.text] ) {
+        
+        [AlertUtil alertPromptInformation:@"请设置6位交易密码"];
+        return;
+    }
+    
+    
+    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"MyAssets" bundle:nil];
+    
+    PayPassTwoWordController *loginView = [mainStoryboard instantiateViewControllerWithIdentifier:@"PayPassTwoWordController"];
+    
+    DLog(@"[JSessionInfo sharedInstance].secretNum=%@",[JSessionInfo sharedInstance].secretNum);
+    
+    
+    [self.navigationController pushViewController:loginView animated:YES];
+    
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    //将page2设定成Storyboard Segue的目标UIViewController
+    id page2 = segue.destinationViewController;
+    //将值透过Storyboard Segue带给页面2的string变数
+    NSLog(@"page2=%@",page2);
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

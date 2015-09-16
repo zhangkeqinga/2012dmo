@@ -1,0 +1,21 @@
+//
+//  AdsModel.m
+//  Bull
+//
+//  Created by mac on 15/7/25.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "AdsModel.h"
+
+@implementation AdsModel
+
+@synthesize endDate ;
+@synthesize i_id ;
+@synthesize imageLabel;
+@synthesize imageUrl ;
+@synthesize linkUrl ;
+@synthesize startDate;
+
+
+@end

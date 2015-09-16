@@ -1,0 +1,16 @@
+//
+//  MyAssetsViewController.h
+//  Bull
+//
+//  Created by Grant on 15/3/19.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+//登陆   login-1
+#import <UIKit/UIKit.h>
+#import "BasedViewController.h"
+
+@interface MyAssetsViewController : BasedViewController
+
+
+@end

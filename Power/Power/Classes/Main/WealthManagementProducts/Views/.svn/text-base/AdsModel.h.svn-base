@@ -1,0 +1,28 @@
+//
+//  AdsModel.h
+//  Bull
+//
+//  Created by mac on 15/7/25.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+//endDate = "2015-07-31 00:00:00";
+//id = 2;
+//imageLabel = "5\U9b41\U9996";
+//imageUrl = "http://www.jinbull.com/image/app/banner/image2@2x.jpg";
+//linkUrl = "http://www.jinbull.com";
+//startDate = "2015-07-25 00:00:00";
+
+@interface AdsModel : NSObject
+
+@property (nonatomic ,strong) NSString *endDate ;
+@property (nonatomic ,strong) NSString *i_id ;
+@property (nonatomic ,strong) NSString *imageLabel;
+@property (nonatomic ,strong) NSString *imageUrl ;
+@property (nonatomic ,strong) NSString *linkUrl ;
+@property (nonatomic ,strong) NSString *startDate;
+
+
+@end

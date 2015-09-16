@@ -1,0 +1,30 @@
+//
+//  BankChangeController.h
+//  Bull
+//
+//  Created by mac on 15/7/7.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//  更改开户行信息
+
+#import "BasedViewController.h"
+#import "AFURLRequestSerialization.h"
+
+#import "ProCityPicker.h"
+
+
+@interface BankChangeController : BasedViewController<ProCityPickerDelegate>
+{
+    ProCityPicker *proCityPickView;
+    
+}
+
+@property (nonatomic,strong) NSString *phoneString;
+@property (nonatomic,strong) NSString *userId;
+
+@property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> * requestSerializer;
+
+
+
+   
+
+@end

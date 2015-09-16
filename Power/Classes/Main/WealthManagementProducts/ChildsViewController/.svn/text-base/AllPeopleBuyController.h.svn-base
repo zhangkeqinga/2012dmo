@@ -1,0 +1,19 @@
+//
+//  AllPeopleBuyController.h
+//  Bull
+//
+//  Created by mac on 15/7/24.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//  购买人数
+
+
+#import "BasedAFNetworkController.h"
+#import "MJRefresh.h"
+
+
+@interface AllPeopleBuyController : BasedAFNetworkController
+
+@property (assign, nonatomic) NSInteger currentPage;
+- (void)withMangerProduct:(ProductModel *)productModel;
+
+@end

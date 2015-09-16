@@ -1,0 +1,282 @@
+//
+//  LoginOutController.m
+//  Bull
+//
+//  Created by Dong on 15-3-25.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "LoginOutController.h"
+#import "LoginChangePwdController.h"
+#import "BankMangeController.h"
+#import "AppDelegate.h"
+
+@interface LoginOutController ()
+<
+    UITableViewDataSource,
+    UITableViewDelegate
+>
+
+@end
+
+@implementation LoginOutController
+
+@synthesize phoneLb;
+@synthesize userName;
+@synthesize indentify;
+
+@synthesize gustrSecrity;
+@synthesize gustrSwitch;
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden=YES;
+    self.tableView.tableFooterView = [[UIView alloc] init];
+
+
+
+}
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self setTitleBackItemImage];
+    
+//    [self setup];
+    
+    NSString *string= [NSString stringWithFormat:@"%@",  [Users phoneNumber]];
+    self.phoneLb.text=[UnitPath lastPhoneFourNum:string];
+    self.userName.text=[UnitPath nameFirst:[Users userName]];
+    self.indentify.text=[UnitPath lastIdentifyFourNum:[Users userIdentify]];
+    
+    [self setSwitchShow];
+    [self.gustrSwitch addTarget:self action:@selector(selectGuster:) forControlEvents:UIControlEventTouchUpInside];
+
+    
+}
+
+
+- (void)setSwitchShow{
+    if ([Users isGusterSecrity]) {
+        [self.gustrSwitch setTitle:@"关闭" forState:UIControlStateNormal];
+    }else{
+        [self.gustrSwitch setTitle:@"开启" forState:UIControlStateNormal];
+    }
+}
+
+- (IBAction)selectGuster:(id)sender{
+    
+    if (![Users isGusterSecrity]) {
+        [self lockGesterNew];
+    }else{
+        [self unlockGesterNew];
+    }
+    
+}
+
+#pragma mark - 解锁
+//解锁
+- (void)unlockGesterNew{
+    //手势密码
+    if ([Users  isLoginSystem]) {
+        if ([Users isGusterSecrity]) {
+            [self clickEnterPassword:nil];
+        }
+    }
+}
+//设置手势密码锁
+- (void)lockGesterNew{
+    //手势密码
+    if ([Users  isLoginSystem]) {
+        if (![Users isGusterSecrity]) {
+            [self clickSetPassword:nil];
+        }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+    switch (buttonIndex) {
+        
+        case 0:{
+            
+//            if (alertView.tag==1000) {
+//
+//                self.gustrSwitch.on=NO;
+//                
+//            }
+            
+            if (alertView.tag==2000) {
+                
+            }
+
+        }
+            break;
+
+        case 1:
+        {
+            
+            if (alertView.tag==1000) {
+                [self lockGesterNew];
+            }
+            
+            if (alertView.tag==2000) {
+                [self isLoginOut];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginOut" object:nil];
+
+            }
+
+        }
+            break;
+        default:
+            break;
+    }
+    
+}
+
+#pragma mark - btn action
+- (void)clickSetPassword:(id)sender {
+    AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
+
+    popView.isShowPopView=YES;
+    popView = [MJPasswordPopView sharePopView];
+    [popView setPasswordType:PasswordTypeSet];
+    popView.delegate = self;
+    popView.backBtn.hidden=NO;
+
+    [popView show:app.window];
+    
+    
+}
+
+- (void)clickEnterPassword:(id)sender {
+    
+    AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
+
+    popView.isShowPopView=YES;
+    
+    popView = [MJPasswordPopView sharePopView];
+    [popView setPasswordType:PasswordTypeEnter];
+    popView.delegate = self;
+    
+    popView.backBtn.hidden=NO;
+
+    [popView show:app.window];
+}
+
+#pragma mark - MJPasswordPopViewDelegate
+// 忘记密码
+- (void)didForgotPassword:(MJPasswordPopView *)pwdPopView {
+    popView.isShowPopView=NO;
+    
+    [Users logoutSystem];  //忘记手势密码
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginOut" object:nil];
+    
+    
+    DLog(@"%s",__FUNCTION__);
+}
+
+// 设置密码成功、输入密码成功
+- (void)didPasswordSuccess:(MJPasswordPopView *)pwdPopView withSuccessType:(PasswordSuccessType)successType {
+    //    popView.isShowPopView=NO;
+    
+    if (successType==PasswordSuccessTypeSet) {
+        [Users logGusterSecrity]; //设置密码成功
+        [self setSwitchShow];
+    }else{
+        
+        //关闭手势密码
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:[NSNumber numberWithBool:NO]  forKey:@"isGusterSecrity"];
+
+    }
+    [self setSwitchShow];
+
+    DLog(@"%s",__FUNCTION__);
+}
+
+// 切换其他帐号登陆
+- (void)switchOtherAccount:(MJPasswordPopView *)pwdPopview {
+    popView.isShowPopView=NO;
+    
+    DLog(@"%s",__FUNCTION__);
+}
+
+
+// 输入5次密码都错误
+- (void)enterPasswordErrorLimit:(MJPasswordPopView *)pwdPopview {
+    popView.isShowPopView=NO;
+    
+    DLog(@"%s",__FUNCTION__);
+}
+
+
+
+- (void)setup
+{
+    self.tableView.tableFooterView = [[UIView alloc] init];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
+
+- (IBAction)loginOutAction:(id)sender
+{
+    
+    [AlertUtil alertSuerAndCancelWithDelegate:@"是否确认退出当前账号？" delegate:self withTag:2000];
+    
+//    [self isLoginOut];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginOut" object:nil];
+
+}
+
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    
+    if (indexPath.section==0 && indexPath.row==4) { //
+        UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"BankStory" bundle:nil];
+        BankMangeController *changeView = [mainStoryboard instantiateViewControllerWithIdentifier:@"BankMangeController"];
+        [self.navigationController pushViewController:changeView animated:YES];
+        
+    }
+    
+    if (indexPath.section==1 && indexPath.row==1) { //修改密码
+        UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"LoginSuccess" bundle:nil];
+        
+        LoginChangePwdController *changeView = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginChangePwdController"];
+        changeView.phoneString = [Users phoneNumber];
+        [self.navigationController pushViewController:changeView animated:YES];
+        
+    }
+    
+}
+
+//登陆判断
+- (void)isLoginOut
+{
+    [Users logoutSystem];//删除个人信息
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 3;
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *v = [[UIView alloc] init];
+    v.bounds = CGRectMake(0, 0, self.view.bounds.size.width, 30);
+    v.backgroundColor = kRGBAColor(240, 240, 240, 1.0);
+    return v;
+}
+
+
+
+@end

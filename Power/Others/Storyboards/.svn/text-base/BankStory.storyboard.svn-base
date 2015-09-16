@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <scenes>
+        <!--银行管理-->
+        <scene sceneID="QGd-e0-zVa">
+            <objects>
+                <viewController storyboardIdentifier="BankMangeController" id="viX-o3-wz9" customClass="BankMangeController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4iG-Fw-xyU"/>
+                        <viewControllerLayoutGuide type="bottom" id="mXI-IN-sd7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ga6-Sp-Wer">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFP-Dz-FAj">
+                                <rect key="frame" x="15" y="503" width="290" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="wcX-Jy-Lji"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="添加银行卡" backgroundImage="button_red.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addBankAction:" destination="viX-o3-wz9" eventType="touchUpInside" id="0v0-Eo-vKb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.9158761742" green="0.91461401909999995" blue="0.93666072489999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="jFP-Dz-FAj" firstAttribute="leading" secondItem="ga6-Sp-Wer" secondAttribute="leading" constant="15" id="WQe-ob-RJJ"/>
+                            <constraint firstAttribute="trailing" secondItem="jFP-Dz-FAj" secondAttribute="trailing" constant="15" id="dAl-Q5-BxQ"/>
+                            <constraint firstItem="mXI-IN-sd7" firstAttribute="top" secondItem="jFP-Dz-FAj" secondAttribute="bottom" constant="20" id="o4S-AT-jtQ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="银行管理" id="YGT-Zs-lIB"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="addBankBtn" destination="jFP-Dz-FAj" id="nNR-nY-bQh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zen-77-NRJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1165" y="-102"/>
+        </scene>
+        <!--Bank Add View Controller-->
+        <scene sceneID="IGJ-1E-Zse">
+            <objects>
+                <viewController storyboardIdentifier="BankAddViewController" id="V8i-tr-wWc" customClass="BankAddViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="b9j-E5-gWG"/>
+                        <viewControllerLayoutGuide type="bottom" id="dIR-eS-Ctv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9rB-S5-C1k">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZiY-1v-The">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mpW-V7-ScV">
+                                        <rect key="frame" x="2" y="22" width="320" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="姓       名：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAE-rk-UhG">
+                                                <rect key="frame" x="16" y="3" width="71" height="38"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="1300" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入姓名" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0UR-Uo-hcx">
+                                                <rect key="frame" x="88" y="7" width="223" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="V8i-tr-wWc" id="hKS-oj-X7v"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbp-F8-pqJ">
+                                        <rect key="frame" x="2" y="67" width="320" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="身份证号：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u9a-0V-ePd">
+                                                <rect key="frame" x="16" y="3" width="71" height="38"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="1301" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入身份证号码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Bc-VM-eRQ">
+                                                <rect key="frame" x="88" y="7" width="177" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="V8i-tr-wWc" id="CSX-Fg-I1b"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EKE-eM-F1g">
+                                        <rect key="frame" x="2" y="130" width="320" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="银行卡号：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QR3-jb-fKt">
+                                                <rect key="frame" x="16" y="3" width="71" height="38"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="1302" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入银行卡号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ogx-jU-IyC">
+                                                <rect key="frame" x="88" y="7" width="177" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="V8i-tr-wWc" id="KlD-Fi-Dvx"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NKR-xu-tJr">
+                                        <rect key="frame" x="2" y="175" width="320" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="支付银行：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvz-ar-bsk">
+                                                <rect key="frame" x="16" y="3" width="71" height="38"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="1303" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="点击获取银行" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fuM-16-as5">
+                                                <rect key="frame" x="88" y="7" width="177" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRo-f3-bzI">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="checkBank:" destination="V8i-tr-wWc" eventType="touchUpInside" id="oyS-gJ-dlO"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qa2-VL-Gpo">
+                                        <rect key="frame" x="2" y="220" width="320" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="手机号码：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8a3-fW-q13">
+                                                <rect key="frame" x="16" y="3" width="71" height="38"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="1304" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入银行卡预留的手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lNa-Ju-ztO">
+                                                <rect key="frame" x="88" y="7" width="177" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="V8i-tr-wWc" id="93y-AT-lg9"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kni-OX-DIk">
+                                        <rect key="frame" x="259" y="281" width="50" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="支持银行">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="allBankList:" destination="V8i-tr-wWc" eventType="touchUpInside" id="gIf-xO-i4J"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avJ-Iz-Bqs">
+                                        <rect key="frame" x="17" y="346" width="290" height="45"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="提交" backgroundImage="button_red.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addBankList:" destination="V8i-tr-wWc" eventType="touchUpInside" id="xvr-mq-gO1"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.9158761742" green="0.91461401909999995" blue="0.93666072489999996" alpha="1" colorSpace="calibratedRGB"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.9158761742" green="0.91461401909999995" blue="0.93666072489999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="dIR-eS-Ctv" firstAttribute="top" secondItem="ZiY-1v-The" secondAttribute="bottom" id="8A1-2e-3ty"/>
+                            <constraint firstItem="ZiY-1v-The" firstAttribute="leading" secondItem="9rB-S5-C1k" secondAttribute="leading" id="Ihf-HS-KU0"/>
+                            <constraint firstAttribute="trailing" secondItem="ZiY-1v-The" secondAttribute="trailing" id="ZXo-6X-0KX"/>
+                            <constraint firstItem="ZiY-1v-The" firstAttribute="top" secondItem="9rB-S5-C1k" secondAttribute="top" id="f9g-sx-Yb8"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="backScrollview" destination="ZiY-1v-The" id="Mlt-Xu-1j3"/>
+                        <outlet property="bankName" destination="fuM-16-as5" id="e4b-im-RpQ"/>
+                        <outlet property="bankNumFiled" destination="Ogx-jU-IyC" id="k1Y-WH-FTn"/>
+                        <outlet property="indentfyFiled" destination="4Bc-VM-eRQ" id="Gyz-Ry-udF"/>
+                        <outlet property="nameFiled" destination="0UR-Uo-hcx" id="2Sf-MJ-fNF"/>
+                        <outlet property="phoneFiled" destination="lNa-Ju-ztO" id="5c6-zp-e0g"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oa8-Cu-xSI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1154" y="-729"/>
+        </scene>
+        <!--Bank All List Controller-->
+        <scene sceneID="Ain-Uk-VlT">
+            <objects>
+                <viewController storyboardIdentifier="BankAllListController" id="i35-nz-00u" customClass="BankAllListController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tCG-o3-xyP"/>
+                        <viewControllerLayoutGuide type="bottom" id="gKh-V1-wRe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="o6x-bZ-xZY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="RK8-3P-QZw">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" red="0.9158761742" green="0.91461401909999995" blue="0.93666072489999996" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RK8-3P-QZw" firstAttribute="top" secondItem="o6x-bZ-xZY" secondAttribute="top" constant="20" id="374-ZI-rZN"/>
+                            <constraint firstItem="RK8-3P-QZw" firstAttribute="leading" secondItem="o6x-bZ-xZY" secondAttribute="leading" id="4wq-fm-pU8"/>
+                            <constraint firstAttribute="trailing" secondItem="RK8-3P-QZw" secondAttribute="trailing" id="BaC-dh-usB"/>
+                            <constraint firstItem="gKh-V1-wRe" firstAttribute="top" secondItem="RK8-3P-QZw" secondAttribute="bottom" id="hVR-0W-UXP"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="v_tableView" destination="RK8-3P-QZw" id="sMB-LL-MJq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aUa-uf-R4p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1520" y="-729"/>
+        </scene>
+        <!--Remove Bank Controller-->
+        <scene sceneID="PtB-dQ-X0B">
+            <objects>
+                <viewController storyboardIdentifier="RemoveBankController" id="xJ8-bE-G25" customClass="RemoveBankController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vc4-vo-5yx"/>
+                        <viewControllerLayoutGuide type="bottom" id="2cf-b3-lXm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TEO-l7-w4k">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubg-xM-lCU">
+                                <rect key="frame" x="0.0" y="45" width="320" height="42"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="身份证后6位：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXR-vw-YPw">
+                                        <rect key="frame" x="0.0" y="0.0" width="113" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="113" id="Fth-32-zRo"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入身份证后6位" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LE1-lc-tPu">
+                                        <rect key="frame" x="111" y="6" width="201" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="2rf-2F-IGQ"/>
+                                    <constraint firstItem="LE1-lc-tPu" firstAttribute="top" secondItem="ubg-xM-lCU" secondAttribute="top" constant="6" id="3Uc-4x-xxT"/>
+                                    <constraint firstAttribute="trailing" secondItem="LE1-lc-tPu" secondAttribute="trailing" constant="8" id="GAc-n3-UEL"/>
+                                    <constraint firstItem="LE1-lc-tPu" firstAttribute="leading" secondItem="ubg-xM-lCU" secondAttribute="leading" constant="111" id="IG1-LQ-gZ1"/>
+                                    <constraint firstItem="bXR-vw-YPw" firstAttribute="top" secondItem="ubg-xM-lCU" secondAttribute="top" id="Nk3-4P-AM4"/>
+                                    <constraint firstAttribute="bottom" secondItem="bXR-vw-YPw" secondAttribute="bottom" id="eFy-cu-Jnh"/>
+                                    <constraint firstItem="bXR-vw-YPw" firstAttribute="leading" secondItem="ubg-xM-lCU" secondAttribute="leading" id="gFN-3t-mfx"/>
+                                    <constraint firstAttribute="bottom" secondItem="LE1-lc-tPu" secondAttribute="bottom" constant="6" id="y46-KQ-NSS"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jdX-Gj-MUh">
+                                <rect key="frame" x="15" y="114" width="290" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="90b-mW-bHQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="确认解绑" backgroundImage="button_red.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addBankList:" destination="V8i-tr-wWc" eventType="touchUpInside" id="rhS-0L-Ifo"/>
+                                    <action selector="removeBankList:" destination="xJ8-bE-G25" eventType="touchUpInside" id="gcj-gf-yfy"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.9158761742" green="0.91461401909999995" blue="0.93666072489999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="jdX-Gj-MUh" firstAttribute="leading" secondItem="TEO-l7-w4k" secondAttribute="leading" constant="15" id="1VS-Ab-GOG"/>
+                            <constraint firstItem="ubg-xM-lCU" firstAttribute="leading" secondItem="TEO-l7-w4k" secondAttribute="leading" id="LXA-1X-vEb"/>
+                            <constraint firstItem="jdX-Gj-MUh" firstAttribute="top" secondItem="ubg-xM-lCU" secondAttribute="bottom" constant="27" id="YNO-aR-HYD"/>
+                            <constraint firstAttribute="trailing" secondItem="jdX-Gj-MUh" secondAttribute="trailing" constant="15" id="hqG-cY-D8V"/>
+                            <constraint firstAttribute="trailing" secondItem="ubg-xM-lCU" secondAttribute="trailing" id="qUa-VA-kyS"/>
+                            <constraint firstItem="ubg-xM-lCU" firstAttribute="top" secondItem="vc4-vo-5yx" secondAttribute="bottom" constant="25" id="qv6-dE-lBG"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="indentifyCode" destination="LE1-lc-tPu" id="HOD-Ta-4tk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a7d-Ln-rSC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1873" y="-729"/>
+        </scene>
+        <!--Bank Change Controller-->
+        <scene sceneID="Xpb-3q-syc">
+            <objects>
+                <viewController storyboardIdentifier="BankChangeController" id="MTZ-n8-aXp" customClass="BankChangeController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="l1x-Vd-gxq"/>
+                        <viewControllerLayoutGuide type="bottom" id="rVs-tT-WBh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PtA-uS-Q6n">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tju-vg-n5F">
+                                <rect key="frame" x="10" y="120" width="300" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="cJw-j4-WKj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="解绑银行卡" backgroundImage="button_red.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="removeBankList:" destination="MTZ-n8-aXp" eventType="touchUpInside" id="zjU-4v-3o5"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdE-LC-tOR">
+                                <rect key="frame" x="0.0" y="41" width="320" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="更改开户行信息" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYB-lw-fFv">
+                                        <rect key="frame" x="23" y="0.0" width="297" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqX-eU-Nhb">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="changeBankInformation:" destination="MTZ-n8-aXp" eventType="touchUpInside" id="ey3-A4-K6B"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="Jsj-S9-4f5">
+                                        <rect key="frame" x="288" y="13" width="15" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="P6O-Ax-INT"/>
+                                            <constraint firstAttribute="width" constant="15" id="ci2-P7-lYa"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="iqX-eU-Nhb" firstAttribute="leading" secondItem="vdE-LC-tOR" secondAttribute="leading" id="1JU-4O-HA3"/>
+                                    <constraint firstAttribute="trailing" secondItem="gYB-lw-fFv" secondAttribute="trailing" id="3Hi-mp-djg"/>
+                                    <constraint firstItem="gYB-lw-fFv" firstAttribute="leading" secondItem="vdE-LC-tOR" secondAttribute="leading" constant="23" id="7FB-oU-Vmq"/>
+                                    <constraint firstAttribute="height" constant="44" id="IyE-el-ISx"/>
+                                    <constraint firstAttribute="trailing" secondItem="iqX-eU-Nhb" secondAttribute="trailing" id="MAL-pH-mJB"/>
+                                    <constraint firstItem="gYB-lw-fFv" firstAttribute="top" secondItem="vdE-LC-tOR" secondAttribute="top" id="PC6-bz-Xzx"/>
+                                    <constraint firstAttribute="bottom" secondItem="iqX-eU-Nhb" secondAttribute="bottom" id="S06-tZ-6WP"/>
+                                    <constraint firstAttribute="centerY" secondItem="Jsj-S9-4f5" secondAttribute="centerY" id="SZA-fL-i95"/>
+                                    <constraint firstAttribute="bottom" secondItem="gYB-lw-fFv" secondAttribute="bottom" id="ZfH-gZ-mpw"/>
+                                    <constraint firstItem="iqX-eU-Nhb" firstAttribute="top" secondItem="vdE-LC-tOR" secondAttribute="top" id="vYM-tk-OZg"/>
+                                    <constraint firstAttribute="trailing" secondItem="Jsj-S9-4f5" secondAttribute="trailing" constant="17" id="ynx-xK-K8f"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.9158761742" green="0.91461401909999995" blue="0.93666072489999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="vdE-LC-tOR" firstAttribute="top" secondItem="l1x-Vd-gxq" secondAttribute="bottom" constant="21" id="BfO-hR-cvN"/>
+                            <constraint firstAttribute="trailing" secondItem="Tju-vg-n5F" secondAttribute="trailing" constant="10" id="Eao-oj-IK5"/>
+                            <constraint firstItem="Tju-vg-n5F" firstAttribute="leading" secondItem="PtA-uS-Q6n" secondAttribute="leading" constant="10" id="NyR-2K-KBL"/>
+                            <constraint firstAttribute="trailing" secondItem="vdE-LC-tOR" secondAttribute="trailing" id="Ui3-9H-ZIW"/>
+                            <constraint firstItem="Tju-vg-n5F" firstAttribute="top" secondItem="vdE-LC-tOR" secondAttribute="bottom" constant="35" id="ZC7-WM-RcD"/>
+                            <constraint firstItem="vdE-LC-tOR" firstAttribute="leading" secondItem="PtA-uS-Q6n" secondAttribute="leading" id="u64-cT-6ri"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DqK-68-AYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1520" y="-102"/>
+        </scene>
+        <!--Bank Info Change Controller-->
+        <scene sceneID="2Nx-KE-9I8">
+            <objects>
+                <viewController storyboardIdentifier="BankInfoChangeController" id="l8g-BA-pkP" customClass="BankInfoChangeController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1LR-Sn-1cl"/>
+                        <viewControllerLayoutGuide type="bottom" id="Keh-zp-A60"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="z4A-Hn-iWu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hKf-W2-9Hz">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="为了保障你取现能及时到账，请准确输入开户行" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3q-ih-aS3">
+                                        <rect key="frame" x="15" y="25" width="300" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GVS-BC-NwU">
+                                        <rect key="frame" x="0.0" y="57" width="320" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="招商银行信用卡" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGd-yF-MEK">
+                                                <rect key="frame" x="55" y="0.0" width="265" height="44"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bank_logo_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="lSc-HR-Bf1">
+                                                <rect key="frame" x="17" y="11" width="21" height="21"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hEt-NH-DVQ">
+                                        <rect key="frame" x="0.0" y="147" width="320" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="支行" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZl-rp-VlT">
+                                                <rect key="frame" x="15" y="0.0" width="44" height="44"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="例如：上海浦东支行" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n3o-Iq-Bhs">
+                                                <rect key="frame" x="67" y="7" width="253" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ooT-oK-noS">
+                                        <rect key="frame" x="0.0" y="102" width="320" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="省/市" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r7u-Le-O1y">
+                                                <rect key="frame" x="15" y="0.0" width="44" height="44"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="上海市上海市" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S6k-aT-dAo">
+                                                <rect key="frame" x="67" y="7" width="253" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ot2-LY-UZz">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="selectProviceAndCity:" destination="l8g-BA-pkP" eventType="touchUpInside" id="rHs-zh-fum"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iv8-H0-SsV">
+                                        <rect key="frame" x="10" y="212" width="300" height="45"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="确认" backgroundImage="button_red.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="changeBankInfo:" destination="l8g-BA-pkP" eventType="touchUpInside" id="PQU-W4-B2J"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="如果不清楚开户行，请你拨打开户行的24小时客服电话选择人工服务查询" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgg-vp-OvB">
+                                        <rect key="frame" x="11" y="279" width="299" height="49"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hKf-W2-9Hz" firstAttribute="leading" secondItem="z4A-Hn-iWu" secondAttribute="leading" id="CDh-VA-KYb"/>
+                            <constraint firstItem="Keh-zp-A60" firstAttribute="top" secondItem="hKf-W2-9Hz" secondAttribute="bottom" id="Js2-lG-vEk"/>
+                            <constraint firstItem="hKf-W2-9Hz" firstAttribute="top" secondItem="z4A-Hn-iWu" secondAttribute="top" id="QIh-SO-3NL"/>
+                            <constraint firstAttribute="trailing" secondItem="hKf-W2-9Hz" secondAttribute="trailing" id="zOJ-wu-S83"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="bankAdress" destination="S6k-aT-dAo" id="NT7-DH-W7U"/>
+                        <outlet property="bankBranch" destination="n3o-Iq-Bhs" id="Qux-8d-wsk"/>
+                        <outlet property="bankImgView" destination="lSc-HR-Bf1" id="lm3-BA-lqb"/>
+                        <outlet property="bankLbName" destination="tGd-yF-MEK" id="3aT-9g-Cxe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pbD-dS-f6E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1873" y="-102"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="arrow.png" width="103" height="187"/>
+        <image name="bank_logo_1.png" width="21" height="21"/>
+        <image name="button_red.png" width="578" height="90"/>
+    </resources>
+</document>

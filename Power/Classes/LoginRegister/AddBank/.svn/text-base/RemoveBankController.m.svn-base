@@ -1,0 +1,141 @@
+//
+//  RemoveBankController.m
+//  Bull
+//
+//  Created by mac on 15/7/28.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "RemoveBankController.h"
+
+@interface RemoveBankController ()
+
+@end
+
+@implementation RemoveBankController
+@synthesize indentifyCode;
+@synthesize requestSerializer;
+
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    self.tabBarController.tabBar.hidden=YES;
+    
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.tabBarController.tabBar.hidden=YES;
+
+    // Do any additional setup after loading the view.
+}
+
+
+
+- (IBAction)removeBankList:(id)sender{
+    
+    if ([@"" isEqual:indentifyCode.text]) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请输入身份证后6位" inView:self.view lastTime:1.0];
+
+    }else {
+        
+        [self.indentifyCode resignFirstResponder];
+        
+        [self initRequest];
+
+    }
+    
+    
+}
+
+
+#pragma mark-获取银行卡
+- (void)initRequest{
+    
+    NSString *bankid=[NSString stringWithFormat:@"1"];
+    NSString *phone=[NSString stringWithFormat:@"13817356767"];
+    NSString *userIdt=[NSString stringWithFormat:@"13817356767"];
+
+    phone = [Users phoneNumber];
+    bankid = [self.banksModel i_id];
+    userIdt=self.indentifyCode.text;
+    
+    if (!phone || !bankid) {
+        return;
+    }
+    if ([@"" isEqual:phone] || [@"" isEqual:bankid]) {
+        return;
+    }
+    
+    [self showWaitLoading];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    requestSerializer=[AFHTTPRequestSerializer serializer];
+    [requestSerializer setValue:[Users tokenString] forHTTPHeaderField:@"TOKEN"];
+    [manager setRequestSerializer:requestSerializer];
+    
+    NSDictionary *dict = @{ @"id":bankid,
+                            @"card":userIdt,
+                            @"phone":phone
+                            };
+    
+    DLog(@"解绑银行卡＝%@",dict);
+    
+    [manager POST:bankRemove parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        
+        NSString * isOk=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        if ([@"2001" isEqual:isOk]) {        //成功
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"解绑成功" inView:self.view lastTime:1.0];
+            
+            [self performSelector:@selector(back) withObject:nil afterDelay:2.0];
+            
+            
+        }else if ([@"5006" isEqual:isOk] ){  //
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:messages inView:self.view lastTime:1.0];
+            
+        }else{
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:messages inView:self.view lastTime:1.0];
+            
+        }
+        
+        [self hideWaitLoading];
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        
+        DLog(@"error＝%@", error);
+        
+        [self hideWaitLoading];
+    }];
+    
+    
+}
+
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

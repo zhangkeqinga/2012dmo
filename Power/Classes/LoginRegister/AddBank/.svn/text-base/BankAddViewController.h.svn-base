@@ -1,0 +1,24 @@
+//
+//  BankAddViewController.h
+//  Bull
+//
+//  Created by mac on 15/7/8.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "BasedViewController.h"
+#import "AFURLRequestSerialization.h"
+
+@interface BankAddViewController : BasedViewController<UITextFieldDelegate>
+
+@property (nonatomic,strong)IBOutlet UITextField *nameFiled;
+@property (nonatomic,strong)IBOutlet UITextField *indentfyFiled;
+@property (nonatomic,strong)IBOutlet UITextField *bankNumFiled;
+@property (nonatomic,strong)IBOutlet UITextField *bankName;
+@property (nonatomic,strong)IBOutlet UITextField *phoneFiled;
+@property (nonatomic,strong)IBOutlet UIScrollView *backScrollview;
+
+@property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> * requestSerializer;
+
+
+@end

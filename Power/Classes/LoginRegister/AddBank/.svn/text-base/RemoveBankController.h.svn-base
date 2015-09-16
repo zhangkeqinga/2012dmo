@@ -1,0 +1,18 @@
+//
+//  RemoveBankController.h
+//  Bull
+//
+//  Created by mac on 15/7/28.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "BasedAFNetworkController.h"
+#import "AFURLRequestSerialization.h"
+
+@interface RemoveBankController : BasedAFNetworkController<UITextFieldDelegate>
+
+@property(nonatomic,strong) IBOutlet UITextField *indentifyCode;
+@property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> * requestSerializer;
+
+
+@end

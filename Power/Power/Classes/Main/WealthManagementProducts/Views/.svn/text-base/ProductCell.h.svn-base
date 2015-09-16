@@ -1,0 +1,13 @@
+//
+//  ProductCell.h
+//  BGPreferentialShare
+//
+//  Created by Dong on 15-3-14.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface ProductCell : UITableViewCell
+
+@end

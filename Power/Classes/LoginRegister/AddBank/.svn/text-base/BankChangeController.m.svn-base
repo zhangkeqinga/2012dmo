@@ -1,0 +1,170 @@
+//
+//  BankChangeController.m
+//  Bull
+//
+//  Created by mac on 15/7/7.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "BankChangeController.h"
+#import "AFHTTPRequestOperationManager.h"
+
+#import "BankInfoChangeController.h"
+#import "RemoveBankController.h"
+
+@interface BankChangeController ()
+
+@end
+
+@implementation BankChangeController
+
+@synthesize phoneString;
+@synthesize userId;
+@synthesize requestSerializer;
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden=YES;
+
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)removeBankList:(id)sender{
+//    [self initRequest];
+    
+    //先将未到时间执行前的任务取消。
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(todoSomething:) object:sender];
+    [self performSelector:@selector(todoSomething:) withObject:sender afterDelay:0.2f];
+    
+}
+
+
+#pragma mark- 防治多次点击
+- (void)todoSomething:(id)sender
+{
+    //在这里做按钮的想做的事情。
+    UIStoryboard *mainStoryboard=[UIStoryboard storyboardWithName:@"BankStory" bundle:nil];
+    
+    RemoveBankController *changeView = [mainStoryboard instantiateViewControllerWithIdentifier:@"RemoveBankController"];
+    [changeView withManger:self.banksModel];
+    
+    changeView.tabBarController.tabBar.hidden=YES;
+
+    [self.navigationController pushViewController:changeView animated:YES];
+    
+}
+
+
+
+
+- (IBAction)changeBankInformation:(id)sender{
+    
+    UIStoryboard *mainStoryboard=[UIStoryboard storyboardWithName:@"BankStory" bundle:nil];
+    
+    BankInfoChangeController *changeView = [mainStoryboard instantiateViewControllerWithIdentifier:@"BankInfoChangeController"];
+    [changeView withManger:self.banksModel];
+    
+    [self.navigationController pushViewController:changeView animated:YES];
+    
+
+}
+
+
+#pragma mark-获取银行卡
+- (void)initRequest{
+    
+    
+    NSString *bankid=[NSString stringWithFormat:@"1"];
+    NSString *phone=[NSString stringWithFormat:@"13817356767"];
+    
+    phone = [Users phoneNumber];
+    bankid = [self.banksModel i_id];
+    
+    if (!phone || !bankid) {
+        return;
+    }
+    if ([@"" isEqual:phone] || [@"" isEqual:bankid]) {
+        return;
+    }
+    
+    [self showWaitLoading];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    requestSerializer=[AFHTTPRequestSerializer serializer];
+    [requestSerializer setValue:[Users tokenString] forHTTPHeaderField:@"TOKEN"];
+    [manager setRequestSerializer:requestSerializer];
+    
+    NSDictionary *dict = @{ @"id":bankid,
+                            @"phone":phone
+                            };
+    
+    
+    NSString *urlString=[NSString stringWithFormat:@"%@",bankRemove];
+    DLog(@"urlString == %@&%@",urlString,dict);
+
+    
+    [manager POST:bankRemove parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        
+        NSString * isOk=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        if ([@"2001" isEqual:isOk]) {        //成功
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"解绑成功" inView:self.view lastTime:1.0];
+            [self performSelector:@selector(back) withObject:nil afterDelay:1.0];
+            
+            
+        }else if ([@"3003" isEqual:isOk] ){  //
+            
+//            AlertUtils *alert = [AlertUtils sharedInstance];
+//            [alert showWithText:messages inView:self.view lastTime:1.0];
+
+            
+            DLog(@"showWithText:messages=%@",messages);
+            
+            
+        }else{
+//            AlertUtils *alert = [AlertUtils sharedInstance];
+//            [alert showWithText:messages inView:self.view lastTime:1.0];
+            
+            DLog(@"s11howWithText:messages=%@",messages);
+
+        }
+        
+        [self hideWaitLoading];
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        
+        DLog(@"error＝%@", error);
+        
+        [self hideWaitLoading];
+    }];
+    
+    
+}
+
+
+- (void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    //    [self dismissViewControllerAnimated:YES completion:^{}];
+}
+
+
+
+@end

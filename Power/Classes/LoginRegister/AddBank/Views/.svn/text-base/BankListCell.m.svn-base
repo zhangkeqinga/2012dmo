@@ -1,0 +1,40 @@
+//
+//  bankListCell.m
+//  Bull
+//
+//  Created by mac on 15/7/7.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "BankListCell.h"
+
+@implementation BankListCell
+
+@synthesize bankImg;
+@synthesize bankName;
+
+@synthesize label1;
+@synthesize label2;
+@synthesize label3;
+@synthesize label4;
+@synthesize label5;
+@synthesize label6;
+
+@synthesize image1;
+@synthesize image2;
+@synthesize image3;
+@synthesize image4;
+@synthesize image5;
+
+
+- (void)awakeFromNib {
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

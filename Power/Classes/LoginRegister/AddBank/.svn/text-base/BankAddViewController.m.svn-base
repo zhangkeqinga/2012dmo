@@ -1,0 +1,445 @@
+//
+//  BankAddViewController.m
+//  Bull 291207117
+//
+//  Created by mac on 15/7/8.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "BankAddViewController.h"
+#import "AFHTTPRequestOperationManager.h"
+
+#import "BankAllListController.h"
+
+
+@interface BankAddViewController ()
+{
+    CGPoint scrolviewPoint;
+    
+}
+@end
+
+@implementation BankAddViewController
+@synthesize nameFiled;
+@synthesize indentfyFiled;
+@synthesize bankNumFiled;
+@synthesize phoneFiled;
+@synthesize bankName;
+@synthesize backScrollview;
+@synthesize requestSerializer;
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden=YES;
+    self.title=@"添加银行卡";
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.view.backgroundColor=BACKVIEWCOLOR;
+    
+    scrolviewPoint= self.backScrollview.contentOffset;
+    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTableView:)];
+    [self.backScrollview addGestureRecognizer:tap];
+
+    self.backScrollview.backgroundColor=BACKVIEWCOLOR;
+    [self setDefaultUserInfo];
+    // Do any additional setup after loading the view.
+}
+
+
+#pragma mark- 设置初始值
+- (void)setDefaultUserInfo{
+    
+//    self.nameFiled.text=[UnitPath nameFirst:[Users userName]];
+
+    
+//    if (![@"" isEqual:[Users userName]]) {
+//        self.nameFiled.text=[UnitPath nameFirst:[Users userName]];
+//        self.nameFiled.enabled=NO;
+//    }
+    
+//    if (![@"" isEqual:[Users userIdentify]]) {
+//        self.indentfyFiled.text=[UnitPath lastIdentifyFourNum:[Users userIdentify]];
+//        self.indentfyFiled.enabled=NO;
+//
+//    }
+
+    
+}
+
+
+#pragma mark- 防治多次点击
+- (void)todoSomething:(id)sender
+{
+    //在这里做按钮的想做的事情。
+    
+    [self initRequest];
+
+}
+
+- (void)starButtonClicked:(id)sender
+{
+    //先将未到时间执行前的任务取消。
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(todoSomething:) object:sender];
+    [self performSelector:@selector(todoSomething:) withObject:sender afterDelay:0.2f];
+    
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+//qian2.5  2   3   2万
+- (IBAction)addBankList:(id)sender{
+//    [self initRequest];
+    
+    
+    //先将未到时间执行前的任务取消。
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(todoSomething:) object:sender];
+    [self performSelector:@selector(todoSomething:) withObject:sender afterDelay:0.2f];
+
+    
+    [nameFiled resignFirstResponder];
+    [indentfyFiled resignFirstResponder];
+    [bankNumFiled resignFirstResponder];
+    [bankName resignFirstResponder];
+    [phoneFiled resignFirstResponder];
+    
+    
+}
+
+
+
+
+//所支持的所有的银行卡
+- (IBAction)allBankList:(id)sender{
+    
+    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"BankStory" bundle:nil];
+    BankAllListController *loginView = [mainStoryboard instantiateViewControllerWithIdentifier:@"BankAllListController"];
+    [self.navigationController pushViewController:loginView animated:YES];
+
+    
+}
+
+
+
+//点击获取银行卡
+- (IBAction)checkBank:(id)sender{
+    
+//    [self initBankAddressInfoRequest];
+    
+    bankName.text=@"招行银行";
+
+    
+}
+
+- (void)scrollviewChangeContnetOff:(int)index{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.backScrollview.contentOffset=CGPointMake(scrolviewPoint.x, scrolviewPoint.y+50*index);
+    } completion:^(BOOL finished) {
+       
+    }];
+    
+}
+
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+    switch (textField.tag) {
+        case 1300:{ //姓名
+            [self scrollviewChangeContnetOff:0];
+            
+        }break;
+        case 1301:  //身份证
+        {
+            [self scrollviewChangeContnetOff:1];
+
+        }break;
+        case 1302:  //银行卡
+        {
+            [self scrollviewChangeContnetOff:2];
+            bankName.text=nil;
+
+        }break;
+        case 1303:  //开户行
+        {
+            [self scrollviewChangeContnetOff:3];
+            
+            if (![self initRequestCheckBank]) {
+                [bankNumFiled becomeFirstResponder];
+                [self scrollviewChangeContnetOff:2];
+                
+                return;
+            }
+
+            
+            [phoneFiled becomeFirstResponder];
+            
+        }break;
+        case 1304:  //地址
+        {
+            [self scrollviewChangeContnetOff:4];
+            if (![self initRequestCheckBank]) {
+                [bankNumFiled becomeFirstResponder];
+                [self scrollviewChangeContnetOff:2];
+                bankName.text=nil;
+
+                return;
+            }
+            
+
+        }break;
+        default:
+            break;
+    }
+    
+}
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    [textField resignFirstResponder];
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    
+    self.backScrollview.contentOffset=scrolviewPoint;
+
+    return YES;
+}
+
+
+- (BOOL)initRequestCheckBank{
+    if ([@"" isEqual:bankNumFiled.text]) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请输入完整银行卡号" inView:self.view lastTime:1.0];
+        
+        return NO;
+    }
+ 
+    return YES;
+}
+
+
+-(void)tapTableView:(UITapGestureRecognizer *)recognizer {
+//    NSLog(@"you taped tableview");
+    [UIView animateWithDuration:0.5 animations:^{
+        self.backScrollview.contentOffset=scrolviewPoint;
+    }];
+    
+    [nameFiled resignFirstResponder];
+    [indentfyFiled resignFirstResponder];
+    [bankNumFiled resignFirstResponder];
+    [bankName resignFirstResponder];
+    [phoneFiled resignFirstResponder];
+    
+}
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    
+    
+    
+}
+
+#pragma mark-initRequest
+- (void)initRequest{
+    
+    NSString *uid=[NSString stringWithFormat:@"UID"];
+    NSString *phone=[NSString stringWithFormat:@"电话"];
+    NSString *bankCard=[NSString stringWithFormat:@"银行卡"];
+    
+    NSString *bankNames=[NSString stringWithFormat:@"招商银行"];
+    NSString *bankUserName=[NSString stringWithFormat:@"姓名"];
+    
+    NSString *bankUserPhone=[NSString stringWithFormat:@"电话"];
+    NSString *bankIdCard=[NSString stringWithFormat:@"身份证"];
+    
+    phone = [Users phoneNumber];
+    uid =   [Users userId];
+    
+    bankUserName=  nameFiled.text;
+    bankNames=     bankName.text;
+    bankIdCard=    indentfyFiled.text;
+    bankCard=      bankNumFiled.text;
+    bankUserPhone= phoneFiled.text;
+    
+#pragma mark- 正则验证
+    
+    if ([@"" isEqual: bankUserName]){
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请填写姓名" inView:self.view lastTime:1.0];
+        return;
+    }
+    
+    if (![ValidateUtil isMobilePhone:phone]){
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请输入正确的手机号码" inView:self.view lastTime:1.0];
+        return;
+    }
+    
+    if (![ValidateUtil validateIdentityCard: bankIdCard]){
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请输入正确的身份证号码" inView:self.view lastTime:1.0];
+        return;
+    }
+    
+    if (![ValidateUtil checkBankIdCard: bankCard]){
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请输入正确的银行卡号码" inView:self.view lastTime:1.0];
+        return;
+    }
+    
+    if ([@"" isEqual: bankNames]){
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请填写支付行" inView:self.view lastTime:1.0];
+        return;
+    }
+    
+    [self showWaitLoading];
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    requestSerializer=[AFHTTPRequestSerializer serializer];
+    [requestSerializer setValue:[Users tokenString] forHTTPHeaderField:@"TOKEN"];
+    [manager setRequestSerializer:requestSerializer];
+    
+    
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              uid, @"uid",
+                              phone, @"phone",
+                              bankCard, @"bankCard",
+                              bankNames, @"bankName",
+                              bankUserName, @"bankUserName",
+                              bankUserPhone, @"bankUserPhone",
+                              bankIdCard, @"bankIdCard",nil];
+    
+    
+    DLog(@"配备userInfo=%@",dict);
+    
+    NSString *urlString=[NSString stringWithFormat:@"%@",bankAdd];
+    DLog(@"urlString == %@&%@",urlString,dict);
+
+    [manager POST:bankAdd parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        
+        NSString * isOk=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        
+        if ([@"2001" isEqual:isOk]) {        //成功
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"绑定银行卡成功" inView:self.view lastTime:1.0];
+            
+            //保存银行卡绑定成功的信息
+            NSUserDefaults*defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:[NSNumber numberWithBool:YES]  forKey:@"isAddBank"];
+
+            
+            [self performSelector:@selector(back) withObject:nil afterDelay:1.0];
+            
+        }
+        
+        else if ([@"4006" isEqual:isOk] ){  //
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:messages inView:self.view lastTime:1.0];
+            
+        }
+        
+        else{
+//            AlertUtils *alert = [AlertUtils sharedInstance];
+//            [alert showWithText:messages inView:self.view lastTime:1.0];
+
+            DLog(@"messages=%@  isOk＝%@",messages,isOk);
+        }
+        
+        [self hideWaitLoading];
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        
+        DLog(@"error＝%@", error);
+        
+        [self hideWaitLoading];
+    }];
+    
+}
+
+- (void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    //    [self dismissViewControllerAnimated:YES completion:^{}];
+}
+
+#pragma mark-initRequest
+- (void)initBankAddressInfoRequest{
+    
+    NSString *phone=[NSString stringWithFormat:@"13817356764"];
+    NSString *bankCard=[NSString stringWithFormat:@"6324134241317101"];
+    
+    bankNumFiled.text=@"6214830210396908";
+    
+    phone = [Users phoneNumber];
+    bankCard=      bankNumFiled.text;
+    
+    
+    [self showWaitLoading];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    requestSerializer=[AFHTTPRequestSerializer serializer];
+    [requestSerializer setValue:[Users tokenString] forHTTPHeaderField:@"TOKEN"];
+    [manager setRequestSerializer:requestSerializer];
+    
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                          phone, @"phone",
+                          bankCard, @"bankCard",
+                          nil];
+    
+    
+    DLog(@"配备userInfo=%@",dict);
+    [manager POST:bankTypeUrl parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        NSString * isOk=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        if ([@"2001" isEqual:isOk]) {        //成功
+            
+            DLog(@"responseObject=%@",responseObject);
+            
+            //    bankName.text=@"招行银行";
+
+        }else if ([@"3003" isEqual:isOk] ){  //
+            
+            
+        }else{
+            
+//            AlertUtils *alert = [AlertUtils sharedInstance];
+//            [alert showWithText:messages inView:self.view lastTime:1.0];
+            
+            DLog(@"messages=%@",messages);
+        }
+        
+        
+        [self hideWaitLoading];
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        
+        DLog(@"error＝%@", error);
+        
+        [self hideWaitLoading];
+    }];
+    
+}
+
+
+
+@end

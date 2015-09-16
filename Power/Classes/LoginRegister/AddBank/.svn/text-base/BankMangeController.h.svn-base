@@ -1,0 +1,20 @@
+//
+//  BankMangeController.h
+//  Bull
+//
+//  Created by mac on 15/7/7.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "BasedViewController.h"
+#import "AFURLRequestSerialization.h"
+
+@interface BankMangeController : BasedViewController<UITableViewDataSource,UITableViewDelegate>
+
+@property(nonatomic,strong) IBOutlet UITableView *v_tableView;
+@property(nonatomic,strong)  NSMutableArray  *bankArray;
+@property(nonatomic,strong) IBOutlet UIButton  *addBankBtn;
+@property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> * requestSerializer;
+
+
+@end

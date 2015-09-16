@@ -1,0 +1,16 @@
+//
+//  PayPassTwoWordController.h
+//  BGPreferentialShare
+//
+//  Created by Dong on 15-3-12.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+//登陆  login-5
+
+#import "BasedViewController.h"
+
+@interface PayPassTwoWordController : BasedViewController<UITextFieldDelegate>
+
+@property (nonatomic,weak) NSString *secretBefore;
+
+@end

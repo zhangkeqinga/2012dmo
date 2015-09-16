@@ -1,0 +1,100 @@
+//
+//  LoginPathValidate.m
+//  Bull
+//
+//  Created by Dong on 15-3-30.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "LoginPathValidate.h"
+#import "AppDelegate.h"
+
+
+#import "LoginAccountController.h"
+#import "PayPassOneWordController.h"
+#import "BankAddViewController.h"
+
+@implementation LoginPathValidate
+
+
++(BOOL)liginWithNavigation:(UINavigationController *)navigation_;{
+    
+    
+//    if (![Users isLoginSystem])    //未登录
+//    {
+//        AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
+//
+////        AlertUtils *alert = [AlertUtils sharedInstance];
+////        [alert showWithText:@"请登陆" inView:app lasTime:1.0];
+//
+//        [self liginAccountWithNavigation:navigation_];
+//        return NO;
+//    }
+//    
+//    else if (![Users isAddBank] )       //未添加银行账号
+//    {
+//        [self liginAddBankWithNavigation:navigation_];
+//        return NO;
+//    }
+//    
+////    else if (![Users isGusterSecrity] ) //未设置支付密码
+////    {
+////        [self liginPayPassWithNavigation:navigation_];
+////        return NO;
+////        
+////    }
+//    else{
+//        
+//        return YES;
+//    }
+    
+    if (![Users isLoginSystem])    //未登录｛
+    {
+        [self liginAccountWithNavigation:navigation_];
+        return NO;
+    }
+    
+//    else if (![Users isAddBank] )       //未添加银行账号
+//    {
+//        [self liginAddBankWithNavigation:navigation_];
+//        return NO;
+//    }
+    
+    else{
+        return YES;
+    }
+
+}
+
+
++(void)liginAccountWithNavigation:(UINavigationController *)navigation_;{
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MyAssets" bundle:nil];
+    LoginAccountController *friendControlq =[mainStoryboard  instantiateViewControllerWithIdentifier:@"LoginAccountController"];
+    
+    [friendControlq initBar:YES];
+    
+    [navigation_ pushViewController:(UIViewController *)friendControlq animated:YES];
+}
+
++(void)liginAddBankWithNavigation:(UINavigationController *)navigation_;{
+   
+    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"BankStory" bundle:nil];
+    
+    BankAddViewController *changeView1 = [mainStoryboard instantiateViewControllerWithIdentifier:@"BankAddViewController"];
+    
+    [navigation_ pushViewController:(UIViewController *)changeView1 animated:YES];
+
+
+}
+
++(void)liginPayPassWithNavigation:(UINavigationController *)navigation_;{
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MyAssets" bundle:nil];
+    PayPassOneWordController *friendControlq =[mainStoryboard  instantiateViewControllerWithIdentifier:@"PayPassOneWordController"];
+    [navigation_ pushViewController:(UIViewController *)friendControlq animated:YES];
+    
+}
+
+
+@end

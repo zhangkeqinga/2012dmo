@@ -1,0 +1,20 @@
+//
+//  LoginPathValidate.h
+//  Bull
+//
+//  Created by Dong on 15-3-30.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+
+
+//登陆 设置交易密码 添加银行 手势密码  的统一入口
+
+#import <Foundation/Foundation.h>
+
+
+@interface LoginPathValidate : NSObject
+
++(BOOL)liginWithNavigation:(UINavigationController *)navigation_;
+
+@end

@@ -1,0 +1,34 @@
+//
+//  CalculateVws.m
+//  Bull
+//
+//  Created by mac on 15/7/10.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "CalculateVws.h"
+
+@implementation CalculateVws
+
+@synthesize dateField;
+@synthesize moneyField;
+@synthesize closeBtn;
+@synthesize calculateBtn;
+@synthesize resultLb;
+
+
+
+- (void)awakeFromNib {
+//    [self.moneyField becomeFirstResponder];
+//    self.moneyField.keyboardType = UIKeyboardTypeNumberPad;
+//    self.dateField.keyboardType = UIKeyboardTypeNumberPad;
+
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    
+    // Configure the view for the selected state
+}
+
+@end

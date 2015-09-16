@@ -1,0 +1,350 @@
+//
+//  BankInfoChangeController.m
+//  Bull
+//
+//  Created by mac on 15/7/8.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "BankInfoChangeController.h"
+#import "AFHTTPRequestOperationManager.h"
+
+@interface BankInfoChangeController ()
+
+@end
+
+@implementation BankInfoChangeController
+
+@synthesize procityPickView;  //省市区 选择的的pickerView
+@synthesize pickerView=_pickerView;
+
+@synthesize bankImgView;
+@synthesize bankLbName;
+@synthesize bankAdress;
+@synthesize bankBranch;
+@synthesize bankDic;
+
+@synthesize requestSerializer;
+@synthesize bankModels_;
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden=YES;
+    self.title=@"开户行";
+
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.tabBarController.tabBar.hidden=YES;
+
+    bankModels_=[[BankModel alloc]init];
+    bankDic=[NSMutableDictionary dictionary];
+    NSMutableDictionary *plistDic=[PathUtilities readPlistWithFile:@"PropertyList"];
+    bankDic = [plistDic objectForKey:@"BANKNANME"];
+    
+    
+    
+    [self setDetaultBankInfo];
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+//设置默认的银行信息
+- (void)setDetaultBankInfo{
+    
+    self.bankImgView.image=[UIImage imageNamed:@""];
+    
+    [self initBankInformationRequest];
+    
+//    self.bankLbName.text=self.banksModel.bankName;
+//    self.bankAdress.text=self.banksModel.bankAddress;
+//    self.bankBranch.text=self.banksModel.bankBranch;
+    
+    
+}
+
+- (IBAction)changeBankInfo:(id)sender{
+    
+//    [self performSelector:@selector(backTwo) withObject:nil afterDelay:1.0]; //test
+
+    [self initRequest];
+}
+
+- (IBAction)selectProviceAndCity:(id)sender{
+    
+    [self initViewPicker];
+    [self initDatePicker];
+    
+}
+
+
+#pragma mark - 创建选择器的 背部 VIew
+- (void)initViewPicker{
+    
+    if (self.pickerView) {
+        [self.pickerView removeFromSuperview];
+        self.pickerView=nil;
+    }
+    
+    self.pickerView=[[UIView alloc]init];
+    self.pickerView.frame=CGRectMake(0, 64+DEVICE_HEIGHT-115, DEVICE_WIDTH, DEVICE_HEIGHT-64-52+1);
+    self.pickerView.backgroundColor=[UIColor clearColor];
+    [self.view addSubview:self.pickerView];
+    
+}
+
+//省市区的选择
+#pragma mark - 创建选择器的 背部 VIew
+- (void)initDatePicker{
+    
+    if (procityPickView ) {
+        [procityPickView removeFromParentViewController];
+        procityPickView=nil;
+    }
+    
+    procityPickView = [[ProCityPicker alloc] init];
+    procityPickView.delegate = self;
+    procityPickView.selectNum= 2 ;
+    [procityPickView createTextOkButton];
+
+    [self.pickerView addSubview:procityPickView.hiddenTextField];
+    
+    [procityPickView displayView];
+    
+}
+
+- (void)pickerDone:(ProCityPicker *)viewController provice:(NSString *)_provice city:(NSString *)_city
+{
+    self.bankAdress.text=[NSString stringWithFormat:@"%@ %@",_provice,_city];
+    
+}
+
+
+#pragma mark-更改银行卡信息
+- (void)initRequest{
+    
+    NSString *bankid=[NSString stringWithFormat:@"1"];
+    NSString *phone=[NSString stringWithFormat:@"13817356764"];
+    NSString *bankAddress=[NSString stringWithFormat:@"上海市"];
+    NSString *bankBranchStr=[NSString stringWithFormat:@"招商银行"];
+    
+    phone = [Users phoneNumber];
+    bankid = [self.banksModel i_id];
+    bankAddress=bankAdress.text;
+    bankBranchStr=bankBranch.text;
+    
+
+    
+    if (!phone ||
+        !bankid ||
+        !bankAddress ||
+        !bankBranchStr) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请先填写开户行信息" inView:self.view lastTime:1.0];
+
+        return;
+    }
+    if ([@"" isEqual: bankAddress] ) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请先填写开户行信息" inView:self.view lastTime:1.0];
+
+        return;
+    }
+    if ([@"" isEqual: bankBranchStr]) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请先填写开户行信息" inView:self.view lastTime:1.0];
+        
+        return;
+    }
+    
+    [self showWaitLoading];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    requestSerializer=[AFHTTPRequestSerializer serializer];
+    [requestSerializer setValue:[Users tokenString] forHTTPHeaderField:@"TOKEN"];
+    [manager setRequestSerializer:requestSerializer];
+
+    
+
+    
+    NSDictionary *dict = @{ @"id":bankid,
+                            @"phone":phone,
+                            @"bankAddress":bankAddress,
+                            @"bankBranch":bankBranchStr
+                            };
+
+
+    NSString *urlString=[NSString stringWithFormat:@"%@",bankInfoFresh];
+    DLog(@"urlString == %@&%@",urlString,dict);
+
+    
+    [manager POST:bankInfoFresh parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        
+        NSString * isOk=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        if ([@"2001" isEqual:isOk]) {        //成功
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"成功修改开户行信息" inView:self.view lastTime:1.0];
+            
+            [self performSelector:@selector(backTwo) withObject:nil afterDelay:1.0];
+
+        }else if ([@"3003" isEqual:isOk] ){  //
+            
+//            AlertUtils *alert = [AlertUtils sharedInstance];
+//            [alert showWithText:messages inView:self.view lastTime:1.0];
+            
+        }else{
+            
+//            AlertUtils *alert = [AlertUtils sharedInstance];
+//            [alert showWithText:messages inView:self.view lastTime:1.0];
+
+        }
+        
+        DLog(@"bankInfor = %@",messages);
+        
+        [self hideWaitLoading];
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        
+        DLog(@"error＝%@", error);
+        
+        [self hideWaitLoading];
+    }];
+    
+    
+}
+
+
+- (void)backTwo{
+    
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-4]  animated:YES];
+    
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    
+    [procityPickView.hiddenTextField resignFirstResponder];
+    
+}
+
+
+
+
+#pragma mark-获取银行卡
+- (void)initBankInformationRequest{
+    
+    NSString *bankid=[NSString stringWithFormat:@"1"];
+    NSString *phone=[NSString stringWithFormat:@"13817356764"];
+    
+    phone = [Users phoneNumber];
+    bankid = self.banksModel.i_id;
+    
+    if ( !bankid || !phone ){
+        return;
+    }
+
+    [self showWaitLoading];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    requestSerializer=[AFHTTPRequestSerializer serializer];
+    [requestSerializer setValue:[Users tokenString] forHTTPHeaderField:@"TOKEN"];
+    [manager setRequestSerializer:requestSerializer];
+    
+    
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                          bankid, @"id",
+                          phone,  @"phone",
+                          nil];
+    
+    [manager POST:bankSingleInfo parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        NSString * isOk=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        
+        
+        //id(银行卡id), uid(用户uid),
+        //bankCard(银行卡号),
+        //bankName(银行卡名称)，
+        //bankAddress(开户行省市),
+        //bankBranch(开户支行)
+        if ([@"2001" isEqual:isOk]) {        //成功
+            
+            NSDictionary *dic_=[responseObject objectForKey:@"result"];
+
+           
+           self.bankModels_.bankName=[NSString stringWithFormat:@"%@",[dic_ objectForKey:@"bankName"]];
+           self.bankModels_.bankAddress=[NSString stringWithFormat:@"%@",[dic_ objectForKey:@"bankAddress"]];
+           self.bankModels_.bankBranch=[NSString stringWithFormat:@"%@",[dic_ objectForKey:@"bankBranch"]];
+
+            
+            if (![@"(null)" isEqual: self.bankModels_.bankName]) {
+                self.bankLbName.text=self.bankModels_.bankName;
+                self.bankImgView.image=[UIImage imageNamed:[bankDic objectForKey:self.bankModels_.bankName]];
+
+            }
+            
+            
+            if (![@"(null)" isEqual: self.bankModels_.bankAddress]) {
+                self.bankAdress.text=self.bankModels_.bankAddress;
+            }
+            if (![@"(null)" isEqual: self.bankModels_.bankBranch]) {
+                self.bankBranch.text=self.bankModels_.bankBranch;
+            }
+           
+
+            
+            
+        }else{
+            
+            DLog(@"messages=%@",messages);
+        }
+        
+        [self hideWaitLoading];
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        
+        DLog(@"error＝%@", error);
+        
+        [self hideWaitLoading];
+        
+    }];
+    
+}
+
+//银行卡信息
+
+//bankAddress = "\U5f00\U6237\U7701\U5e02\U4ece\U7b2c\U4e09\U65b9\U8ba4\U8bc1\U6765";
+//bankBranch = "\U652f\U884c\U4ece\U7b2c\U4e09\U65b9\U652f\U4ed8\U8ba4\U8bc1\U6765";
+//bankCard = 23413414;
+//bankIdCard = 3412021987;
+//bankName = "%E6%8B%9B%E8%A1%8C%E9%93%B6%E8%A1%8C";
+//bankUserName = "%E5%BC%A0%E4%B8%89";
+//bankUserPhone = 13817356764;
+//createTime = "2015-07-18 10:44:52.608";
+//createUser = "127.0.0.1";
+//id = 3;
+//isBound = 1;
+//uid = 3;
+//updateTime = "0000-00-00 00:00:00.000";
+
+@end

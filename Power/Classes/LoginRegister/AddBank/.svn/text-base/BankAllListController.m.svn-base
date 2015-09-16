@@ -1,0 +1,347 @@
+//
+//  BankAllListController.m
+//  Bull
+//
+//  Created by mac on 15/7/8.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "BankAllListController.h"
+
+@interface BankAllListController ()
+
+@end
+
+@implementation BankAllListController
+
+@synthesize v_tableView;
+@synthesize bankArray;
+@synthesize requestSerializer;
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self initTableView];
+    
+    [self requestBanklist];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden=YES;
+    self.title=@"支持的银行";
+    
+}
+
+
+- (void)initTableView{
+    
+    self.v_tableView.backgroundColor=[UIColor clearColor];
+    self.v_tableView.delegate=self;
+    self.v_tableView.dataSource=self;
+    self.v_tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.v_tableView];
+    
+    self.bankArray = [ NSMutableArray array];
+
+
+}
+
+
+
+- (void)requestBanklist{
+    if (self.bankArray) {
+        [self.bankArray removeAllObjects];
+        self.bankArray= nil;
+    }
+    self.bankArray = [ NSMutableArray array];
+    
+    
+    BankModel *banks=[[BankModel alloc]init];
+    banks.bankName=@"支持银行";
+    banks.allPermiss=@"单笔限额/万";
+    banks.dayPermiss=@"日限额/万";
+    
+    
+    BankModel *banks1=[[BankModel alloc]init];
+    banks1.bankName=@"工商银行";
+    banks1.allPermiss=@"5万";
+    banks1.dayPermiss=@"5万";
+    
+    [self.bankArray addObject:banks];
+    [self.bankArray addObject:banks1];
+
+    
+    [self.v_tableView reloadData]; //test
+//    [self initRequest];
+    
+    
+}
+
+
+#pragma mark-获取银行卡
+- (void)initRequest{
+    
+    NSString *phone=[NSString stringWithFormat:@"17878499099"];
+    NSString *uid=[NSString stringWithFormat:@"1"];
+    phone = [Users phoneNumber];
+    uid = [Users userId];
+    
+    if (!phone || !uid) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"123" inView:self.view lastTime:1.0];
+        return;
+    }
+    
+    if ([@"" isEqual:phone] ||[@"" isEqual:uid]  ) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"123" inView:self.view lastTime:1.0];
+        return;
+    }
+    
+    [self showWaitLoading];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    requestSerializer=[AFHTTPRequestSerializer serializer];
+    [requestSerializer setValue:[Users tokenString] forHTTPHeaderField:@"TOKEN"];
+    [manager setRequestSerializer:requestSerializer];
+    
+    NSDictionary *dict = @{
+                           @"phone":phone,
+                           @"uid":uid
+                           };
+    
+    
+    NSString *urlString=[NSString stringWithFormat:@"%@",bankList];
+    DLog(@"urlString == %@&%@",urlString,dict);
+
+    
+    [manager POST:bankList parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        NSString * isOk=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        
+        if ([@"2001" isEqual:isOk]) {        //成功
+            
+            NSArray *jsonStr=[responseObject objectForKey:@"result"];
+            if (jsonStr) {
+                for (NSDictionary * dic in jsonStr) {
+                    
+                    BankModel *bannkModel=[[BankModel alloc]init];
+                    bannkModel.bankAddress=[NSString stringWithFormat:@"%@",[dic objectForKey:@"bankAddress"]];
+                    bannkModel.bankBranch=[NSString stringWithFormat:@"%@",[dic objectForKey:@"bankBranch"]];
+                    bannkModel.bankCard=[NSString stringWithFormat:@"%@",[dic objectForKey:@"bankCard"]];
+                    bannkModel.bankIdCard=[NSString stringWithFormat:@"%@",[dic objectForKey:@"bankIdCard"]];
+                    bannkModel.bankName=[NSString stringWithFormat:@"%@",[dic objectForKey:@"bankName"]];
+                    bannkModel.bankUserPhone=[NSString stringWithFormat:@"%@",[dic objectForKey:@"bankUserPhone"]];
+                    bannkModel.createTime=[NSString stringWithFormat:@"%@",[dic objectForKey:@"createTime"]];
+                    bannkModel.createUser=[NSString stringWithFormat:@"%@",[dic objectForKey:@"createUser"]];
+                    bannkModel.i_id=[NSString stringWithFormat:@"%@",[dic objectForKey:@"id"]];
+                    bannkModel.isBound=[NSString stringWithFormat:@"%@",[dic objectForKey:@"isBound"]];
+                    bannkModel.uid=[NSString stringWithFormat:@"%@",[dic objectForKey:@"uid"]];
+                    bannkModel.updateTime=[NSString stringWithFormat:@"%@",[dic objectForKey:@"updateTime"]];
+                    [self.bankArray addObject:bannkModel];
+                    
+                }
+                
+            }
+            
+            if (self.v_tableView) {
+                [self.v_tableView reloadData];
+                
+            }
+            
+        }else if ([@"3003" isEqual:isOk] ){  //
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:messages inView:self.view lastTime:1.0];
+            
+            
+        }else{
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:messages inView:self.view lastTime:1.0];
+            
+        }
+        
+        DLog(@" isOk = %@  messages = %@",isOk,messages);
+        
+        [self hideWaitLoading];
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        DLog(@"error＝%@", error);
+        
+        [self hideWaitLoading];
+
+    }];
+    
+}
+
+//
+#pragma mark- UITableView dataSource and delegate methods
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 35;
+}
+
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+//    return 10;
+    
+    return [self.bankArray count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    UIColor *colors=[UIColor grayColor];
+    
+    UITableViewCell *cell=[[UITableViewCell alloc]init];
+    
+    UIImageView *image1=[[UIImageView alloc]init];
+    image1.backgroundColor=colors;
+    [cell addSubview:image1];
+    int pading =10;
+    [image1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(cell).with.offset(pading);
+        make.top.equalTo(cell).with.offset(0);
+        make.bottom.equalTo(cell).with.offset(0);
+        make.width.mas_equalTo(1);
+        
+    }];
+    
+    UIImageView *image2=[[UIImageView alloc]init];
+    image2.backgroundColor=colors;
+    [cell addSubview:image2];
+    [image2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(cell).with.offset(10+(ScreenWidth-20)/3+20);
+        make.top.equalTo(cell).with.offset(0);
+        make.bottom.equalTo(cell).with.offset(0);
+        make.width.mas_equalTo(1);
+        
+    }];
+    
+    UIImageView *image3=[[UIImageView alloc]init];
+    image3.backgroundColor=colors;
+    [cell addSubview:image3];
+    [image3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(cell).with.offset(10+2*(ScreenWidth-20)/3+25);
+        make.top.equalTo(cell).with.offset(0);
+        make.bottom.equalTo(cell).with.offset(0);
+        make.width.mas_equalTo(1);
+        
+    }];
+    
+    
+    UIImageView *image4=[[UIImageView alloc]init];
+    image4.backgroundColor=colors;
+    [cell addSubview:image4];
+    [image4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(cell).with.offset(-pading);
+        make.top.equalTo(cell).with.offset(0);
+        make.bottom.equalTo(cell).with.offset(0);
+        make.width.mas_equalTo(1);
+        
+    }];
+
+    
+    UIImageView *image11=[[UIImageView alloc]init];
+    image11.backgroundColor=colors;
+    [cell addSubview:image11];
+    [image11 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(cell).with.offset(pading);
+        make.right.equalTo(cell).with.offset(-pading);
+
+        make.top.equalTo(cell).with.offset(0);
+        make.height.mas_equalTo(1);
+        
+    }];
+    
+    
+    if ([self.bankArray count]>0) {
+        if (indexPath.row==[self.bankArray count]-1) {
+            
+            UIImageView *image111=[[UIImageView alloc]init];
+            image111.backgroundColor=colors;
+            [cell addSubview:image111];
+            [image111 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(cell).with.offset(pading);
+                make.right.equalTo(cell).with.offset(-pading);
+                make.bottom.equalTo(cell).with.offset(0);
+                make.height.mas_equalTo(1);
+            }];
+        }
+    }
+
+    
+    UILabel *labe=[[UILabel alloc]init];
+    [cell addSubview:labe];
+    
+    UILabel *labe1=[[UILabel alloc]init];
+    [cell addSubview:labe1];
+    UILabel *labe2=[[UILabel alloc]init];
+    [cell addSubview:labe2];
+
+    [labe mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(image1).with.offset(0);
+        make.right.equalTo(image2).with.offset(0);
+        make.top.equalTo(cell).with.offset(0);
+        make.bottom.equalTo(cell).with.offset(0);
+
+    }];
+    
+    [labe1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(image2).with.offset(0);
+        make.right.equalTo(image3).with.offset(0);
+        make.top.equalTo(cell).with.offset(0);
+        make.bottom.equalTo(cell).with.offset(0);
+        
+    }];
+    [labe2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(image3).with.offset(0);
+        make.right.equalTo(image4).with.offset(0);
+        make.top.equalTo(cell).with.offset(0);
+        make.bottom.equalTo(cell).with.offset(0);
+        
+    }];
+
+    
+    labe.font=[UIFont systemFontOfSize:12.0];
+    labe1.font=[UIFont systemFontOfSize:12.0];
+    labe2.font=[UIFont systemFontOfSize:12.0];
+
+    labe.textAlignment=NSTextAlignmentCenter;
+    labe1.textAlignment=NSTextAlignmentCenter;
+    labe2.textAlignment=NSTextAlignmentCenter;
+    
+
+    if ([self.bankArray count]>indexPath.row) {
+        BankModel *banks=[self.bankArray objectAtIndex:indexPath.row];
+        labe.text=banks.bankName;
+        labe1.text=banks.allPermiss;
+        labe2.text=banks.dayPermiss;
+
+    }
+
+    
+    return cell;
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+@end

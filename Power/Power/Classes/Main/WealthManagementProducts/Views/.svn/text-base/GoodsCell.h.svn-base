@@ -1,0 +1,33 @@
+//
+//  GoodsCell.h
+//  BGPreferentialShare
+//
+//  Created by Dong on 15-3-14.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+#define hudViewH  60  
+
+@interface GoodsCell : UITableViewCell
+
+@property(nonatomic,strong) IBOutlet UILabel *label1;
+@property(nonatomic,strong) IBOutlet UILabel *label2;
+@property(nonatomic,strong) IBOutlet UILabel *label3;
+@property(nonatomic,strong) IBOutlet UILabel *label4;
+@property(nonatomic,strong) IBOutlet UILabel *label5;
+@property(nonatomic,strong) IBOutlet UILabel *label6;
+
+
+@property(nonatomic,strong) IBOutlet UIImageView *image1;
+@property(nonatomic,strong) IBOutlet UIImageView *image2;
+@property(nonatomic,strong) IBOutlet UIImageView *image3;
+@property(nonatomic,strong) IBOutlet UIImageView *image4;
+@property(nonatomic,strong) IBOutlet UIImageView *image5;
+@property(nonatomic,strong) IBOutlet UIView *hudView;
+
+- (void)initView;
+
+
+@end

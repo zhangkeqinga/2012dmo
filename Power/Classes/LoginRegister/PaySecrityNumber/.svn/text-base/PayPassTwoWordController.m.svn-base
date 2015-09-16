@@ -1,0 +1,174 @@
+//
+//  PayPassTwoWordController.m
+//  BGPreferentialShare
+//
+//  Created by Dong on 15-3-12.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "PayPassTwoWordController.h"
+#import "JSessionInfo.h"
+#import "AlertUtil.h"
+
+@interface PayPassTwoWordController ()
+
+@property (nonatomic,strong) IBOutlet UITextField *secretField;
+
+@property (nonatomic,strong) IBOutlet UILabel *secretField1;
+@property (nonatomic,strong) IBOutlet UILabel *secretField2;
+@property (nonatomic,strong) IBOutlet UILabel *secretField3;
+@property (nonatomic,strong) IBOutlet UILabel *secretField4;
+@property (nonatomic,strong) IBOutlet UILabel *secretField5;
+@property (nonatomic,strong) IBOutlet UILabel *secretField6;
+@property (nonatomic,strong) NSString *secretString;
+
+@end
+
+@implementation PayPassTwoWordController
+@synthesize secretBefore;
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [_secretField becomeFirstResponder];
+    _secretField.clearsOnBeginEditing = YES;
+    _secretField.keyboardType = UIKeyboardTypeNumberPad;
+    _secretField.returnKeyType =UIReturnKeyDone;
+    _secretField.delegate=self;
+    
+    
+    _secretField.text=@"";
+    _secretField1.text=@"";
+    _secretField2.text=@"";
+    _secretField3.text=@"";
+    _secretField4.text=@"";
+    _secretField5.text=@"";
+    _secretField6.text=@"";
+
+    
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    [_secretField resignFirstResponder];
+    [_secretField1 resignFirstResponder];
+    [_secretField2 resignFirstResponder];
+    [_secretField3 resignFirstResponder];
+    [_secretField4 resignFirstResponder];
+    [_secretField5 resignFirstResponder];
+
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    NSLog(@"textField=%@",textField.text );
+    NSLog(@"string=%@",string );
+    NSLog(@"range=%lu",(unsigned long)range.location);
+    
+    if (range.location ==0) {
+        _secretField1.text =string;
+        
+    }
+    else if (range.location ==1) {
+        _secretField2.text =string;
+        
+    }
+    else if (range.location ==2) {
+        _secretField3.text =string;
+        
+    }
+    else if (range.location ==3) {
+        _secretField4.text =string;
+        
+    }
+    else if (range.location ==4) {
+        _secretField5.text =string;
+        
+    }
+    else if (range.location ==5) {
+        _secretField6.text =string;
+        
+    }else if (range.location==6) {
+        
+        _secretField.text =[NSString stringWithFormat:@"%@%@%@%@%@",_secretField1.text,_secretField2.text,_secretField3.text,_secretField4.text,_secretField5.text];;
+        
+    }
+    
+    _secretString = [NSString stringWithFormat:@"%@%@%@%@%@%@",_secretField1.text,_secretField2.text,_secretField3.text,_secretField4.text,_secretField5.text,_secretField6.text];
+    
+    return YES;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+//登陆判断  test
+- (void)isLogin{
+    
+    NSMutableDictionary * returnDic=[[NSMutableDictionary alloc]init];
+    
+    [returnDic setValue:@"jhony" forKey:@"userName"];
+    [returnDic setValue:@"13817356764" forKey:@"phoneNumber"];
+    [returnDic setValue:@"123456" forKey:@"secrity"];
+    
+    NSDictionary *dic  = [[NSDictionary alloc] initWithDictionary:returnDic];
+    [Users loginSystem:dic];
+    
+    
+}
+
+
+- (IBAction)nextSecret:(id)sender{
+    
+    if ([_secretString isEqual:[JSessionInfo sharedInstance].secretNum ]) {
+        
+        [self isLogin]; //
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginOut" object:nil];
+        
+        
+    }else{
+        
+        _secretField.text =@"";
+        _secretField1.text =@"";
+        _secretField2.text =@"";
+        _secretField3.text =@"";
+        _secretField4.text =@"";
+        _secretField5.text =@"";
+        _secretField6.text =@"";
+        
+        [AlertUtil alertPromptInformation:@"两次交易密码不相同，请重新设置"];
+        
+    }
+    
+    [self isLogins];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginOut" object:nil];
+
+}
+
+//登陆判断 // test
+- (void)isLogins{
+    
+    NSMutableDictionary * returnDic=[[NSMutableDictionary alloc]init];
+    
+    [returnDic setValue:@"jhony" forKey:@"userName"];
+    [returnDic setValue:@"13817356764" forKey:@"phoneNumber"];
+    [returnDic setValue:@"123456" forKey:@"secrity"];
+    
+    NSDictionary *dic  = [[NSDictionary alloc] initWithDictionary:returnDic];
+    [Users loginSystem:dic];
+    
+    
+}
+
+
+@end

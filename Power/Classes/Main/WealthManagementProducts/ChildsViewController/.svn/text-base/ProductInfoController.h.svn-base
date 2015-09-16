@@ -1,0 +1,18 @@
+//
+//  ProductInfoController.h
+//  BGPreferentialShare
+//
+//  Created by Dong on 15-3-14.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//  项目的详细信息
+
+#import "BasedAFNetworkController.h"
+
+#import "UIImageView+WebCache.h"
+
+@interface ProductInfoController : BasedAFNetworkController
+
+
+- (void)withMangerProduct:(ProductModel *)productModel;
+
+@end

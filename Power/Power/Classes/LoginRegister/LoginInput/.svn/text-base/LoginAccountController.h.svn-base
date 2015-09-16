@@ -1,0 +1,30 @@
+//
+//  LoginAccountController.h
+//  BGPreferentialShare
+//
+//  Created by Dong on 15-3-12.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+//    login-2
+#import <UIKit/UIKit.h>
+#import "BasedViewController.h"
+
+@interface LoginAccountController : BasedViewController<UITextFieldDelegate>
+
+@property(nonatomic , strong)NSString * textString;
+@property(nonatomic , assign)BOOL barBool_;
+
+@property (nonatomic,strong) UILabel *titile1Label;
+@property (nonatomic,strong) UILabel *titile2Label;
+
+@property (nonatomic,strong) UILabel *titile3Label;
+@property (nonatomic,strong) UILabel *titile4Label;
+@property (nonatomic,strong) UILabel *titile5Label;
+@property (nonatomic,strong) UIImageView *bgImgView;
+@property (nonatomic,strong) UITextField *phoneText;
+@property(nonatomic , strong)IBOutlet UIButton *nextBtn;
+
+
+- (void)initBar:(BOOL)bool_;
+
+@end

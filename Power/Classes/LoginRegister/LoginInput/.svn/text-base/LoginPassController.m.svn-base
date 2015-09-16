@@ -1,0 +1,385 @@
+//
+//  LoginPassController.m
+//  Bull
+//
+//  Created by Dong on 15-3-25.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "LoginPassController.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "LoginPassWordController.h"
+
+
+@interface LoginPassController ()
+
+@end
+
+@implementation LoginPassController
+
+@synthesize forgateBtn;
+@synthesize sureLoginBtn;
+@synthesize phoneString;
+@synthesize pwdText;
+@synthesize phoneLable;
+
+
+- (void)withPhoneNumber:(NSString *)phoneLb_{
+    phoneString=phoneLb_;
+    
+    phoneLable.text=[UnitPath phoneNumberTFF:phoneLb_];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    self.tabBarController.tabBar.hidden=YES;
+   
+    [pwdText becomeFirstResponder];
+    forgateBtn.enabled=YES;
+    sureLoginBtn.enabled=YES;
+    
+}
+
+
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    
+    self.tabBarController.tabBar.hidden=YES;
+
+    // Do any additional setup after loading the view.
+    self.title = @"输入登陆密码";
+    
+    [self setTitleBackItemImage];
+    
+    [sureLoginBtn addTarget:self action:@selector(nextAction:) forControlEvents:UIControlEventTouchUpInside];
+    [forgateBtn addTarget:self action:@selector(forgateAction:) forControlEvents:UIControlEventTouchUpInside];
+    phoneLable.text=phoneString;
+    
+    
+}
+
+
+-(IBAction)forgateAction:(id)sender{
+    
+    [AlertUtil alertSuerAndCancelWithDelegate:@"是否通过短信验证找回密码？" delegate:self];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"MyAssets" bundle:nil];
+
+    switch (buttonIndex) {
+        case 0:{
+            
+            
+        }
+            break;
+        case 1:{
+            
+            LoginPassWordController *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginPassWordController"];
+            
+            friendControl.phoneString= self.phoneString;
+            friendControl.loginOrRegister=YES;  //忘记密码
+            [friendControl withPhoneNumber:self.phoneString];
+            
+            [self.navigationController pushViewController:friendControl animated:YES];
+
+        }
+            break;
+        default:
+            break;
+    }
+    
+    
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - textFieldDidEndEditing
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    pwdText.text=textField.text;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [pwdText resignFirstResponder];
+}
+
+
+- (IBAction)nextAction:(id)sender{
+    sureLoginBtn.enabled=NO;
+    
+    [pwdText resignFirstResponder];
+    
+    [self initRequest];
+
+
+}
+
+#pragma mark-登陆
+- (void)initRequest{
+    
+    NSString *phonesss=[NSString string];
+    NSString *password=[NSString string];
+    
+    //疑问：登陆的地方也最好也区分下移动设备
+//    NSString *logindevice=[NSString stringWithFormat:@"IOS"];
+    
+    phonesss =self.phoneString;
+    password =pwdText.text;
+    
+    //验证这些信息是否符合要求
+    if(![ValidateUtil isMobilePhone:phonesss]){
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"手机号码不正确" inView:self.view lastTime:1.0];
+        sureLoginBtn.enabled=YES;
+
+        return;
+    }
+    
+    if(![ValidateUtil secretCodeLegal:password]){
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请设置符合要求的密码" inView:self.view lastTime:1.0];
+        sureLoginBtn.enabled=YES;
+
+        return;
+    }
+    
+    if (![self isnotNetWorking]) {
+        sureLoginBtn.enabled=YES;
+
+        return;
+    }
+    
+    
+    [self showWaitLoading];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    //http://www.cocoachina.com/bbs/read.php?tid=303382
+    //2.设置登录参数
+    NSDictionary *dict = @{ @"phone":phonesss,
+                            @"password":password 
+                            };
+    
+    NSString *urlString=[NSString stringWithFormat:@"%@",loginURL];
+    DLog(@"urlString == %@&%@",urlString,dict);
+    
+    //3.请求
+    [manager POST:loginURL parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString * isOk=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        
+        if ([@"2001" isEqual:isOk]) { //请求成功
+            //获取TOKEN
+            NSString *cookieString = [[operation.response allHeaderFields] valueForKey:@"Set-Cookie"];
+            [Users  settokenString:[self getTokens:cookieString]];
+            NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithDictionary:[responseObject objectForKey:@"result"]];
+            
+            NSDate   *loginDate=[NSDate date];
+            NSString *loginTime=[UnitPath stringFromDateSecond:loginDate];
+            [dic setValue:loginTime forKey:@"loginSystemTime"];
+            
+            NSString *phone=[NSString stringWithFormat:@"%@",phonesss];
+            [dic setValue:phone forKey:@"phone"];
+            [Users loginSystem:dic];
+            
+            [self initBankInfoRequest];
+            
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginOut" object:nil];
+            
+            
+        }
+        else if ([@"1006" isEqual:isOk]) //
+        {
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"请输入正确的密码" inView:self.view lastTime:1.0];
+
+        }else {
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"登陆失败" inView:self.view lastTime:1.0];
+            
+        }
+
+        DLog(@"POST --> %@", responseObject);
+        
+        [self hideWaitLoading];
+        sureLoginBtn.enabled=YES;
+
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        
+        DLog(@"%@", error);
+        
+        [self hideWaitLoading];
+        sureLoginBtn.enabled=YES;
+
+
+    }];
+    
+    
+}
+
+
+
+#pragma mark-获取银行卡
+- (void)initBankInfoRequest{
+    
+    NSString *phone=[NSString stringWithFormat:@"17878499099"];
+    NSString *uid=[NSString stringWithFormat:@"1"];
+    phone = [Users phoneNumber];
+    uid = [Users userId];
+    
+    if (!phone || !uid) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"123" inView:self.view lastTime:1.0];
+        return;
+    }
+    
+    if ([@"" isEqual:phone] ||[@"" isEqual:uid]  ) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"123" inView:self.view lastTime:1.0];
+        return;
+    }
+    
+    [self showWaitLoading];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    self.requestSerializer=[AFHTTPRequestSerializer serializer];
+    [self.requestSerializer setValue:[Users tokenString] forHTTPHeaderField:@"TOKEN"];
+    [manager setRequestSerializer:self.requestSerializer];
+    
+    NSDictionary *dict = @{
+                           @"phone":phone,
+                           @"uid":uid
+                           };
+    
+    NSString *urlString=[NSString stringWithFormat:@"%@",bankList];
+    DLog(@"urlString == %@&%@",urlString,dict);
+
+    
+    [manager POST:bankList parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        NSString * isOk=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        
+        if ([@"2001" isEqual:isOk]) {        //成功
+            
+            NSArray *jsonStr=[responseObject objectForKey:@"result"];
+            if (jsonStr) {
+                if ([jsonStr count]>0) {
+                    NSUserDefaults*defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults setObject:[NSNumber numberWithBool:YES]  forKey:@"isAddBank"];
+
+                }else{
+                    NSUserDefaults*defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults setObject:[NSNumber numberWithBool:NO]  forKey:@"isAddBank"];
+                }
+            }
+            
+        }
+        
+        else{
+            
+//            AlertUtils *alert = [AlertUtils sharedInstance];
+//            [alert showWithText:messages inView:self.view lastTime:1.0];
+            
+            NSUserDefaults*defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:[NSNumber numberWithBool:NO]  forKey:@"isAddBank"];
+
+        }
+        
+        DLog(@" isOk = %@  messages = %@",isOk,messages);
+        
+        [self hideWaitLoading];
+        
+        [Users isAddBank];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginOut" object:nil];
+
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        DLog(@"error＝%@", error);
+        
+        [self hideWaitLoading];
+        
+        NSUserDefaults*defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:[NSNumber numberWithBool:NO]  forKey:@"isAddBank"];
+
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginOut" object:nil];
+
+    }];
+    
+}
+
+
+- (NSString *)getTokens:(NSString *)stringall{
+    
+    NSString *bStrss=[NSString string];
+    NSString *cookieString= stringall;
+    NSRange range = [cookieString rangeOfString:@"TOKEN"];
+    NSString *bStr = [cookieString substringFromIndex:range.location];
+    
+    NSArray *arrays=[bStr componentsSeparatedByString:@";"];
+    
+    if ([arrays count]<=0) {
+        return nil;
+    }
+    NSString *bStrs = [arrays objectAtIndex:0];
+    if([arrays count]<=0){
+        bStrss=@"无TOKEN";
+        return nil;
+    }
+    NSString *sstr=[bStrs stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    
+    NSArray *arrayss=[sstr componentsSeparatedByString:@"\""];
+    if ([arrayss count]<=1) {
+        bStrss=@"无TOKEN";
+        return nil;
+    }
+    bStrss = [arrayss objectAtIndex:1];
+    
+    return  bStrss;
+    
+    
+}
+
+
+
+
+@end
+
+
+//登陆的用户信息
+
+//createTime = "2015-07-10 13:04:45.901";
+//createUser = "127.0.0.1";
+//device = IOS;
+//id = 3;
+//idCard = 3412021987;
+//loginCount = 21;
+//loginIp = "127.0.0.1";
+//loginTime = "2015-07-18 00:03:01.850";
+//oldPassword = 658d128f20ee88e00e9607a475cdfaa5;
+//password = d0970714757783e6cf17b26fb8e2298f;
+//phone = 13817356764;
+//updateTime = "2015-07-11 14:36:54.606";
+//updateUser = "127.0.0.1";
+//user = "%E5%BC%A0%E4%B8%89";
+//userLevel = 1;
+//userPoint = 0;

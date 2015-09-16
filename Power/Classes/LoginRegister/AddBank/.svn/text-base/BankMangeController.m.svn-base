@@ -1,0 +1,287 @@
+//
+//  BankMangeController.m
+//  Bull
+//
+//  Created by mac on 15/7/7.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "BankMangeController.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "BankListCell.h"
+#import "BankChangeController.h"
+#import "BankAddViewController.h"
+#import "BankModel.h"
+
+
+@interface BankMangeController ()
+
+@end
+
+
+@implementation BankMangeController
+
+@synthesize v_tableView;
+@synthesize bankArray;
+@synthesize addBankBtn;
+@synthesize requestSerializer;
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.bankArray=[NSMutableArray array];
+    [self.addBankBtn addTarget:self action:@selector(addBankAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.view.backgroundColor=BACKVIEWCOLOR;
+    
+    [self initTableView];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden=YES;
+    self.title=@"银行卡管理";
+    
+    [self requestBanklist];
+    
+}
+
+
+- (void)initTableView{
+    
+    self.v_tableView =[[UITableView alloc]init];
+    self.v_tableView.frame=CGRectMake(0, 10, ScreenWidth, ScreenHeight-200);
+    self.v_tableView.backgroundColor=[UIColor clearColor];
+    self.v_tableView.delegate=self;
+    self.v_tableView.dataSource=self;
+    self.v_tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    self.v_tableView.backgroundColor=[UIColor clearColor];
+    
+    [self.view addSubview:self.v_tableView];
+    
+}
+
+
+
+- (void)requestBanklist{
+    if (self.bankArray) {
+        [self.bankArray removeAllObjects];
+        self.bankArray= nil;
+    }
+    self.bankArray = [ NSMutableArray array];
+    [self initRequest];
+    
+    
+}
+
+
+#pragma mark-获取银行卡
+- (void)initRequest{
+    
+    NSString *phone=[NSString stringWithFormat:@"17878499099"];
+    NSString *uid=[NSString stringWithFormat:@"1"];
+    phone = [Users phoneNumber];
+    uid = [Users userId];
+
+    if (!phone || !uid) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"123" inView:self.view lastTime:1.0];
+        return;
+    }
+    
+    if ([@"" isEqual:phone] ||[@"" isEqual:uid]  ) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"123" inView:self.view lastTime:1.0];
+        return;
+    }
+    
+    [self showWaitLoading];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    requestSerializer=[AFHTTPRequestSerializer serializer];
+    [requestSerializer setValue:[Users tokenString] forHTTPHeaderField:@"TOKEN"];
+    [manager setRequestSerializer:requestSerializer];
+    
+    
+    NSDictionary *dict = @{
+                            @"phone":phone,
+                            @"uid":uid
+                           };
+    
+    NSString *urlString=[NSString stringWithFormat:@"%@",bankList];
+    DLog(@"urlString == %@&%@",urlString,dict);
+    
+    
+    [manager POST:bankList parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        NSString * isOk=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        
+        if ([@"2001" isEqual:isOk]) {        //成功
+
+            NSArray *jsonStr=[responseObject objectForKey:@"result"];
+            
+            //{"info":"SUCCESS","message":"OK","result":"[{\"bankAddress\"
+            
+//            NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
+//            NSError *err;
+//            NSArray *arrays = [NSJSONSerialization JSONObjectWithData:jsonData
+//                                                                options:NSJSONReadingMutableContainers
+//                                                                  error:&err];
+            
+            
+            if (jsonStr) {
+                for (NSDictionary * dic in jsonStr) {
+                    
+                    BankModel *bannkModel=[[BankModel alloc]init];
+                    bannkModel.bankAddress=[NSString stringWithFormat:@"%@",[dic objectForKey:@"bankAddress"]];
+                    bannkModel.bankBranch=[NSString stringWithFormat:@"%@",[dic objectForKey:@"bankBranch"]];
+                    bannkModel.bankCard=[NSString stringWithFormat:@"%@",[dic objectForKey:@"bankCard"]];
+                    bannkModel.bankIdCard=[NSString stringWithFormat:@"%@",[dic objectForKey:@"bankIdCard"]];
+                    bannkModel.bankName=[NSString stringWithFormat:@"%@",[dic objectForKey:@"bankName"]];
+                    bannkModel.bankUserPhone=[NSString stringWithFormat:@"%@",[dic objectForKey:@"bankUserPhone"]];
+                    bannkModel.createTime=[NSString stringWithFormat:@"%@",[dic objectForKey:@"createTime"]];
+                    bannkModel.createUser=[NSString stringWithFormat:@"%@",[dic objectForKey:@"createUser"]];
+                    bannkModel.i_id=[NSString stringWithFormat:@"%@",[dic objectForKey:@"id"]];
+                    bannkModel.isBound=[NSString stringWithFormat:@"%@",[dic objectForKey:@"isBound"]];
+                    bannkModel.uid=[NSString stringWithFormat:@"%@",[dic objectForKey:@"uid"]];
+                    bannkModel.updateTime=[NSString stringWithFormat:@"%@",[dic objectForKey:@"updateTime"]];
+                    [self.bankArray addObject:bannkModel];
+                    
+                }
+                
+            }
+            
+            if (self.v_tableView) {
+                [self.v_tableView reloadData];
+                
+            }
+            
+        }else if ([@"3003" isEqual:isOk] ){  //
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:messages inView:self.view lastTime:1.0];
+
+            
+        }else{
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:messages inView:self.view lastTime:1.0];
+
+        }
+        
+        DLog(@" isOk = %@  messages = %@",isOk,messages);
+        
+        [self hideWaitLoading];
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        DLog(@"error＝%@", error);
+        
+        [self hideWaitLoading];
+    }];
+    
+}
+
+//
+#pragma mark- UITableView dataSource and delegate methods
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 40;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *views=[[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 20)];
+    views.backgroundColor=[UIColor clearColor];
+    views.backgroundColor=BACKVIEWCOLOR;
+    UILabel *lable=[[UILabel alloc]init];
+    lable.font=[UIFont systemFontOfSize:12.0];
+    lable.frame=CGRectMake(15, 0, 300, 30);
+    lable.textColor = COLORO(151, 151, 151);
+    
+    if(section==0){
+        lable.text =@"资金为同卡进出，产品到期前请勿注销银行卡。";
+    }
+    [views addSubview:lable];
+    
+    lable.backgroundColor=[UIColor clearColor];
+    return views;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.bankArray count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BankListCell* cell ;
+    NSArray *array = [[NSBundle mainBundle]loadNibNamed:@"BankListCell" owner:self options:nil];
+    cell = [array objectAtIndex:0];
+    if([self.bankArray count]>indexPath.row){
+        
+        BankModel *banks=[self.bankArray objectAtIndex:indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone ;// 不高亮显示选中的单元格
+        cell.bankImg.image=[UIImage imageNamed:@"bank_logo_1.png"];
+        cell.bankName.text=banks.bankName;
+
+    }
+    
+    return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [self.v_tableView deselectRowAtIndexPath:[self.v_tableView indexPathForSelectedRow] animated:YES];
+    
+    if ([self.bankArray count]>indexPath.row) {
+        
+        UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"BankStory" bundle:nil];
+        BankChangeController *changeView = [mainStoryboard instantiateViewControllerWithIdentifier:@"BankChangeController"];
+
+        BankModel *banks=[self.bankArray objectAtIndex:indexPath.row];
+        [changeView withManger:banks];
+        
+        [self.navigationController pushViewController:changeView animated:YES];
+
+    }
+
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+- (IBAction)addBankAction:(id)sender{
+    
+    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"BankStory" bundle:nil];
+    BankAddViewController *changeView = [mainStoryboard instantiateViewControllerWithIdentifier:@"BankAddViewController"];
+    
+    //个人信息中不包含的信息 通过银行卡信息查找
+//    if ([self.bankArray count]>0) {
+//        BankModel *banks=[self.bankArray objectAtIndex:0];
+//        [changeView withManger:banks];
+//    }
+    
+    [self.navigationController pushViewController:changeView animated:YES];
+
+    
+}
+
+
+@end

@@ -1,0 +1,42 @@
+//
+//  ProductController.h
+//  BGPreferentialShare
+//
+//  Created by Dong on 15-3-14.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "BasedAFNetworkController.h"
+
+#import "AllPeopleBuyController.h"
+
+#import "ProductInfoController.h"
+#import "ProductInfoSaveController.h"
+#import "ProductInfoJKViewController.h"
+
+@class DDProgressView ;
+@class CalculateVws;
+
+
+@interface ProductController : BasedAFNetworkController<UITextFieldDelegate>
+{
+    float   testProgress ;
+    int     progressDir ;
+    
+    DDProgressView *progressView ;
+    DDProgressView *progressView2 ;
+    
+    CalculateVws *views;
+
+}
+
+
+@property(nonatomic,strong)IBOutlet UIButton    * calculateBtn;
+@property(nonatomic,strong)IBOutlet UIButton    * buyBtn;
+@property(nonatomic,strong) UIView    * calculateView;
+@property(nonatomic,strong) NSString * textString;
+
+- (void)withMangerProduct:(ProductModel *)productModel;
+
+
+@end

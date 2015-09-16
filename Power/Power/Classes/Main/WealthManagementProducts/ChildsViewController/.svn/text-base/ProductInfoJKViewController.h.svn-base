@@ -1,0 +1,15 @@
+//
+//  ProductInfoJKViewController.h
+//  Bull
+//
+//  Created by mac on 15/7/24.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//
+
+#import "BasedAFNetworkController.h"
+#import "UIImageView+WebCache.h"
+
+@interface ProductInfoJKViewController : BasedAFNetworkController
+- (void)withMangerProduct:(ProductModel *)productModel;
+
+@end

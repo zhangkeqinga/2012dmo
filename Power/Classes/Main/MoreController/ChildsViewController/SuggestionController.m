@@ -1,0 +1,177 @@
+//
+//  SuggestionController.m
+//  Bull
+//
+//  Created by mac on 15/7/5.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//  
+
+#import "SuggestionController.h"
+
+//#import "UMFeedback.h"  //友盟的意见反馈
+
+
+@interface SuggestionController ()
+{
+    BOOL isTouchText;
+}
+@end
+
+@implementation SuggestionController
+
+@synthesize suggetTxtview;
+@synthesize commitBtn;
+@synthesize stringTxt;
+//@synthesize feedback;   //umzkq
+
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    self.tabBarController.tabBar.hidden=YES;
+    self.title=@"意见反馈";
+
+    
+    //self.feedback= [UMFeedback sharedInstance];  //umzkq
+    //[UMFeedback setAppkey:UMengAPPKey];
+    //self.feedback.delegate=self;
+
+}
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [self initTextViewHold];
+    self.suggetTxtview.returnKeyType = UIReturnKeyDone;
+    //    [self performSelector:@selector(framechange) withObject:self afterDelay:0.2];
+
+}
+
+- (void)initTextViewHold{
+    self.suggetTxtview.textColor=[UIColor grayColor];
+    //self.suggetTxtview.text=@"感谢您对我们的支持，我们期待您提出的宝贵意见。";
+    self.suggetTxtview.text=NSLocalizedString(@"suggestion", nil);
+
+}
+
+
+- (void)framechange{
+    self.commitBtn.frame=CGRectMake(15, ScreenHeight-50-216, ScreenWidth-30, 45);
+    self.suggetTxtview.frame=CGRectMake(15, 10, ScreenWidth-30, ScreenHeight-10-50-10);
+    
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    isTouchText=NO;
+    self.suggetTxtview.delegate=self;
+    
+    [self.commitBtn addTarget:self action:@selector(commitAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+    isTouchText=YES;
+    textView.textColor=[UIColor blackColor];
+    textView.text=@"";
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    stringTxt=textView.text;
+    
+    [textView resignFirstResponder];
+
+}
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView{
+    
+    return YES;
+}
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
+    if (!textView.text) {
+        [self initTextViewHold];
+    }
+    
+    [textView resignFirstResponder];
+    return YES;
+    
+}
+
+
+- (IBAction)commitAction:(id)sender{
+    
+    if (!isTouchText  || [@"" isEqual: self.suggetTxtview.text]) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请填写您的宝贵意见,谢谢!" inView:self.view lastTime:1.0];
+
+        return;
+    }
+    
+    DLog(@"开始提交意见反馈");
+    [self.suggetTxtview resignFirstResponder];
+    
+    NSString *contentStr=[NSString string];
+    contentStr = self.suggetTxtview.text;
+    
+    NSDictionary *postContent = @{@"content" : contentStr,
+                                  @"gender" : @"1",
+                                  @"age_group" : @"3",
+                                  @"type" : @"user_reply",
+                                  };
+    
+    //[self.feedback post:postContent];  //umzkq
+
+}
+
+
+//- (void)getFinishedWithError:(NSError *)error{    //umzkq
+//    if (error!=nil){
+//        NSLog(@"失败)%@",error);
+//        
+//    }else{
+//        NSLog(@"正确完成%@",self.feedback.topicAndReplies);
+//    }
+//}
+//
+//- (void)postFinishedWithError:(NSError *)error{
+//    if (error!=nil){
+//        
+//        NSLog(@"失败)%@",error);
+//        
+//    }else{
+//        
+//        AlertUtils *alert = [AlertUtils sharedInstance];
+//        [alert showWithText:@"提交完成" inView:self.view lastTime:1.0];
+//        
+//        NSLog(@"正确完成%@",self.feedback.topicAndReplies);
+//    }
+//    
+//}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+    
+    
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>MOREFUN</key>
+	<array>
+		<array>
+			<dict>
+				<key>funName</key>
+				<string>查询</string>
+				<key>funImg</key>
+				<string>fun4004</string>
+				<key>funTag</key>
+				<string>4004</string>
+			</dict>
+			<dict>
+				<key>funName</key>
+				<string>联系我们</string>
+				<key>funImg</key>
+				<string>fun4006</string>
+				<key>funTag</key>
+				<string>4006</string>
+			</dict>
+			<dict>
+				<key>funName</key>
+				<string>当前版本</string>
+				<key>funImg</key>
+				<string>fun4009</string>
+				<key>funTag</key>
+				<string>4009</string>
+			</dict>
+		</array>
+	</array>
+	<key>MORETIHUAN</key>
+	<array>
+		<array>
+			<dict>
+				<key>funName</key>
+				<string>基本信息</string>
+				<key>funImg</key>
+				<string>fun5001</string>
+				<key>funTag</key>
+				<string>5001</string>
+			</dict>
+		</array>
+		<array>
+			<dict>
+				<key>funName</key>
+				<string>影像病例查询</string>
+				<key>funImg</key>
+				<string>fun5000</string>
+				<key>funTag</key>
+				<string>5000</string>
+			</dict>
+			<dict>
+				<key>funName</key>
+				<string>我的影像</string>
+				<key>funImg</key>
+				<string>fun5002</string>
+				<key>funTag</key>
+				<string>5002</string>
+			</dict>
+			<dict>
+				<key>funName</key>
+				<string>我的预约</string>
+				<key>funImg</key>
+				<string>fun5004</string>
+				<key>funTag</key>
+				<string>5004</string>
+			</dict>
+			<dict>
+				<key>funName</key>
+				<string>修改密码</string>
+				<key>funImg</key>
+				<string>fun5003</string>
+				<key>funTag</key>
+				<string>5003</string>
+			</dict>
+		</array>
+	</array>
+	<key>RelationShip</key>
+	<array>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_email.png</string>
+			<key>Title</key>
+			<string>客服邮箱: service@jinbull.com</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_qq.png</string>
+			<key>Title</key>
+			<string>QQ咨询群: 472262187</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_wechat.png</string>
+			<key>Title</key>
+			<string>微信公众号: jinbull</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>Icon111.png</string>
+			<key>Title</key>
+			<string>官方网址: www.jinbull.com</string>
+		</dict>
+	</array>
+	<key>RelationShip - 2</key>
+	<array>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_phone.png</string>
+			<key>Title</key>
+			<string>客服热线:</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_email.png</string>
+			<key>Title</key>
+			<string>客服邮箱:</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_qq.png</string>
+			<key>Title</key>
+			<string>QQ咨询群:</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_qq.png</string>
+			<key>Title</key>
+			<string>企业QQ:</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_wechat.png</string>
+			<key>Title</key>
+			<string>微信公众号:</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_sina.png</string>
+			<key>Title</key>
+			<string>官方微博:</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_channel.png</string>
+			<key>Title</key>
+			<string>官方网址:</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_busness.png</string>
+			<key>Title</key>
+			<string>商务合作:</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_channel.png</string>
+			<key>Title</key>
+			<string>渠道合作:</string>
+		</dict>
+	</array>
+	<key>ISSUE</key>
+	<array>
+		<dict>
+			<key>Img</key>
+			<string>fun4001.png</string>
+			<key>Title</key>
+			<string>注册登录</string>
+			<key>Problem</key>
+			<array>
+				<dict>
+					<key>problems</key>
+					<string>登录密码忘记怎么办？</string>
+					<key>answers</key>
+					<string>解决方案如下：
+第一种状态：未登录状态。登录页面输入手机号码，
+第二种状态：已登录状态。点击“我的资产”个人头像进入－“账户中心”－修改登录密码”中可可重置密码。</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>fun4110.png</string>
+			<key>Title</key>
+			<string>银行卡相关</string>
+			<key>Problem</key>
+			<array>
+				<dict>
+					<key>problems</key>
+					<string>关于工商银行绑卡失败的问题，提示“银行卡信息错误或未开通电子支付”</string>
+					<key>answers</key>
+					<string>请你核实一下信息：
+1、绑定的银行卡信息与登录平台身份信息是否一致，包括姓名、身份证；
+2、平台支持借记卡绑定，信用卡暂不支持；
+3、请确保你的银行卡卡号填写正确，切银行账户状态正常；
+4、若您是15位身份证开户的银行卡，不支持银联账户在线支付，请到银行升级开户信息；
+5、绑定的银行卡预留手机号码，需为工商银行柜面预留的手机号；
+6、如以上都确认无误，请在银行柜面开通认证手机，由银行人员通过4204（银行交易密码）进行修改。</string>
+				</dict>
+				<dict>
+					<key>problems</key>
+					<string>关于银行绑卡失败问题，提示“银行卡信息错误或未开通电子支付”</string>
+					<key>answers</key>
+					<string>解决方案如下：
+用户绑定银行卡需要同时开通手机银行、网上银行且跟银行柜面预留手机号保持一致。</string>
+				</dict>
+				<dict>
+					<key>problems</key>
+					<string>绑卡提示风险等级过高？</string>
+					<key>answers</key>
+					<string>请核实一下信息：
+此次绑卡填写的预留手机,是否也绑定了多张非你本人的银行卡，为了你的用卡安全，建议您去银行更新预留的手机号码。</string>
+				</dict>
+				<dict>
+					<key>problems</key>
+					<string>平台如何解除绑定的银行卡？</string>
+					<key>answers</key>
+					<string>1）、需解绑的银行卡在小金牛的账户金额为0元方可进行解绑操作。
+2）、点击“我的资产”个人头像&gt;账户中心&gt;我的银行卡&gt;选择要解绑的银行卡&gt;解绑银行卡&gt;输入身份证后6位&gt;解绑成功。</string>
+				</dict>
+				<dict>
+					<key>problems</key>
+					<string>平台用户绑定账户的银行卡丢失或者损坏了怎么办？</string>
+					<key>answers</key>
+					<string>提供以下资料给平台客服：
+需提供材料
+1、本人手持身份证正面照片；
+2、已绑定银行卡的销卡凭证或换卡凭证，并加盖银行公章；（或客户新办理银行卡的办理凭证或新办理银行卡的银行流水，需显示姓名和卡号）；
+3、旧银行卡所属银行出具的、购买小金牛平台产品期间的交易流水明细清单，并加盖银行公章（起始时间，可参照我的资产购买记录里的购买时间）；
+4、《小金牛绑定银行卡变更申请表》的扫描件、打印件或者拍照件，并本人手写签名；
+5、绑定需变更的银行卡；
+《小金牛绑定银行卡变更申请表》索取
+1、可通过官网企业QQ在线咨询：472262187进行索取；
+2、可发邮件至service@jinbull.com客服邮箱进行索取；
+3、可通过关注小金牛微信订阅号jinbull进行索取；
+提交方式
+以上多提供的内容请统一直接发送至service@jinbull.com客服邮箱，小金牛客服会第一时间帮您处理。
+备注：若有疑问，请联系小金牛客服（QQ:472262187）进行咨询。</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>fun4111.png</string>
+			<key>Title</key>
+			<string>安全保障及风控</string>
+			<key>Problem</key>
+			<array>
+				<dict>
+					<key>problems</key>
+					<string>小金牛如何保障用户资金的安全性？</string>
+					<key>answers</key>
+					<string>一、合作方保障
+1、“小金牛”的合作伙伴均是其所在领域的行业领先者，包括但不限于上市公司、大型集团公司，资金雄厚，承诺兜底！
+二、本金保障
+1、所有项目均有第三方担保提供无线连带担保责任。
+三、项目保障
+1、真实合法：
+2、无系统性风险：
+3、无本质性风险：
+4、流动性风险可控：
+四、资金保障
+1、资金通过专业的第三方支付公司进行代扣代付，小金牛不碰触用户资金。
+五、透明保障
+1、项目信息详实披露：借款用途、还款来源、抵质押物价值评估等。
+2、投资电子合同明确资金去向。</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>ISSUELIST</key>
+	<array>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_phone.png</string>
+			<key>Title</key>
+			<string>注册登录</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_email.png</string>
+			<key>Title</key>
+			<string>银行卡相关</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_qq.png</string>
+			<key>Title</key>
+			<string>安全保障及风控</string>
+		</dict>
+		<dict>
+			<key>Img</key>
+			<string>contactUs_qq.png</string>
+			<key>Title</key>
+			<string>收益计算</string>
+		</dict>
+	</array>
+	<key>BANKNANME</key>
+	<dict>
+		<key>招商银行</key>
+		<string>bank_logo_2@2x.png</string>
+		<key>工商银行</key>
+		<string>bank_logo_1@2x.png</string>
+	</dict>
+	<key>DOCTOR_HOS</key>
+	<array>
+		<string>合肥附属医院</string>
+		<string>芜湖市人民医院</string>
+		<string>淮北市人民医院</string>
+	</array>
+	<key>DOCTOR_DKS</key>
+	<array>
+		<string>全科</string>
+		<string>耳鼻喉科</string>
+		<string>心血管科</string>
+		<string>皮肤科</string>
+		<string>内科</string>
+		<string>神经科</string>
+	</array>
+	<key>DOCTOR_DTC</key>
+	<array>
+		<string>预产期</string>
+		<string>青少年</string>
+		<string>上班族</string>
+	</array>
+</dict>
+</plist>

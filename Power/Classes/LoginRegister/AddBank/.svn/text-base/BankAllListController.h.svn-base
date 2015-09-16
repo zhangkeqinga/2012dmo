@@ -1,0 +1,21 @@
+//
+//  BankAllListController.h
+//  Bull
+//
+//  Created by mac on 15/7/8.
+//  Copyright (c) 2015年 Grant. All rights reserved.
+//  支持的银行
+
+#import "BasedViewController.h"
+#import "AFURLRequestSerialization.h"
+
+@interface BankAllListController : BasedViewController<UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> * requestSerializer;
+
+@property(nonatomic,strong) IBOutlet UITableView *v_tableView;
+@property(nonatomic,strong)  NSMutableArray  *bankArray;
+@property(nonatomic,strong) IBOutlet UIButton  *addBankBtn;
+
+
+@end
