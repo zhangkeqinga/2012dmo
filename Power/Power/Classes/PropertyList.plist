@@ -413,5 +413,43 @@
 			<string>3004</string>
 		</dict>
 	</array>
+	<key>NOTIFICATION</key>
+	<array>
+		<dict>
+			<key>title</key>
+			<string>欢迎使用权威诊断</string>
+			<key>content</key>
+			<string>权威诊断将全心全意为您服务</string>
+			<key>time</key>
+			<string>2015-06-08</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>权威诊断上线了</string>
+			<key>content</key>
+			<string>权威诊断将给你带来全新的操作体验</string>
+			<key>time</key>
+			<string>2015-09-08</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>将爱进行到底</string>
+			<key>content</key>
+			<string>因为你的存在，我们将会做的更好</string>
+			<key>time</key>
+			<string>2015-09-18</string>
+		</dict>
+	</array>
+	<key>REWARDPOINT</key>
+	<array>
+		<dict>
+			<key>title</key>
+			<string>我的积分</string>
+			<key>content</key>
+			<string>20000 金币</string>
+			<key>time</key>
+			<string></string>
+		</dict>
+	</array>
 </dict>
 </plist>

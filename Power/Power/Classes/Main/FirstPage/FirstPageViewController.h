@@ -16,6 +16,8 @@
 
 #import "PersionInfoController.h"
 #import "AppointlistController.h"
+#import "PerNotificationVC.h"
+#import "RewardPointVC.h"
 
 
 

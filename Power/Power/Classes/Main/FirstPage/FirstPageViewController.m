@@ -250,18 +250,21 @@
 - (IBAction)selectFuncation:(id)sender{
     DLog(@"sender==%ld",(long)[sender tag]);
     
-//    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
-//    
-//    DoctorListController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"DoctorListController"];
-//    DoctorModel *doctors=[[DoctorModel alloc]init];
-//    doctors.typeTag=[NSString stringWithFormat:@"%d",[sender tag]-1000];
-//    [doctor withManger:doctors];
-//    
-//    [self.navigationController pushViewController:doctor animated:YES];
-    
-    
     switch ([sender tag]) {
-        case 1101:
+            
+            
+        case 1100:  //我的消息
+        {
+            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
+            
+            PerNotificationVC *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"PerNotificationVC"];
+
+            [self.navigationController pushViewController:friendControl animated:YES];
+  
+            
+        }
+            break;
+        case 1101:  //我的影像
         {
             
             UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
@@ -270,17 +273,31 @@
             [friendControl withMangerInfo:@"我的影像"];
             [self.navigationController pushViewController:friendControl animated:YES];
             
+        }
+            break;
+
+        case 1102://我的关注
+        {
+            
+            
+            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
+            
+            AppointlistController *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"AppointlistController"];
+            
+            [self.navigationController pushViewController:friendControl animated:YES];
+
+            
             
         }
             break;
             
             
-        case 1100:  //我的预约
+        case 1103:  //我的积分
         {
             
             UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
             
-            AppointlistController *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"AppointlistController"];
+            RewardPointVC *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"RewardPointVC"];
             
             [self.navigationController pushViewController:friendControl animated:YES];
             

@@ -77,8 +77,6 @@
 {
     UITableViewCell *cell = [[UITableViewCell alloc]init];
     
-    
-    
     if(indexPath.row<[tableArray count]-1){
         
         UILabel *label=[[UILabel alloc]init];
@@ -187,6 +185,8 @@
     return YES;
 }
 
+
+
 - (IBAction)commmitAction:(id)sender{
     
     for (int i=0; i<5; i++) {
@@ -199,7 +199,8 @@
         
     } completion:^(BOOL finished) {
        
-        [AlertUtil alertSuerAndCancelWithDelegate:@"是否提交" delegate:self];
+//        [AlertUtil alertSuerAndCancelWithDelegate:@"已经成功预约" delegate:self];
+//        [AlertUtil alertPromptInformationWithDelegate:@"已经成功预约" delegate:self];
 
     }];
 
@@ -207,16 +208,20 @@
     DLog(@"提交");
 
 }
+
 //
 //
-//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
-//{
-//    if(buttonIndex==1){
-//        AlertUtils *alert = [AlertUtils sharedInstance];
-//        [alert showWithText:@"" inView:self.view lastTime:1.0];
-//    }
-//    
-//}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+    if(buttonIndex==1){
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"" inView:self.view lastTime:1.0];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+}
 
 
 @end

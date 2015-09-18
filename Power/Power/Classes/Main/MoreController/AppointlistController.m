@@ -26,7 +26,7 @@
     
 //    self.title= @"我的预约";
     
-    self.title= @"我的消息";
+    self.title= @"我的关注";
 
     tableArray = [NSMutableArray array];
     [tableArray addObject:@"王建国"];
@@ -118,7 +118,7 @@
     label2.textColor=[UIColor redColor];
     
     UIButton *btns=[UIButton buttonWithType:UIButtonTypeCustom];
-    [cell addSubview:btns];
+//    [cell addSubview:btns];
     btns.frame=CGRectMake(ScreenWidth-60,  CellHight/2-15+30 , 50, 30);
     btns.titleLabel.font=[UIFont systemFontOfSize:12];
     [btns setTitleColor:[UIColor redColor] forState:UIControlStateNormal];

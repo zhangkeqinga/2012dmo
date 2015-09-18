@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "PointApplyInfoCommitController.h"
 
 @interface LoginViewController ()
 
@@ -35,16 +36,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+//登录
 - (IBAction)registerAction:(id)sender {
+    
+    
+   
 }
 
 
 - (IBAction)loginAction:(id)sender {
     
     
-    [Users loginSystem:nil];
-   
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginOut" object:nil];
+    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
+    PointApplyInfoCommitController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"PointApplyInfoCommitController"];
+    [self.navigationController pushViewController:doctor animated:YES];
 
     
 }

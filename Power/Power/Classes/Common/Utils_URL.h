@@ -9,33 +9,17 @@
 #ifndef Bull_Utils_URL_h
 #define Bull_Utils_URL_h
 
-#define AS_Login_Service @"http://58.32.246.78:8380"  // 正式环境
 
-
-//测试ip
-//#define headUrltest @"http://192.168.1.104:8080"
-//#define headUrltest @"http://120.26.67.238"  //
 #define headUrltest @"http://www.jinbull.com"  //
-
-//#define headUrltest @"http://192.168.1.105:8080"  //
-
-//生产ip
-#define headUrl @"http://120.26.67.38"
 
 
 #pragma mark--版本信息
-#define versionFresh [NSString stringWithFormat:@"%@/jinbull/app_info.do?",headUrltest]
-
-//6：	app更新接口：http://www.jinbull.com/jinbull/app/info.do?
-//参数: device(设备类型android或者ios) 第6个接口
-//返回结果： id(id)、appInfo(app描述)、appVersion(app版本号)、appType(app类型ios\android)、
-//appIsUpdate(是否强制更新、1强制；0不强制)、appDownloadUrl(app下载地址)、appBuild(app小版本号)
-#define versionFresh1 [NSString stringWithFormat:@"%@/jinbull/app/info.do?",headUrltest]
+#define versionFresh1 [NSString stringWithFormat:@"%@/jinbull/app_info.do?",headUrltest]
 
 
 #pragma mark--个人信息
-//参数：phone  第2个接口
-#define isRegester [NSString stringWithFormat:@"%@/jinbull/users/is_regist.do?",headUrltest]
+//h ttp://www.jinbull.com/diagnose/user/login.do?//测试ip  userPhone  userPassword
+#define isRegester [NSString stringWithFormat:@"%@/diagnose/user/login.do?",headUrltest]
 //登陆 参数：phone、password、logindevice  第1个接口
 #define loginURL   [NSString stringWithFormat:@"%@/jinbull/users/login.do?",headUrltest]
 //注册接口： //参数phone、password、vetiryCode  第3个接口

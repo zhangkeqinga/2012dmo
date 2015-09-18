@@ -1,51 +1,28 @@
 //
-//  LoginPassController.m
-//  PowerfullDoctors
+//  LoginPwdVC.m
+//  Power
 //
-//  Created by mac on 15/8/30.
-//  Copyright (c) 2015年 Grant. All rights reserved.
+//  Created by mac on 15/9/18.
+//  Copyright (c) 2015年 huiwei. All rights reserved.
 //
 
-#import "LoginPassController.h"
+#import "LoginPwdVC.h"
 
-@interface LoginPassController ()
+@interface LoginPwdVC ()
 
 @end
 
-@implementation LoginPassController
+@implementation LoginPwdVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setTitleBackItemImageAndTitle];
-    self.tabBarController.tabBar.hidden=YES;
-
-    self.title = @"登陆/注册";
-
-}
-
-
-
-
-- (IBAction)loginAction:(id)sender {
-    
-    
-}
-
-
-
-- (IBAction)registerAction:(id)sender {
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
-
 
 /*
 #pragma mark - Navigation

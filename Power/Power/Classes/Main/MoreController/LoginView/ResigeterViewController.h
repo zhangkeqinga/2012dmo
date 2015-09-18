@@ -8,7 +8,7 @@
 
 #import "BasedAFNetworkController.h"
 
-@interface ResigeterViewController : BasedAFNetworkController
+@interface ResigeterViewController : BasedAFNetworkController<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneText;
 @property (weak, nonatomic) IBOutlet UIButton *agreeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;

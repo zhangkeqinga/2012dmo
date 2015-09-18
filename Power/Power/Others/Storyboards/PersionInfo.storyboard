@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2DG-Tb-uq5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2DG-Tb-uq5">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -191,7 +191,84 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g3n-eA-fR9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="989" y="-1007"/>
+            <point key="canvasLocation" x="991" y="-377"/>
+        </scene>
+        <!--Reward PointVC-->
+        <scene sceneID="yLn-fn-htL">
+            <objects>
+                <viewController storyboardIdentifier="RewardPointVC" id="44c-fR-79j" customClass="RewardPointVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8ns-dN-gXS"/>
+                        <viewControllerLayoutGuide type="bottom" id="vG2-Lg-OA5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QN7-T5-i3x">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TZS-XH-5Ry">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="44c-fR-79j" id="dM7-Zk-NSh"/>
+                                    <outlet property="delegate" destination="44c-fR-79j" id="YfK-Hh-OWZ"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TZS-XH-5Ry" firstAttribute="leading" secondItem="QN7-T5-i3x" secondAttribute="leading" id="Ld1-u1-sU2"/>
+                            <constraint firstItem="TZS-XH-5Ry" firstAttribute="top" secondItem="8ns-dN-gXS" secondAttribute="bottom" id="Q4f-4m-kwa"/>
+                            <constraint firstItem="vG2-Lg-OA5" firstAttribute="top" secondItem="TZS-XH-5Ry" secondAttribute="bottom" id="Sk4-z4-eiw"/>
+                            <constraint firstAttribute="trailing" secondItem="TZS-XH-5Ry" secondAttribute="trailing" id="lcD-RM-k4K"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="v_tableView" destination="TZS-XH-5Ry" id="1YV-0x-ygf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mRI-p3-JIA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1462" y="-804"/>
+        </scene>
+        <!--Per NotificationVC-->
+        <scene sceneID="6Z9-sl-0SP">
+            <objects>
+                <viewController storyboardIdentifier="PerNotificationVC" id="bSV-7f-MpW" customClass="PerNotificationVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="S0h-3i-8iE"/>
+                        <viewControllerLayoutGuide type="bottom" id="yM7-uu-3K2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="InX-CH-ID1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6Bl-GE-AUJ">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="bSV-7f-MpW" id="8LZ-37-PIV"/>
+                                    <outlet property="delegate" destination="bSV-7f-MpW" id="lrf-fi-5s2"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6Bl-GE-AUJ" secondAttribute="trailing" id="1qG-bv-NyQ"/>
+                            <constraint firstItem="yM7-uu-3K2" firstAttribute="top" secondItem="6Bl-GE-AUJ" secondAttribute="bottom" id="CPR-Hf-1Bj"/>
+                            <constraint firstItem="6Bl-GE-AUJ" firstAttribute="top" secondItem="S0h-3i-8iE" secondAttribute="bottom" id="FPj-CT-pJg"/>
+                            <constraint firstItem="6Bl-GE-AUJ" firstAttribute="leading" secondItem="InX-CH-ID1" secondAttribute="leading" id="PaU-lG-htC"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="v_tableView" destination="6Bl-GE-AUJ" id="Iaq-mE-oAb"/>
+                        <outlet property="view" destination="InX-CH-ID1" id="o0G-Ui-69Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="elg-Go-m24" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1547" y="-371"/>
         </scene>
         <!--Name View Controller-->
         <scene sceneID="z4z-rP-Aqq">
@@ -271,7 +348,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fWN-Rx-m6E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1066" y="-329"/>
+            <point key="canvasLocation" x="1534" y="323"/>
         </scene>
         <!--Medical Add Controller-->
         <scene sceneID="efQ-xU-caU">
