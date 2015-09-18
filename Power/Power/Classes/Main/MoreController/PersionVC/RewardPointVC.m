@@ -26,7 +26,7 @@
     
     //    self.title= @"我的预约";
     
-    self.title= @"我的消息";
+    self.title= @"我的积分";
     
     tableArray = [NSMutableArray array];
     
