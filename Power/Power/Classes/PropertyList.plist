@@ -425,19 +425,11 @@
 		</dict>
 		<dict>
 			<key>title</key>
-			<string>权威诊断上线了</string>
+			<string>活动</string>
 			<key>content</key>
-			<string>权威诊断将给你带来全新的操作体验</string>
+			<string>注册权威诊断，将获取100 金币哦（平台虚拟币）</string>
 			<key>time</key>
 			<string>2015-09-08</string>
-		</dict>
-		<dict>
-			<key>title</key>
-			<string>将爱进行到底</string>
-			<key>content</key>
-			<string>因为你的存在，我们将会做的更好</string>
-			<key>time</key>
-			<string>2015-09-18</string>
 		</dict>
 	</array>
 	<key>REWARDPOINT</key>
