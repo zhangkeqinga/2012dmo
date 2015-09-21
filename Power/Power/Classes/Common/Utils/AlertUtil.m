@@ -23,6 +23,14 @@
     [alert show];
 }
 
++(void) alertPromptInformationWithDelegateTag:(NSString *) info  delegate: (id) del witTag:(int)tag
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息" message:info delegate:del cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    alert.tag=tag;
+    [alert show];
+}
+
+
 +(void) alertLoginWithDelegate:(NSString *) info  delegate: (id) del
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息" message:info delegate:del cancelButtonTitle:@"登录" otherButtonTitles:@"无账号下单", nil];

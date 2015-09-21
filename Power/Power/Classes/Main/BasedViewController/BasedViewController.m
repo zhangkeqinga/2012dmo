@@ -117,6 +117,31 @@
 }
 
 
+- (void)setAddNavigationBar{
+    
+    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addObjectImage)];
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects: addBtn,nil]];
+    
+}
+
+- (void)addObjectImage{
+    
+}
+
+
+
+- (void)setFreshNavigationBar{
+    
+    UIBarButtonItem *freshBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(freshPersionInfo)];
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects: freshBtn,nil]];
+    
+}
+
+- (void)freshPersionInfo{
+    
+}
+
+
 - (void)setMoreNavigationBar{
     
     UIBarButtonItem *startBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(startDownloadAll)];

@@ -186,12 +186,24 @@
 	</dict>
 	<key>DOCTOR_HOS</key>
 	<array>
+		<string>所有医院</string>
+		<string>北京大学人民医院</string>
+		<string>武汉大学人民医院</string>
+		<string>上海交通大学医学院附属仁济医院</string>
 		<string>合肥附属医院</string>
 		<string>芜湖市人民医院</string>
 		<string>淮北市人民医院</string>
 	</array>
+	<key>DOCTOR_LEVEL</key>
+	<array>
+		<string>所有职称</string>
+		<string>主治医师</string>
+		<string>副主任医师</string>
+		<string>主任医师</string>
+	</array>
 	<key>DOCTOR_DKS</key>
 	<array>
+		<string>所有科室</string>
 		<string>全科</string>
 		<string>耳鼻喉科</string>
 		<string>心血管科</string>
@@ -225,7 +237,7 @@
 			<key>sex</key>
 			<string>男</string>
 			<key>photoimage</key>
-			<string>吕维富.jpg</string>
+			<string>吕维富.png</string>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -241,7 +253,7 @@
 			<key>sex</key>
 			<string>男</string>
 			<key>photoimage</key>
-			<string>鲁东.jpg</string>
+			<string>鲁东.png</string>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -257,7 +269,7 @@
 			<key>sex</key>
 			<string>男</string>
 			<key>photoimage</key>
-			<string>候昌龙.jpg</string>
+			<string>候昌龙.png</string>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -273,7 +285,7 @@
 			<key>sex</key>
 			<string>男</string>
 			<key>photoimage</key>
-			<string>王伟昱.jpg</string>
+			<string>王伟昱.png</string>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -289,7 +301,7 @@
 			<key>sex</key>
 			<string>男</string>
 			<key>photoimage</key>
-			<string>张正峰.jpg</string>
+			<string>张正峰.png</string>
 		</dict>
 	</array>
 	<key>IMAGE_LIST</key>
@@ -406,12 +418,6 @@
 			<key>tag</key>
 			<string>3002</string>
 		</dict>
-		<dict>
-			<key>title</key>
-			<string>健康状况</string>
-			<key>tag</key>
-			<string>3004</string>
-		</dict>
 	</array>
 	<key>NOTIFICATION</key>
 	<array>
@@ -421,13 +427,13 @@
 			<key>content</key>
 			<string>权威诊断将全心全意为您服务</string>
 			<key>time</key>
-			<string>2015-06-08</string>
+			<string>2015-09-08</string>
 		</dict>
 		<dict>
 			<key>title</key>
-			<string>活动</string>
+			<string>预约通知</string>
 			<key>content</key>
-			<string>注册权威诊断，将获取100 金币哦（平台虚拟币）</string>
+			<string>您好，您已经成功预约鲁东医生。</string>
 			<key>time</key>
 			<string>2015-09-08</string>
 		</dict>

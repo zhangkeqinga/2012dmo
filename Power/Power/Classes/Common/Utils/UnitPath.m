@@ -7,8 +7,77 @@
 //
 
 #import "UnitPath.h"
+//#import "KeychainItemWrapper.h"
 
 @implementation UnitPath
+
+
++ (NSString *) UUID_DEVICE0 {
+     
+    return [[UIDevice currentDevice] identifierForVendor].UUIDString;
+    
+}
+
++ (NSString *) UUID_DEVICE {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyMMddHHmmss"];
+    NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+    int randomValue =arc4random() %[ dateString length];
+    NSString *unique = [NSString stringWithFormat:@"%@.%d",dateString,randomValue];
+    return unique;
+    
+}
+
+
++(void)set_UUID_DEVICE_save  //是设置手势密码
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[self UUID_DEVICE]  forKey:@"UUID_DEVICE_save"];
+}
+
+
+
++(NSString *)UUID_DEVICE_save
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *string = [defaults objectForKey:@"UUID_DEVICE_save"];
+    
+    if ( !string  || [@"" isEqualToString:string]) {
+        
+        [self set_UUID_DEVICE_save];
+        
+        return [self UUID_DEVICE];
+
+    }else{
+        
+        return string;
+    }
+}
+
+
+//钥匙串
+//-(void) setKeyChainValue
+//{
+//    KeychainItemWrapper *keyChainItem=[[KeychainItemWrapper alloc]initWithIdentifier:@"TestUUID" accessGroup:@"XXXXXX.h.HelloWorld"];
+//    
+//    NSString *strUUID = [keyChainItem objectForKey:(id)kSecValueData];
+//    if (strUUID==nil||[strUUID isEqualToString:@""])
+//    {
+//        [keyChainItem setObject:[self gen_uuid] forKey:(id)kSecValueData];
+//    }
+//    
+//}
+//
+//-(NSString *) gen_uuid
+//{
+//    CFUUIDRef uuid_ref=CFUUIDCreate(nil);
+//    CFStringRef uuid_string_ref=CFUUIDCreateString(nil, uuid_ref);
+//    CFRelease(uuid_ref);
+//    NSString *uuid=[NSString stringWithString:(__bridge NSString *)(uuid_string_ref)];
+//    CFRelease(uuid_string_ref);
+//    return uuid;
+//}
 
 
 // 参数10000   显示  结果 10,000  欧美表示法
@@ -217,6 +286,8 @@
     NSString *current=[UnitPath stringFromDate:date];
     return current;
 }
+
+
 
 
 // 字符串转NSDate
@@ -1165,6 +1236,17 @@
         DLog(@"日期错误，请修改！");
     }
     
+    return string;
+}
+
+//date   返回  年月日
++ (NSString * )ymdString:(NSString *)dateString{
+    
+    NSRange range;
+    range.location = 0;
+    range.length = 10;
+
+    NSString *string=[dateString substringWithRange:range];
     return string;
 }
 

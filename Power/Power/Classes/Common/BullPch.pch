@@ -35,7 +35,6 @@
 #import "ProductModel.h"
 
 
-
 //第三方
 #import "AFURLRequestSerialization.h"
 #import "AFHTTPRequestOperationManager.h"
@@ -44,27 +43,20 @@
 #define UMengAPPKey [NSString stringWithFormat:@"559636cb67e58eca6e00140b"]
 //#import "MobClick.h"
 #import "Reachability.h"
-
 #import "UrlParamsUtil.h"
-
 //#define YTOnLineTime        ([UrlParamsUtil getOneLineTime])   //在线时长
 
 #define YTOnLineTime       [NSString stringWithFormat:@"%d",7]   //在线时长
 
 //=====
-
 #import "UIButton+EnlargeEdge.h"
 #import "SBJsonParser.h"
-
 //=====
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-
 //=====
 #define kIsLogin @"isLogin" //是否登录
 #define kIsRegistered @"isRegistered" //是否注册
-
-
 #define APPIDNUMBER @"1234567" //是否注册
 
 /**

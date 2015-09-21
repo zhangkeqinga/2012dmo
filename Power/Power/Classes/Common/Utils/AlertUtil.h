@@ -13,6 +13,10 @@
 
 +(void) alertPromptInformation:(NSString *) info;
 +(void) alertPromptInformationWithDelegate:(NSString *) info  delegate: (id) del;
+
++(void) alertPromptInformationWithDelegateTag:(NSString *) info  delegate: (id) del witTag:(int)tag;
+
+
 +(void) alertLoginWithDelegate:(NSString *) info  delegate: (id) del;
 +(void) alertSuerAndCancelWithDelegate:(NSString *) info  delegate: (id) del;
 

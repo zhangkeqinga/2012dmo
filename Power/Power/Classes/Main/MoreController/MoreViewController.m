@@ -151,13 +151,13 @@ UITableViewDelegate
     
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    
-//    UIView *views=[[UIView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, 20)];
-//    views.backgroundColor=[UIColor clearColor];
-//    
-//    return views;
-//}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UIView *views=[[UIView alloc]initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, 20)];
+    views.backgroundColor=[UIColor clearColor];
+    
+    return views;
+}
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -312,7 +312,7 @@ UITableViewDelegate
         }
             break;
             
-        case 5000:
+        case 5000:   //影像病例查询
         {
             
             UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
@@ -328,7 +328,6 @@ UITableViewDelegate
             
         case 5001:
         {
-            
             
             UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
 
@@ -353,7 +352,7 @@ UITableViewDelegate
             break;
 
             
-        case 5003:
+        case 5003: //修改密码
         {
             
             UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];

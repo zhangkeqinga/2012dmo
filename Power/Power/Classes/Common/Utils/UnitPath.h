@@ -13,6 +13,8 @@
 
 @interface UnitPath : NSObject
 
++ (NSString *) UUID_DEVICE ;
++(NSString *)UUID_DEVICE_save;
 
 // 参数10000   显示  结果 10,000  欧美表示法
 + (NSString *)countNumAndChangeformat:(NSString *)num;
@@ -65,7 +67,7 @@
 //获取当前的时间  前一个月   月减去一
 + (NSString *)beforeOneMonthFormater;  //年月日  月减去一
 
-+ (NSString *)beforethirtyDayFormater; //年月日  当前时间的 前30 天
++ (NSString *)beforethirtyDayFormater; //年月日     当前时间的 前30 天
 + (NSString *)beforeSomeDay:(int)someDay; //年月日  前n天
 + (NSString *)beforeOneDayDate:(NSString *)dateString SomeDay:(int)someDay;
 //年月日
@@ -105,6 +107,9 @@
 + (NSString * )monthLastDay:(NSString *)oneDate;               //年月日  返回  年月日最后一天
 + (NSString * )monthAndDays:(NSString *)oneDate;               //年月日  返回  1月2日
 + (NSString * )monthAndDay:(NSString *)oneDate;                //年月日  返回  01-02
+
+//date   返回  年月日
++ (NSString * )ymdString:(NSString *)dateString;
 
 + (long long) secondTimeWithDate:(NSString *)timeString;    // 时：分 转化为分
 + (long long) secondYearTimeWithDate;                       // 时:分:秒  转化为分  当前

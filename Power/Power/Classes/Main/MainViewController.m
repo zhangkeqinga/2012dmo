@@ -67,7 +67,6 @@
 
 
 - (void)loginSuccess:(BOOL)isLogin {
-
     
     NSArray *array=[NSArray arrayWithObjects:@"首页",@"医生",@"医院",@"个人中心", nil];
     

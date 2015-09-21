@@ -17,17 +17,155 @@
 #define versionFresh1 [NSString stringWithFormat:@"%@/jinbull/app_info.do?",headUrltest]
 
 
-#pragma mark--个人信息
-//h ttp://www.jinbull.com/diagnose/user/login.do?//测试ip  userPhone  userPassword
-#define isRegester [NSString stringWithFormat:@"%@/diagnose/user/login.do?",headUrltest]
-//登陆 参数：phone、password、logindevice  第1个接口
-#define loginURL   [NSString stringWithFormat:@"%@/jinbull/users/login.do?",headUrltest]
-//注册接口： //参数phone、password、vetiryCode  第3个接口
-#define regester   [NSString stringWithFormat:@"%@/jinbull/users/regist.do?",headUrltest]
-//参数phone、password、confirmPwd、vetiryCode  第5个接口
-#define forgetPSW  [NSString stringWithFormat:@"%@/jinbull/users/forget_pwd.do?",headUrltest]
-//更新密码接口 //参数phone、oldpwd、password、confirmPwd 第4个接口
-#define changePSW  [NSString stringWithFormat:@"%@/jinbull/users/update_pwd.do?",headUrltest]
+#pragma mark new start－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+#pragma mark--是否注册－－－－－－
+#define isBoolRegesterUrl [NSString stringWithFormat:@"%@/diagnose/user/isRegist.do",headUrltest]
+
+
+#pragma mark-1-进行注册－－－－－－
+//userPhone	    true	string	手机号码
+//userPassword	true	string	密码
+//device	    true	string	客户端设备标识
+//validation	false	string	手机短信验证码
+//userType	    true	int	0：普通用户 126：医生用户
+#define isRegesterUrl [NSString stringWithFormat:@"%@/diagnose/user/regist.do",headUrltest]
+
+#pragma mark-2-进行注册－－－－－－
+//userPhone  	true	string	手机号
+//userPassword	true	string	用户登录密码
+#define loginUrl [NSString stringWithFormat:@"%@/diagnose/user/login.do",headUrltest]
+
+
+#pragma mark-3-忘记密码－－－－－－
+//userPhone  	true	string	手机号
+//newPassword	true	string	用户登录密码
+//validation	true	String	验证码
+#define forgateUrl [NSString stringWithFormat:@"%@/diagnose/user/forgotPassword.do",headUrltest]
+
+
+#pragma mark-4-修改密码－－－－－－
+//userPhone  	true	string	手机号
+//newPassword	true	string	用户登录密码
+//oldPassword	true	string	原始密码
+//token	true	string	签名（header中）
+#define changePwdUrl [NSString stringWithFormat:@"%@/diagnose/user/modifyPassword.do",headUrltest]
+
+#pragma mark-5-广告    －－－－－－
+//pageIndex
+//pageSize
+#define adslistUrl [NSString stringWithFormat:@"%@/diagnose/appBanner/getBannerList.do",headUrltest]
+
+
+#pragma mark-6-我的消息－－－－－－
+//userPhone  	true	string	手机号
+//token	true	string	签名信息
+#define notificationUrl [NSString stringWithFormat:@"%@/diagnose/notification/getNotification.do",headUrltest]
+
+
+#pragma mark-7-我的积分－－－－－－
+//userPhone  	true	string	手机号
+//token	true	string	签名信息
+#define rewardUrl [NSString stringWithFormat:@"%@/diagnose/user/getPoints.do",headUrltest]
+
+
+#pragma mark-8-我的关注－－－－－－
+//userPhone  	true	string	手机号
+//token	true	string	签名信息
+#define appointUrl [NSString stringWithFormat:@"%@/diagnose/user/getAttention.do",headUrltest]
+
+
+#pragma mark-9-我的影像－－－－－－
+//userPhone  	true	string	手机号
+//token	true	string	签名信息
+#define myImagesUrl [NSString stringWithFormat:@"%@/diagnose/user/myImages.do",headUrltest]
+
+
+#pragma mark-10-医生列表－－－－－－test1
+//teamId	True	String	团队id       缺少条件
+#define doctorListUrl [NSString stringWithFormat:@"%@/diagnose/user/searchDoctorList.do",headUrltest]
+
+
+#pragma mark-21-医生列表－－－－－－test1
+//doctorTitle	false	string	医生职称
+//doctorSection	false	string	科室
+//doctorHospital	false	string	所在医院
+//pageIndex	false	String	分页页码
+//pageSize	false	String	每页大小
+//dorctorProvince	false	String	所有省区
+
+#define doctorUrl [NSString stringWithFormat:@"%@/diagnose/user/searchDoctorList.do",headUrltest]
+
+
+#pragma mark-11-医生信息－－－－－－test1
+//id			医生的id
+#define doctorInfoUrl [NSString stringWithFormat:@"%@/diagnose/doctor/getDoctorInfo.do",headUrltest]
+
+
+#pragma mark-12-我的预约－－－－－－test1
+//pageIndex	false	String	分页页码   接口11
+//pageSize	false	String	每页大小
+//token	ture	String	签名标识
+//id	ture	String	用户id
+#define appointListUrl [NSString stringWithFormat:@"%@/diagnose/appointment/getHistory.do",headUrltest]
+
+#pragma mark-13-预约医生－－－－－－test1
+//userPhone  	true	string	手机号
+//token	true	string	签名信息
+#define appointMentUrl [NSString stringWithFormat:@"%@/diagnose/appointment/makeAppoinment.do",headUrltest]
+
+#pragma mark-14-医院列表－－－－－－
+//pageIndex	false	String	分页页码
+//pageSize	false	String	每页大小
+#define hospitalListUrl [NSString stringWithFormat:@"%@/diagnose/hospital/getHospital.do",headUrltest]
+
+#pragma mark-14-关注－－－－－－
+//pageIndex	false	String	分页页码
+//pageSize	false	String	每页大小
+#define atentionUrl [NSString stringWithFormat:@"%@/diagnose/user/addAttention.do",headUrltest]
+
+
+#pragma mark-19-关注－－－－－－
+//doctorId	true	string	医生的id或者团队id
+//userPhone	true	string	用户手机号
+//token	true	string	签名信息
+//type	true	string	关注类型, 1: 医生, 2：医生团队
+
+#define attentionUrl [NSString stringWithFormat:@"%@/diagnose/user/addAttention.do",headUrltest]
+
+
+
+#pragma mark-20-取消关注－－－－－－
+//attenttionId	true	string	关注id
+//token	true	string	签名信息
+
+#define cancleattentionUrl [NSString stringWithFormat:@"%@/diagnose/user/cancleAttention.do",headUrltest]
+
+
+#pragma mark-20-取消关注－－－－－－
+//attenttionId	true	string	关注id
+//token	true	string	签名信息
+
+#define cancleattentionUrl [NSString stringWithFormat:@"%@/diagnose/user/cancleAttention.do",headUrltest]
+
+
+#pragma mark-22-个人信息更改－－－－－－
+//userPhone	ture	string	患者id
+//name	true	string	姓名
+//sex	true	string	性别
+//birthday	true	string	出生日期
+//token	true	string	签名信息
+
+#define changePersionInfoUrl [NSString stringWithFormat:@"%@/diagnose/user/changePersionInfo.do",headUrltest]
+
+
+
+
+
+
+
+
+#pragma mark new end－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 
 //获取短信验证码  第11个接口
 #define smsVerification  [NSString stringWithFormat:@"%@/jinbull/sms/auth_code.do?",headUrltest]

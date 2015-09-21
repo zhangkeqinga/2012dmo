@@ -36,6 +36,7 @@
 @synthesize productView;
 @synthesize v_tableView;
 @synthesize funcArray;
+@synthesize dics;
 
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -51,12 +52,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
+    dics = [[NSMutableDictionary alloc]init];
+    
+    self.adsArray =[[NSMutableArray alloc]init];
     self.funcArray=[[NSMutableArray alloc]init];
     
     NSMutableDictionary *plistDic=[PathUtilities readPlistWithFile:@"PropertyList"];
     self.funcArray = [plistDic objectForKey:@"FUNCFIRST"];
 
-    
+    [self initRequest];
     
 }
 
@@ -110,7 +115,7 @@
         NSInteger productHeight=self.productView.frame.size.height;
         scroller=[[EScrollerView alloc]
                   initWithFrameRect:CGRectMake(0, 0, ScreenWidth, productHeight)
-                  ImageArray:[NSArray arrayWithObjects:@"1先进的医疗技术.jpg",@"2丰富的诊疗经验.jpg",@"3专业影像医生.jpg", @"4崇高的职业道德.jpg",nil]
+                  ImageArray:[NSArray arrayWithObjects:@"3专业影像医生.jpg",@"1先进的医疗技术.jpg",@"2丰富的诊疗经验.jpg", @"4崇高的职业道德.jpg",nil]
                   TitleArray:nil];
         
         
@@ -135,6 +140,7 @@
     return self.funcArray.count/3+2;
 }
 
+
 #define addHight  20
 #define cellHight  ScreenWidth/3
 
@@ -148,7 +154,6 @@
     }
     
 }
-
 
 
 
@@ -200,7 +205,6 @@
                 make.height.mas_equalTo(30);
                 
             }];
-
             
             
             label.font=[UIFont systemFontOfSize:14];
@@ -240,7 +244,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
-    
     
     
     
@@ -286,12 +289,8 @@
             
             [self.navigationController pushViewController:friendControl animated:YES];
 
-            
-            
         }
             break;
-            
-            
         case 1103:  //我的积分
         {
             
@@ -303,13 +302,91 @@
             
         }
             break;
-            
-            
         default:
             break;
     }
 
     
 }
+
+
+
+
+#pragma mark- 广告
+- (void)initRequest{
+    
+    NSDictionary *dict = @{ @"pageIndex": @"1",
+                            @"pageSize": @"10"
+                            
+                            };
+    
+    
+    DLog(@"广告dict==%@",dict);
+    
+    [self showWaitLoading];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [manager POST:adslistUrl parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        NSString * status=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        
+        if ([@"2001" isEqual:status]) { // 成功
+            NSMutableArray * result=[responseObject objectForKey:@"result"];
+            if (result) {
+                for (int i =0 ;i<[result count];i++){
+                    NSDictionary *dic=[result objectAtIndex:i];
+                    [self.adsArray addObject:[dic objectForKey:@"imageUrl"]];
+                }
+                
+                [self initProudctView];
+                
+            }
+            
+            
+            
+        }else{ //
+            
+            DLog(@" messages= %@",messages);
+        }
+        
+        [self hideWaitLoading];
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        
+        DLog(@"error＝%@", error);
+        [self hideWaitLoading];
+    }];
+    
+}
+
+
+//{
+//    createIp = "<null>";
+//    createTime = "2015-07-25 16:42:12.000";
+//    createUser = "<null>";
+//    createUserName = "<null>";
+//    endDate = "2015-07-31";
+//    id = 1;
+//    imageLable = "\U54e5\U4fe9\U597d";
+//    imageUrl = "http://www.diagnose.com/image/app/banner/image1@2x.jpg";
+//    isDelete = 0;
+//    isUse = 1;
+//    linkUrl = "http://www.diagnose.com";
+//    order = 1;
+//    page = "<null>";
+//    rows = "<null>";
+//    sort = "<null>";
+//    startDate = "2015-07-25";
+//    updateIp = "<null>";
+//    updateTime = "<null>";
+//    updateUser = "<null>";
+//    updateUserName = "<null>";
+//},
 
 @end

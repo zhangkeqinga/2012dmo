@@ -21,6 +21,7 @@
 @synthesize procityPickView;  //省市区 选择的的pickerView
 @synthesize pickerView=_pickerView;
 @synthesize ymPicker;
+@synthesize ymdPicker;
 
 
 - (void)viewDidLoad {
@@ -34,7 +35,9 @@
     
     tableArray =[NSMutableArray array];
     tableDic = [NSMutableDictionary dictionary];
-    [tableDic setObject:@" " forKey:@"name"];
+    
+    
+    [tableDic setObject:[Users userName] forKey:@"name"];
     [tableDic setObject:@" " forKey:@"sex"];
     [tableDic setObject:@" " forKey:@"age"];
     [tableDic setObject:@" " forKey:@"health"];
@@ -48,8 +51,16 @@
     v_tableView.backgroundColor=[UIColor clearColor];
     v_tableView.tableFooterView.backgroundColor=BACKVIEWCOLOR;
 
-
+    
+//    [self setFreshNavigationBar];
 }
+
+
+- (void)freshPersionInfo{
+    
+    [self initRequestChange];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -108,14 +119,16 @@
     label1.textAlignment=NSTextAlignmentRight;
 
     if (indexPath.row==0) {
+        
+        if (![@"<null>" isEqual:[tableDic objectForKey:@"name"]])
         label1.text = [tableDic objectForKey:@"name"];
         
     } else if (indexPath.row==1) {
-        label1.text = [tableDic objectForKey:@"age"];
+        label1.text = [tableDic objectForKey:@"sex"];
 
     }
     else    if (indexPath.row==2) {
-        label1.text = [tableDic objectForKey:@"sex"];
+        label1.text = [tableDic objectForKey:@"age"];
     }
     else {
 //        label1.text = [tableDic objectForKey:@"health"];
@@ -164,7 +177,8 @@
         case 3002:
         {
             [self initViewPicker];
-            [self initPickerDate];
+//            [self initPickerDate];
+            [self initYMDDatePicker];
             
         }
             break;
@@ -223,6 +237,41 @@
     
 }
 
+
+
+
+//改将年月改为年月日
+#pragma mark - initDatePicker
+- (void)initYMDDatePicker{
+    
+    if (ymdPicker ) {
+        [ymdPicker removeFromParentViewController];
+        ymdPicker=nil;
+    }
+    
+    ymdPicker = [[YMDPickerController alloc] init];
+    ymdPicker.delegate = self;
+    ymdPicker.isShowTwoTime=NO;
+    
+//    [ymdPicker setDateEnd:[UnitPath dateFromString:[UnitPath currentDateFormater]] animated:YES];
+//    [ymdPicker setDateEnd:[UnitPath dateFromString:[UnitPath currentDateFormater]] animated:YES];
+
+    [self.pickerView addSubview:ymdPicker.hiddenTextField];
+    [ymdPicker displayView];
+    
+    
+}
+
+- (void)pickerDone:(YMDPickerController *)viewController selectedDate:(NSDate *)time {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *sDateString = [dateFormatter stringFromDate:time];
+    
+    [tableDic setObject:sDateString forKey:@"age"];
+    [self.v_tableView reloadData];
+
+}
 
 - (void)initPickerDate{
     
@@ -290,9 +339,78 @@
 
 - (void)pickerDone:(SinglePickerVC *)viewController selectedString:(NSString *)selectString{
     
+    if (!selectString) {
+        return;
+    }
     [tableDic setObject:selectString forKey:@"sex"];
     [self.v_tableView reloadData];
     
 }
+
+
+
+#pragma mark- 医生列表
+- (void)initRequestChange{
+    
+    NSDictionary *dict = @{ @"userPhone": [Users phoneNumber],
+                            @"name": @"好好",
+                            @"sex": @"男",
+                            @"birthday": @"2019-09-09",
+                            @"token": @" "
+                            
+                            };
+    
+    DLog(@"消息dict==%@",dict);
+    [self showWaitLoading];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    [manager POST:changePersionInfoUrl parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"]];
+        NSString * status=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"]];
+        
+        if ([@"2001" isEqual:status]) { // 成功
+            
+            NSMutableArray * result=[responseObject objectForKey:@"result"];
+            NSString *string= [NSString stringWithFormat:@"%@",result];
+            
+            if (result && ![@"<null>" isEqualToString:string]) {
+                
+                tableArray = result;
+                [self.v_tableView reloadData];
+            }
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"修改成功" inView:self.view lastTime:1.0];
+
+            
+        }else{ //
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"更新失败" inView:self.view lastTime:1.0];
+
+            DLog(@" messages= %@",messages);
+        }
+        
+        [self hideWaitLoading];
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        
+        DLog(@"error＝%@", error);
+        [self hideWaitLoading];
+    }];
+    
+}
+
+
+
+
+
+
+
 
 @end

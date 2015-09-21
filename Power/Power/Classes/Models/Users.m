@@ -33,15 +33,29 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *dic = [defaults objectForKey:@"user_detail"];
-    return [dic objectForKey:@"user"];
+    return [dic objectForKey:@"createUser"];
 }
 
 +(NSString *)phoneNumber
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *dic = [defaults objectForKey:@"user_detail"];
-    
-    return [NSString stringWithFormat:@"%@",[dic valueForKey:@"phone"]];
+    return [NSString stringWithFormat:@"%@",[dic valueForKey:@"userPhone"]];
+}
+
++(NSString *)userBirthday
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dic = [defaults objectForKey:@"user_detail"];
+    return [dic objectForKey:@"userAge"];
+}
+
+
++(NSString *)userHealthDescription
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dic = [defaults objectForKey:@"user_detail"];
+    return [dic objectForKey:@"health"];
 }
 
 

@@ -9,5 +9,10 @@
 #import "BasedAFNetworkController.h"
 
 @interface LoginPwdVC : BasedAFNetworkController
+<UIAlertViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *pwdText;
+@property (weak, nonatomic) IBOutlet UIButton *forgateBtn;
+@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
+@property (strong, nonatomic) NSString *phoneNumber;
 @end

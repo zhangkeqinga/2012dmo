@@ -194,7 +194,7 @@
 +(BOOL )secretCodeLegal:(NSString *)code
 {
     //
-    NSString *regex = @"[A-Z0-9a-z]{6,18}";//
+    NSString *regex = @"[a-z0-9A-Z]{6,18}";//
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     

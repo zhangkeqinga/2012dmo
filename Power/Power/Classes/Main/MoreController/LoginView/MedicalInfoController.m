@@ -27,15 +27,16 @@
 
     self.title= @"病例详情";
 
-    tableArray=[NSMutableArray array];
+    self.v_tableView.tableFooterView = [[UIView alloc]init];
     
+    tableArray=[NSMutableArray array];
     [tableArray addObject:@"就诊科室: 结直肠癌科"];
     [tableArray addObject:@"就诊时间: 2015-06-03"];
     [tableArray addObject:@"就诊医院: 合肥时附属医院"];
     [tableArray addObject:@"就诊医生: 徐建平"];
-    [tableArray addObject:@"诊断结果: ********************"];
-    [tableArray addObject:@"治疗方案: 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试"];
-    [tableArray addObject:@"相关图片: -"];
+    [tableArray addObject:@"诊断结果: －"];
+    [tableArray addObject:@"治疗方案: －"];
+    [tableArray addObject:@"相关图片: －"];
     
 }
 

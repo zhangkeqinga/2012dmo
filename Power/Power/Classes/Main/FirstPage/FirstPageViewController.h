@@ -20,12 +20,12 @@
 #import "RewardPointVC.h"
 
 
-
 @interface FirstPageViewController : BasedAFNetworkController
 <EScrollerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *productView;
 @property (strong, nonatomic) IBOutlet UITableView *v_tableView;
+@property (strong, nonatomic)  NSMutableDictionary *dics;
 
 
 @end

@@ -46,5 +46,10 @@
 - (void)showMRProgressWaitLoading;
 - (void)hideMRProgressWaitLoading;
 
+- (void)setMoreNavigationBar;
+- (void)setAddNavigationBar;
+- (void)addObject;
 
+- (void)setFreshNavigationBar;
+- (void)freshPersionInfo;
 @end

@@ -14,8 +14,6 @@
 @property (nonatomic,strong) NSString *open_appkey;     // 圆通开放平台 appkey
 @property (nonatomic,strong) NSString *secret_key;      // 圆通开放平台 加密key
 @property (nonatomic,strong) NSString *app_key;         // YtcltMobile
-
 @property (nonatomic,strong) NSString *onlineTime;      // YtcltMobile
-
 
 @end

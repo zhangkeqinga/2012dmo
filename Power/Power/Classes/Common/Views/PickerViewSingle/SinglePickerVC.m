@@ -55,7 +55,6 @@
     [super viewDidLoad];
     
     [self initView];
-    
     [self getProviceDate];
     
 }
@@ -101,6 +100,8 @@
     //第一级别
     self.firstArray= dataDic;
     
+    proviceName = [self.firstArray objectAtIndex:0];
+
     if ([self.firstArray count]<=0) {
         return;
     }

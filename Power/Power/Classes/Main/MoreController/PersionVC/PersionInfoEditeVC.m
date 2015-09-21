@@ -35,7 +35,7 @@
 - (IBAction)commintAction:(id)sender {
     
     [self.illnessInfo resignFirstResponder];
-
+    
     if ([delegate respondsToSelector:@selector(persionIllnessInfomation:)]) {
         [delegate persionIllnessInfomation:self.illnessInfo.text];
         

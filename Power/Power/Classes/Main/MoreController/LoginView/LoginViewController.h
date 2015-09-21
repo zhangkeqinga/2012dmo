@@ -11,7 +11,6 @@
 @interface LoginViewController : BasedViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
-
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
 @end

@@ -29,7 +29,10 @@
 +(NSString *)userId;       //ID
 +(NSString *)userName;     //姓名
 +(NSString *)phoneNumber;  //电话
++(NSString *)userBirthday;
++(NSString *)userHealthDescription;
 +(NSString *)userIdentify; //身份证号码
+
 
 +(NSString *)totalBuyMoney; //总收益
 +(NSString *)dayIncomes;    //日收益

@@ -15,4 +15,6 @@
 @synthesize secret_key;
 @synthesize app_key;
 @synthesize onlineTime;
+
+
 @end

@@ -12,9 +12,10 @@
 #import "SinglePickerVC.h"
 #import "YearMonthPickerController.h"
 #import "PersionInfoEditeVC.h"
+#import "YMDPickerController.h"
 
 
-@interface PersionInfoController : BasedAFNetworkController<UITableViewDataSource,UITableViewDelegate,NameViewControllerDelegate,SinglePickerVCDelegate,YearMonthPickerControllerDelegate,PersionInfoEditeVCDelegate>
+@interface PersionInfoController : BasedAFNetworkController<UITableViewDataSource,UITableViewDelegate,NameViewControllerDelegate,SinglePickerVCDelegate,YearMonthPickerControllerDelegate,PersionInfoEditeVCDelegate,YMDPickerControllerDelegate>
 
 @property(nonatomic,strong)IBOutlet UITableView * v_tableView;
 @property (strong, nonatomic)  NSMutableArray *tableArray;
@@ -24,5 +25,6 @@
 @property(nonatomic,strong) UIView         *pickerView;
 
 @property(nonatomic,strong) YearMonthPickerController *ymPicker;
+@property(nonatomic,strong) YMDPickerController *ymdPicker;
 
 @end
