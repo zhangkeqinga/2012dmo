@@ -8,6 +8,9 @@
 
 #import "BasedAFNetworkController.h"
 
+#import "UIImageView+WebCache.h"
+
+
 @interface SatrtDoctorController : BasedAFNetworkController
 <UITableViewDataSource,UITableViewDelegate>
 

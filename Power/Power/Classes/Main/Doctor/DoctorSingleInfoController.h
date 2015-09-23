@@ -8,6 +8,8 @@
 
 #import "BasedAFNetworkController.h"
 
+#import "UIImageView+WebCache.h"
+
 @interface DoctorSingleInfoController : BasedAFNetworkController
 <UITableViewDataSource,UITableViewDelegate>
 

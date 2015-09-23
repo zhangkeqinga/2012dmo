@@ -40,7 +40,10 @@
     [self setAddNavigationBar];
     
     tableArray=[NSMutableArray array];
-//    [self initRequest];
+    
+    [self initRequest];
+    
+    
 }
 
 
@@ -70,9 +73,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+//    return 4;
 
-//    return [self.tableArray count];
+    return [self.tableArray count];
     
 }
 

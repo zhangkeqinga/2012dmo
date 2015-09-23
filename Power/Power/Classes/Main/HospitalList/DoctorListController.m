@@ -185,7 +185,7 @@
     DoctorSingleInfoController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"DoctorSingleInfoController"];
     [doctor withMangerDic:dicss];
     [self.navigationController pushViewController:doctor animated:YES];
-
+    
     
 }
 

@@ -25,8 +25,6 @@
     [super viewWillAppear:animated];
     [self setTitleBackItemImageAndTitle];
     
-    
-    
 }
 
 - (void)viewDidLoad {

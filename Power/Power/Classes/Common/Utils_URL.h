@@ -81,6 +81,14 @@
 #define myImagesUrl [NSString stringWithFormat:@"%@/diagnose/user/myImages.do",headUrltest]
 
 
+
+
+#pragma mark-10－科室－－－－－－test1
+//type	true int	1:医生职称, 2:医院级别, 3:医院科室
+#define doctorMdmUrl [NSString stringWithFormat:@"%@/diagnose/mdm/getMdm.do",headUrltest]
+
+
+
 #pragma mark-10-医生列表－－－－－－test1
 //teamId	True	String	团队id       缺少条件
 #define doctorListUrl [NSString stringWithFormat:@"%@/diagnose/user/searchDoctorList.do",headUrltest]
@@ -94,7 +102,7 @@
 //pageSize	false	String	每页大小
 //dorctorProvince	false	String	所有省区
 
-#define doctorUrl [NSString stringWithFormat:@"%@/diagnose/user/searchDoctorList.do",headUrltest]
+#define doctorUrl [NSString stringWithFormat:@"%@/diagnose/doctor/searchDoctorList.do",headUrltest]
 
 
 #pragma mark-11-医生信息－－－－－－test1
@@ -142,11 +150,17 @@
 #define cancleattentionUrl [NSString stringWithFormat:@"%@/diagnose/user/cancleAttention.do",headUrltest]
 
 
-#pragma mark-20-取消关注－－－－－－
-//attenttionId	true	string	关注id
-//token	true	string	签名信息
+#pragma mark-20-医生列表－－－－－－
+//http://www.jinbull.com/diagnose/doctor/searchDoctorList.do?
 
-#define cancleattentionUrl [NSString stringWithFormat:@"%@/diagnose/user/cancleAttention.do",headUrltest]
+
+//doctorTitle	false	string	医生职称
+//doctorSection	false	string	科室
+//doctorHospital	false	string	所在医院
+//pageIndex	false	String	分页页码
+//pageSize	false	String	每页大小
+//dorctorProvince	false	String	所有省区
+#define seatchTentionUrl [NSString stringWithFormat:@"%@/diagnose/searchDoctorList.do",headUrltest]
 
 
 #pragma mark-22-个人信息更改－－－－－－

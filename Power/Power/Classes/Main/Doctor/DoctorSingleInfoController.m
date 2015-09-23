@@ -105,7 +105,7 @@
         return 45;
     }
     else{
-        return 100;
+        return 400;
     }}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -124,23 +124,31 @@
         [cell addSubview:ImagePhoto];
         ImagePhoto.image=[UIImage imageNamed:@"背景医院.png"];
         ImagePhoto.frame=CGRectMake((ScreenWidth-100)/2, 15, 100, 100);
-        ImagePhoto.image=[UIImage imageNamed:[self.dics objectForKey:@"photoimage"]];
+//        ImagePhoto.image=[UIImage imageNamed:[self.dics objectForKey:@"photoimage"]];
 
+        NSString *stringUrl=[dics objectForKey:@"doctorImage"];
+        NSURL *url =[NSURL URLWithString:stringUrl];
+        [ImagePhoto sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"product_DetailInfo"]];
+
+        
         UILabel *label=[[UILabel alloc]init];
         label.frame=CGRectMake(0, 115, ScreenWidth, 30);
         label.font=[UIFont systemFontOfSize:16];
         label.textAlignment=NSTextAlignmentCenter;
         label.text=@"姓名";
         [cell addSubview:label];
-        label.text= [self.dics objectForKey:@"name"];
+//        label.text= [self.dics objectForKey:@"name"];
+        label.text= [self.dics objectForKey:@"doctorName"];
 
+        
         UILabel *label2=[[UILabel alloc]init];
         label2.frame=CGRectMake(0, 140, ScreenWidth/2-10, 30);
         label2.font=[UIFont systemFontOfSize:14];
         label2.textAlignment=NSTextAlignmentRight;
         label2.text=@"职称";
         [cell addSubview:label2];
-        label2.text=[NSString stringWithFormat:@"%@",[self.dics objectForKey:@"position"]];
+//        label2.text=[NSString stringWithFormat:@"%@",[self.dics objectForKey:@"position"]];
+        label2.text= [self.dics objectForKey:@"doctorTitle"];
 
 
         UILabel *label1=[[UILabel alloc]init];
@@ -149,8 +157,8 @@
         label1.textAlignment=NSTextAlignmentLeft;
         label1.text=@"科室";
         [cell addSubview:label1];
-        label1.text=[NSString stringWithFormat:@"%@", [self.dics objectForKey:@"department"]];
-
+//        label1.text=[NSString stringWithFormat:@"%@", [self.dics objectForKey:@"department"]];
+//        label1.text= [self.dics objectForKey:@"doctorSection"];
         
         
         UIButton *pointBtn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -175,25 +183,27 @@
         label.textAlignment=NSTextAlignmentLeft;
         label.text=@"职业医院：北京阜外心血管医院";
         
-        label.text= [self.dics objectForKey:@"specialty"];
+//        label.text= [self.dics objectForKey:@"specialty"];
+        label.text= [self.dics objectForKey:@"doctorSpecial"];
 
 
     }else {
+        
         UITextView *label=[[UITextView alloc]init];
         [cell addSubview:label];
         
-        label.frame=CGRectMake(20, 0, ScreenWidth-40, 80);
+        label.frame=CGRectMake(20, 0, ScreenWidth-40, 400);
         label.font=[UIFont systemFontOfSize:14];
         label.textAlignment=NSTextAlignmentLeft;
-        label.text=@"简介：冠心病搭桥，各种重症心脏瓣膜病手术、复杂先心病手术";
+//        label.text=@"简介：冠心病搭桥，各种重症心脏瓣膜病手术、复杂先心病手术";
         
-        label.text= [self.dics objectForKey:@"description"];
+        label.text= [self.dics objectForKey:@"doctorInfo"];
+        
+//        label.text= [self.dics objectForKey:@"doctorInfo"];
+        
         label.editable=NO;
         
     }
-    
-    
-
     
     
     return cell;
@@ -208,7 +218,6 @@
         
         
     }
-    
     
 }
 
