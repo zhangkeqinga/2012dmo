@@ -7,14 +7,20 @@
 //  我的预约
 
 #import "AppointlistController.h"
+#import "DoctorSingleInfoController.h"
+
 
 @interface AppointlistController ()
+
+@property (nonatomic , strong) NSString * attentionId;
+
 
 @end
 
 @implementation AppointlistController
 @synthesize v_tableView;
 @synthesize tableArray;
+@synthesize attentionId;
 
 
 - (void)viewDidLoad {
@@ -61,18 +67,12 @@
 {
     UITableViewCell *cell = [[UITableViewCell alloc]init];
     
-    NSArray *imageArray=[NSArray arrayWithObjects:
-                         @"Photo1.png",
-                         @"Photo2.png",
-                         @"Photo3.png",
-                         @"Photo4.png",
-                         nil];
+
     
     UIImageView *ImagePhoto=[[UIImageView alloc]init];
     [cell addSubview:ImagePhoto];
-    ImagePhoto.image=[UIImage imageNamed:[imageArray objectAtIndex:indexPath.row]];
-    
     ImagePhoto.frame=CGRectMake(10, 20, 70, 70);
+    
     
     UILabel *label=[[UILabel alloc]init];
     [cell addSubview:label];
@@ -117,15 +117,23 @@
     [btns setTitle:@"取消关注" forState:UIControlStateNormal];
     [btns addTarget:self action:@selector(action2:) forControlEvents:UIControlEventTouchUpInside];
     btns.titleLabel.font=[UIFont systemFontOfSize:12];
-
+    btns.tag = indexPath.row;
+    
     
     if (self.tableArray) {
         
         NSDictionary *dic =[self.tableArray objectAtIndex:indexPath.row];
+       
         label.text=[NSString stringWithFormat:@"%@",[dic objectForKey:@"doctorName"]];
         label1.text=[NSString stringWithFormat:@"%@",[dic objectForKey:@"doctorTitle"]];
         labeltime.text= [UnitPath ymdString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"createTime"]]] ;
         label2.text=[NSString stringWithFormat:@"%@",[dic objectForKey:@"doctorSpecial"]];
+        
+        NSString *stringUrl=[dic objectForKey:@"doctorImage"];
+        stringUrl = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)stringUrl, nil, nil, kCFStringEncodingUTF8));
+        NSURL *url =[NSURL URLWithString:stringUrl];
+        [ImagePhoto sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"product_DetailInfo"]];
+
     }
     
     return cell;
@@ -135,17 +143,6 @@
 
 
 
-
-
-- (IBAction)pointDoctor:(id)sender{
-    
-    NSLog(@"关注按钮");
-    
-    AlertUtils *alert = [AlertUtils sharedInstance];
-    [alert showWithText:@"已关注" inView:self.view lastTime:1.0];
-    
-    
-}
 
 //
 //{
@@ -185,33 +182,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     
+    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
+    NSDictionary *dicss=[tableArray objectAtIndex:indexPath.row];
+    
+    DoctorSingleInfoController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"DoctorSingleInfoController"];
+    [doctor withMangerDic:dicss];
+    [self.navigationController pushViewController:doctor animated:YES];
+    
+
     
 }
 
 
 
-- (IBAction)action2:(id)sender {
-    
-    DLog(@"ooooo");
-    [AlertUtil alertSuerAndCancelWithDelegate:@"确定取消" delegate:self];
-    
-    
-    
-}
 
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
-    if (buttonIndex==0) {
-        
-    }else{
-//        NSDictionary *dic =[self.tableArray objectAtIndex:indexPath.row];
-
-        
-        
-    }
-    
-}
 
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -222,16 +206,90 @@
 
 
 
+- (IBAction)pointDoctor:(id)sender{
+    
+}
+
+- (IBAction)action2:(id)sender {
+    
+    DLog(@"关注按钮");
+    
+    [AlertUtil alertSuerAndCancelWithDelegate:@"取消关注" delegate:self];
+   
+    NSDictionary *dicss=[tableArray objectAtIndex:[sender tag]];
+    self.attentionId = [dicss objectForKey:@"attentionId"];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex==0) {
+        
+    }else{
+        [self initCancleAppointRequest];
+    }
+    
+}
+
+#pragma mark- 取消关注
+- (void)initCancleAppointRequest{
+    
+    NSDictionary *dict = @{ @"userPhone"   : [Users phoneNumber],
+                            @"attenttionId": self.attentionId,
+                            @"token":@" "
+                            };
+    
+    DLog(@"取消关注dict==%@",dict);
+    
+    [self showWaitLoading];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    [manager POST:cancleattentionUrl parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        NSString * status=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        
+        if ([@"2001" isEqual:status]) { // 成功
+            
+//            NSDictionary * result=[responseObject objectForKey:@"result"];
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"已经取消关注" inView:self.view lastTime:1.0];
+
+            
+        }else{ //
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:messages inView:self.view lastTime:1.0];
+
+            DLog(@" messages= %@",messages);
+        }
+        
+        [self hideWaitLoading];
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        
+        DLog(@"error＝%@", error);
+        [self hideWaitLoading];
+    }];
+    
+
+}
 
 
-#pragma mark- 关注
+#pragma mark- 我的关注
 - (void)initRequest{
     
     NSDictionary *dict = @{ @"userPhone": [Users phoneNumber],
                             @"token":@" "
                             };
     
-    DLog(@"消息dict==%@",dict);
+    DLog(@"我的关注dict==%@",dict);
+    
     [self showWaitLoading];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
@@ -252,6 +310,8 @@
             if (doctor && ![@"<null>" isEqualToString:string]) {
                 
                 tableArray = doctor;
+                DLog(@"我关注= %@",tableArray);
+
                 [self.v_tableView reloadData];
             }
             

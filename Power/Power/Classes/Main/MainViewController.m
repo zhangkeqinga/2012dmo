@@ -68,7 +68,9 @@
 
 - (void)loginSuccess:(BOOL)isLogin {
     
-    NSArray *array=[NSArray arrayWithObjects:@"首页",@"医生",@"医院",@"个人中心", nil];
+//    NSArray *array=[NSArray arrayWithObjects:@"首页",@"医生",@"医院",@"个人中心", nil];
+    NSArray *array=[NSArray arrayWithObjects:@"个人中心",@"医院",@"医生",@"设置", nil];
+    
     
     // 添加子控制器
     [self addChildViewControllerWithTitle:
@@ -79,18 +81,19 @@
                                      icon:@"product_gray"
                                   selIcon:@"product_gray"];
     
-    [self addChildViewControllerWithTitle:[array objectAtIndex:1]
-     //NSLocalizedString(@"menu_2", nil)
-                           storyboardName:@"StarDoctor"
-                                     icon:@"product_list_gray"
-                                  selIcon:@"product_list_gray"];
     
-    [self addChildViewControllerWithTitle:[array objectAtIndex:2]//NSLocalizedString(@"menu_3", nil)
+    [self addChildViewControllerWithTitle:[array objectAtIndex:1]//NSLocalizedString(@"menu_3", nil)
                            storyboardName:@"DoctorTeam"
                                      icon:@"assets_gray"
                                   selIcon:@"assets_gray"];
     
     
+    [self addChildViewControllerWithTitle:[array objectAtIndex:2]
+     //NSLocalizedString(@"menu_2", nil)
+                           storyboardName:@"StarDoctor"
+                                     icon:@"product_list_gray"
+                                  selIcon:@"product_list_gray"];
+
     if (isLogin) { //登陆成功
         
         [self addChildViewControllerWithTitle:[array objectAtIndex:3]

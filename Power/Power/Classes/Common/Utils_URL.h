@@ -12,7 +12,6 @@
 
 #define headUrltest @"http://www.jinbull.com"  //
 
-
 #pragma mark--版本信息
 #define versionFresh1 [NSString stringWithFormat:@"%@/jinbull/app_info.do?",headUrltest]
 
@@ -75,18 +74,9 @@
 #define appointUrl [NSString stringWithFormat:@"%@/diagnose/user/getAttention.do",headUrltest]
 
 
-#pragma mark-9-我的影像－－－－－－
-//userPhone  	true	string	手机号
-//token	true	string	签名信息
-#define myImagesUrl [NSString stringWithFormat:@"%@/diagnose/user/myImages.do",headUrltest]
-
-
-
-
-#pragma mark-10－科室－－－－－－test1
+#pragma mark-10－科室－－－－－－
 //type	true int	1:医生职称, 2:医院级别, 3:医院科室
 #define doctorMdmUrl [NSString stringWithFormat:@"%@/diagnose/mdm/getMdm.do",headUrltest]
-
 
 
 #pragma mark-10-医生列表－－－－－－test1
@@ -117,20 +107,31 @@
 //id	ture	String	用户id
 #define appointListUrl [NSString stringWithFormat:@"%@/diagnose/appointment/getHistory.do",headUrltest]
 
+
+#pragma mark-9-我的影像－－－－－－
+//pageIndex	false	String	分页页码
+//pageSize	false	String	每页大小
+//token	ture	String	签名标识
+//id	ture	String	用户id
+#define myImagesUrl [NSString stringWithFormat:@"%@/diagnose/appointment/getHistory.do",headUrltest]
+
+
+
 #pragma mark-13-预约医生－－－－－－test1
-//userPhone  	true	string	手机号
+//uid	true	string	用户ID
+//tid	true	string	指定的团队（个人）
+//diseaseInfo	true	string	病情描述
+//diseaseImgae	true	string	多个图片
+//appointmentTime	true	string	就诊时间
 //token	true	string	签名信息
+//type	true	string	预约类型(1:个人, 2: 团队)
 #define appointMentUrl [NSString stringWithFormat:@"%@/diagnose/appointment/makeAppoinment.do",headUrltest]
+
 
 #pragma mark-14-医院列表－－－－－－
 //pageIndex	false	String	分页页码
 //pageSize	false	String	每页大小
 #define hospitalListUrl [NSString stringWithFormat:@"%@/diagnose/hospital/getHospital.do",headUrltest]
-
-#pragma mark-14-关注－－－－－－
-//pageIndex	false	String	分页页码
-//pageSize	false	String	每页大小
-#define atentionUrl [NSString stringWithFormat:@"%@/diagnose/user/addAttention.do",headUrltest]
 
 
 #pragma mark-19-关注－－－－－－
@@ -142,25 +143,11 @@
 #define attentionUrl [NSString stringWithFormat:@"%@/diagnose/user/addAttention.do",headUrltest]
 
 
-
 #pragma mark-20-取消关注－－－－－－
 //attenttionId	true	string	关注id
+//userid     	true	string	用户id
 //token	true	string	签名信息
-
 #define cancleattentionUrl [NSString stringWithFormat:@"%@/diagnose/user/cancleAttention.do",headUrltest]
-
-
-#pragma mark-20-医生列表－－－－－－
-//http://www.jinbull.com/diagnose/doctor/searchDoctorList.do?
-
-
-//doctorTitle	false	string	医生职称
-//doctorSection	false	string	科室
-//doctorHospital	false	string	所在医院
-//pageIndex	false	String	分页页码
-//pageSize	false	String	每页大小
-//dorctorProvince	false	String	所有省区
-#define seatchTentionUrl [NSString stringWithFormat:@"%@/diagnose/searchDoctorList.do",headUrltest]
 
 
 #pragma mark-22-个人信息更改－－－－－－
@@ -171,8 +158,6 @@
 //token	true	string	签名信息
 
 #define changePersionInfoUrl [NSString stringWithFormat:@"%@/diagnose/user/changePersionInfo.do",headUrltest]
-
-
 
 
 

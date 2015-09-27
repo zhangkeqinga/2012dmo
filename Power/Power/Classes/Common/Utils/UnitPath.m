@@ -1786,14 +1786,14 @@
         return sizeFrame;
     }
     
-    sizeFrame =[self calculateFrameWithContent:content withFont:12];
+    sizeFrame =[self calculateFrameWithContent:content withFont:14];
     return sizeFrame;
 }
 
 
 + (CGSize)calculateFrameWithContent:(NSString *)content withFont:(float)fontNum {
     
-    CGSize sizeFrame =[self calculateFrameWithContent:content withWidth:ScreenWidth-20 withFont:fontNum];
+    CGSize sizeFrame =[self calculateFrameWithContent:content withWidth:ScreenWidth-40 withFont:fontNum];
     return sizeFrame;
 }
 

@@ -51,6 +51,8 @@
 		046682FC1BAB251F0021A461 /* 预约.png in Resources */ = {isa = PBXBuildFile; fileRef = 046682FA1BAB251F0021A461 /* 预约.png */; };
 		046682FF1BAB31EB0021A461 /* LoginPwdVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 046682FE1BAB31EB0021A461 /* LoginPwdVC.m */; };
 		0472298E1BAEB57300ECC82D /* AppointMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472298D1BAEB57300ECC82D /* AppointMode.m */; };
+		047874671BB6310300B19649 /* DoctorSingleInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047874661BB6310300B19649 /* DoctorSingleInfoController.m */; };
+		0478746A1BB653A800B19649 /* HospitalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047874691BB653A800B19649 /* HospitalModel.m */; };
 		047C08801BA8DB47007D28F0 /* NameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047C087E1BA8DB47007D28F0 /* NameViewController.m */; };
 		047C08871BA8E651007D28F0 /* 武汉人民医院.png in Resources */ = {isa = PBXBuildFile; fileRef = 047C08851BA8E651007D28F0 /* 武汉人民医院.png */; };
 		047C08881BA8E651007D28F0 /* 北京大学人民医院.png in Resources */ = {isa = PBXBuildFile; fileRef = 047C08861BA8E651007D28F0 /* 北京大学人民医院.png */; };
@@ -63,9 +65,9 @@
 		04866D0D1BAD2F3A00734C5E /* LoginSuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04866D0C1BAD2F3A00734C5E /* LoginSuccessController.m */; };
 		04866D1C1BAD3ED500734C5E /* AppoinDocController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04866D101BAD3ED500734C5E /* AppoinDocController.m */; };
 		04866D1D1BAD3ED500734C5E /* AppointDoctorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04866D121BAD3ED500734C5E /* AppointDoctorController.m */; };
-		04866D1E1BAD3ED500734C5E /* CheckVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04866D151BAD3ED500734C5E /* CheckVIewController.m */; };
-		04866D201BAD3ED500734C5E /* DoctorSingleInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04866D191BAD3ED500734C5E /* DoctorSingleInfoController.m */; };
-		04866D211BAD3ED500734C5E /* PointApplyInfoCommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04866D1B1BAD3ED500734C5E /* PointApplyInfoCommitController.m */; };
+		0488AC4B1BB66BE900CC8751 /* CheckVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0488AC481BB66BE900CC8751 /* CheckVIewController.m */; };
+		0488AC4C1BB66BE900CC8751 /* PointApplyInfoCommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0488AC4A1BB66BE900CC8751 /* PointApplyInfoCommitController.m */; };
+		0488AC811BB7720400CC8751 /* ProviceCityAirPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0488AC801BB7720400CC8751 /* ProviceCityAirPicker.m */; };
 		048D496E1BAC34D100C3CA15 /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 048D49671BAC34D100C3CA15 /* area.plist */; };
 		048D496F1BAC34D100C3CA15 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 048D49681BAC34D100C3CA15 /* city.plist */; };
 		048D49701BAC34D100C3CA15 /* DOPDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 048D496A1BAC34D100C3CA15 /* DOPDropDownMenu.m */; };
@@ -330,15 +332,19 @@
 		046682FA1BAB251F0021A461 /* 预约.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "预约.png"; sourceTree = "<group>"; };
 		046682FD1BAB31EB0021A461 /* LoginPwdVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginPwdVC.h; sourceTree = "<group>"; };
 		046682FE1BAB31EB0021A461 /* LoginPwdVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPwdVC.m; sourceTree = "<group>"; };
+		046E55781BB7C6690049FAAE /* PowerHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PowerHeader.pch; sourceTree = "<group>"; };
 		0472298C1BAEB57300ECC82D /* AppointMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointMode.h; sourceTree = "<group>"; };
 		0472298D1BAEB57300ECC82D /* AppointMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointMode.m; sourceTree = "<group>"; };
+		047874651BB6310300B19649 /* DoctorSingleInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoctorSingleInfoController.h; sourceTree = "<group>"; };
+		047874661BB6310300B19649 /* DoctorSingleInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoctorSingleInfoController.m; sourceTree = "<group>"; };
+		047874681BB653A800B19649 /* HospitalModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HospitalModel.h; sourceTree = "<group>"; };
+		047874691BB653A800B19649 /* HospitalModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HospitalModel.m; sourceTree = "<group>"; };
 		047C087D1BA8DB47007D28F0 /* NameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameViewController.h; sourceTree = "<group>"; };
 		047C087E1BA8DB47007D28F0 /* NameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameViewController.m; sourceTree = "<group>"; };
 		047C08851BA8E651007D28F0 /* 武汉人民医院.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "武汉人民医院.png"; sourceTree = "<group>"; };
 		047C08861BA8E651007D28F0 /* 北京大学人民医院.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "北京大学人民医院.png"; sourceTree = "<group>"; };
 		048020471BAE50BE00B96A54 /* YMDPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMDPickerController.h; sourceTree = "<group>"; };
 		048020481BAE50BE00B96A54 /* YMDPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMDPickerController.m; sourceTree = "<group>"; };
-		04866CFA1BAD021400734C5E /* Power.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Power.entitlements; sourceTree = "<group>"; };
 		04866CFC1BAD2C2B00734C5E /* PerNotificationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerNotificationVC.h; sourceTree = "<group>"; };
 		04866CFD1BAD2C2B00734C5E /* PerNotificationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerNotificationVC.m; sourceTree = "<group>"; };
 		04866CFF1BAD2C6200734C5E /* MedicalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MedicalViewController.h; sourceTree = "<group>"; };
@@ -355,12 +361,12 @@
 		04866D101BAD3ED500734C5E /* AppoinDocController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppoinDocController.m; sourceTree = "<group>"; };
 		04866D111BAD3ED500734C5E /* AppointDoctorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointDoctorController.h; sourceTree = "<group>"; };
 		04866D121BAD3ED500734C5E /* AppointDoctorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointDoctorController.m; sourceTree = "<group>"; };
-		04866D141BAD3ED500734C5E /* CheckVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckVIewController.h; sourceTree = "<group>"; };
-		04866D151BAD3ED500734C5E /* CheckVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckVIewController.m; sourceTree = "<group>"; };
-		04866D181BAD3ED500734C5E /* DoctorSingleInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoctorSingleInfoController.h; sourceTree = "<group>"; };
-		04866D191BAD3ED500734C5E /* DoctorSingleInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoctorSingleInfoController.m; sourceTree = "<group>"; };
-		04866D1A1BAD3ED500734C5E /* PointApplyInfoCommitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointApplyInfoCommitController.h; sourceTree = "<group>"; };
-		04866D1B1BAD3ED500734C5E /* PointApplyInfoCommitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointApplyInfoCommitController.m; sourceTree = "<group>"; };
+		0488AC471BB66BE900CC8751 /* CheckVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckVIewController.h; sourceTree = "<group>"; };
+		0488AC481BB66BE900CC8751 /* CheckVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckVIewController.m; sourceTree = "<group>"; };
+		0488AC491BB66BE900CC8751 /* PointApplyInfoCommitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointApplyInfoCommitController.h; sourceTree = "<group>"; };
+		0488AC4A1BB66BE900CC8751 /* PointApplyInfoCommitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointApplyInfoCommitController.m; sourceTree = "<group>"; };
+		0488AC7F1BB7720400CC8751 /* ProviceCityAirPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProviceCityAirPicker.h; sourceTree = "<group>"; };
+		0488AC801BB7720400CC8751 /* ProviceCityAirPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProviceCityAirPicker.m; sourceTree = "<group>"; };
 		048D49671BAC34D100C3CA15 /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
 		048D49681BAC34D100C3CA15 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
 		048D49691BAC34D100C3CA15 /* DOPDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOPDropDownMenu.h; sourceTree = "<group>"; };
@@ -601,7 +607,6 @@
 		91CF8FF01B9A8EBD0067407D /* DDProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDProgressView.m; sourceTree = "<group>"; };
 		91CF8FF11B9A8EBD0067407D /* UICountingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICountingLabel.h; sourceTree = "<group>"; };
 		91CF8FF21B9A8EBD0067407D /* UICountingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICountingLabel.m; sourceTree = "<group>"; };
-		91CF8FF31B9A8EBD0067407D /* BullPch.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BullPch.pch; sourceTree = "<group>"; };
 		91CF8FF51B9A8EBD0067407D /* MDRadialProgress-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MDRadialProgress-Prefix.pch"; sourceTree = "<group>"; };
 		91CF8FF61B9A8EBD0067407D /* MDRadialProgressLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRadialProgressLabel.h; sourceTree = "<group>"; };
 		91CF8FF71B9A8EBD0067407D /* MDRadialProgressLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRadialProgressLabel.m; sourceTree = "<group>"; };
@@ -831,10 +836,10 @@
 		044605C91BAD5F3600E4C8AE /* HospitalList */ = {
 			isa = PBXGroup;
 			children = (
-				044605D61BADC85600E4C8AE /* DoctorListController.h */,
-				044605D71BADC85600E4C8AE /* DoctorListController.m */,
 				044605CA1BAD5F3600E4C8AE /* DoctorTeamController.h */,
 				044605CB1BAD5F3600E4C8AE /* DoctorTeamController.m */,
+				044605D61BADC85600E4C8AE /* DoctorListController.h */,
+				044605D71BADC85600E4C8AE /* DoctorListController.m */,
 			);
 			path = HospitalList;
 			sourceTree = "<group>";
@@ -905,26 +910,12 @@
 		04866D0E1BAD3ED500734C5E /* Doctor */ = {
 			isa = PBXGroup;
 			children = (
-				04866D131BAD3ED500734C5E /* ChildsViewController */,
 				04866D0F1BAD3ED500734C5E /* AppoinDocController.h */,
 				04866D101BAD3ED500734C5E /* AppoinDocController.m */,
 				04866D111BAD3ED500734C5E /* AppointDoctorController.h */,
 				04866D121BAD3ED500734C5E /* AppointDoctorController.m */,
-				04866D181BAD3ED500734C5E /* DoctorSingleInfoController.h */,
-				04866D191BAD3ED500734C5E /* DoctorSingleInfoController.m */,
-				04866D1A1BAD3ED500734C5E /* PointApplyInfoCommitController.h */,
-				04866D1B1BAD3ED500734C5E /* PointApplyInfoCommitController.m */,
 			);
 			path = Doctor;
-			sourceTree = "<group>";
-		};
-		04866D131BAD3ED500734C5E /* ChildsViewController */ = {
-			isa = PBXGroup;
-			children = (
-				04866D141BAD3ED500734C5E /* CheckVIewController.h */,
-				04866D151BAD3ED500734C5E /* CheckVIewController.m */,
-			);
-			path = ChildsViewController;
 			sourceTree = "<group>";
 		};
 		048D49661BAC34D100C3CA15 /* DOPDropDownMenu */ = {
@@ -960,8 +951,14 @@
 			children = (
 				04CAF8C41BAD3F5F00AEDEDC /* SatrtDoctorController.h */,
 				04CAF8C51BAD3F5F00AEDEDC /* SatrtDoctorController.m */,
+				047874651BB6310300B19649 /* DoctorSingleInfoController.h */,
+				047874661BB6310300B19649 /* DoctorSingleInfoController.m */,
 				04CAF8C21BAD3F5F00AEDEDC /* SartTeamInfoController.h */,
 				04CAF8C31BAD3F5F00AEDEDC /* SartTeamInfoController.m */,
+				0488AC471BB66BE900CC8751 /* CheckVIewController.h */,
+				0488AC481BB66BE900CC8751 /* CheckVIewController.m */,
+				0488AC491BB66BE900CC8751 /* PointApplyInfoCommitController.h */,
+				0488AC4A1BB66BE900CC8751 /* PointApplyInfoCommitController.m */,
 			);
 			path = DoctorList;
 			sourceTree = "<group>";
@@ -997,7 +994,6 @@
 		91CF8DAF1B9A8C610067407D /* Power */ = {
 			isa = PBXGroup;
 			children = (
-				04866CFA1BAD021400734C5E /* Power.entitlements */,
 				91CF8DB41B9A8C610067407D /* AppDelegate.h */,
 				91CF8DB51B9A8C610067407D /* AppDelegate.m */,
 				91CF8DBA1B9A8C610067407D /* ViewController.h */,
@@ -1478,7 +1474,7 @@
 			isa = PBXGroup;
 			children = (
 				91CF90331B9A8EBD0067407D /* Utils_URL.h */,
-				91CF8FF31B9A8EBD0067407D /* BullPch.pch */,
+				046E55781BB7C6690049FAAE /* PowerHeader.pch */,
 				91CF90141B9A8EBD0067407D /* NavigationController.h */,
 				91CF90151B9A8EBD0067407D /* NavigationController.m */,
 				91CF8FEC1B9A8EBD0067407D /* BGProgress */,
@@ -1640,6 +1636,8 @@
 			children = (
 				91CF90361B9A8EBD0067407D /* ProCityPicker.h */,
 				91CF90371B9A8EBD0067407D /* ProCityPicker.m */,
+				0488AC7F1BB7720400CC8751 /* ProviceCityAirPicker.h */,
+				0488AC801BB7720400CC8751 /* ProviceCityAirPicker.m */,
 			);
 			path = ProCtiyPickView;
 			sourceTree = "<group>";
@@ -1795,6 +1793,8 @@
 				91CF90A71B9A8EBE0067407D /* dataModel.m */,
 				91CF90A81B9A8EBE0067407D /* DoctorModel.h */,
 				91CF90A91B9A8EBE0067407D /* DoctorModel.m */,
+				047874681BB653A800B19649 /* HospitalModel.h */,
+				047874691BB653A800B19649 /* HospitalModel.m */,
 				91CF90AA1B9A8EBE0067407D /* UrlParamModel.h */,
 				91CF90AB1B9A8EBE0067407D /* UrlParamModel.m */,
 				0472298C1BAEB57300ECC82D /* AppointMode.h */,
@@ -2017,7 +2017,6 @@
 				91CF8F871B9A8DA20067407D /* UIImageView+AFNetworking.m in Sources */,
 				91CF91291B9A8EBE0067407D /* Users.m in Sources */,
 				91CF91041B9A8EBE0067407D /* ChangePasswordController.m in Sources */,
-				04866D211BAD3ED500734C5E /* PointApplyInfoCommitController.m in Sources */,
 				91CF911B1B9A8EBE0067407D /* UrlParamModel.m in Sources */,
 				91CF911A1B9A8EBE0067407D /* DoctorModel.m in Sources */,
 				91CF8FA51B9A8DA20067407D /* RoundedImgClass.m in Sources */,
@@ -2046,7 +2045,7 @@
 				91CF8FAB1B9A8DA20067407D /* SBJsonStreamParserAccumulator.m in Sources */,
 				91CF8FA41B9A8DA20067407D /* GrayPageControl.m in Sources */,
 				91CF8F8D1B9A8DA20067407D /* MASConstraintMaker.m in Sources */,
-				04866D1E1BAD3ED500734C5E /* CheckVIewController.m in Sources */,
+				0488AC4B1BB66BE900CC8751 /* CheckVIewController.m in Sources */,
 				91CF8F9A1B9A8DA20067407D /* MJRefreshConst.m in Sources */,
 				91CF8F961B9A8DA20067407D /* GTMBase64.m in Sources */,
 				91CF8F8A1B9A8DA20067407D /* UIWebView+AFNetworking.m in Sources */,
@@ -2059,9 +2058,10 @@
 				91CF8F8F1B9A8DA20067407D /* MASViewAttribute.m in Sources */,
 				91CF8FC31B9A8DA20067407D /* UIView+WebCacheOperation.m in Sources */,
 				044605D81BADC85600E4C8AE /* DoctorListController.m in Sources */,
+				0488AC4C1BB66BE900CC8751 /* PointApplyInfoCommitController.m in Sources */,
 				91CF8FA01B9A8DA20067407D /* MJRefreshLegendHeader.m in Sources */,
 				91CF91021B9A8EBE0067407D /* SuggestionController.m in Sources */,
-				04866D201BAD3ED500734C5E /* DoctorSingleInfoController.m in Sources */,
+				0478746A1BB653A800B19649 /* HospitalModel.m in Sources */,
 				91CF8F7D1B9A8DA20067407D /* AFURLConnectionOperation.m in Sources */,
 				91CF8F951B9A8DA20067407D /* Base64String.m in Sources */,
 				91CF91031B9A8EBE0067407D /* ContactUsController.m in Sources */,
@@ -2090,6 +2090,7 @@
 				91CF8F791B9A8DA20067407D /* AFHTTPRequestOperationManager.m in Sources */,
 				91CF8FB71B9A8DA20067407D /* SDWebImageCompat.m in Sources */,
 				91CF90F41B9A8EBE0067407D /* InstructionsController.m in Sources */,
+				0488AC811BB7720400CC8751 /* ProviceCityAirPicker.m in Sources */,
 				91CF8F881B9A8DA20067407D /* UIProgressView+AFNetworking.m in Sources */,
 				91CF90E71B9A8EBE0067407D /* PathUtilities.m in Sources */,
 				91CF91191B9A8EBE0067407D /* dataModel.m in Sources */,
@@ -2146,6 +2147,7 @@
 				04866D041BAD2C8100734C5E /* AppointlistController.m in Sources */,
 				91CF90DF1B9A8EBE0067407D /* MJPasswordPopView.m in Sources */,
 				91CF8F6E1B9A8DA20067407D /* EGOImageButton.m in Sources */,
+				047874671BB6310300B19649 /* DoctorSingleInfoController.m in Sources */,
 				91CF910F1B9A8EBE0067407D /* NotificationCell.m in Sources */,
 				91CF8F9C1B9A8DA20067407D /* MJRefreshGifFooter.m in Sources */,
 				91CF90F21B9A8EBE0067407D /* BaseTableViewController.m in Sources */,
@@ -2332,7 +2334,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				GCC_PREFIX_HEADER = "$(SRCROOT)/Power/Classes/Common/BullPch.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Power/Classes/Common/PowerHeader.pch";
 				INFOPLIST_FILE = Power/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2359,7 +2361,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/Power/Classes/Common/BullPch.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Power/Classes/Common/PowerHeader.pch";
 				INFOPLIST_FILE = Power/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

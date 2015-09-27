@@ -7,8 +7,9 @@
 //
 
 #import "BasedAFNetworkController.h"
+#import "UIImageView+WebCache.h"
 
-@interface AppointlistController : BasedAFNetworkController<UIAlertViewDelegate>
+@interface AppointlistController : BasedAFNetworkController
 
 
 @property(nonatomic,strong)IBOutlet UITableView * v_tableView;

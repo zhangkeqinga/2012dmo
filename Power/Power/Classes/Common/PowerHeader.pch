@@ -1,16 +1,14 @@
 //
-//  BullPch.pch
-//  Bull
+//  PowerHeader.pch
+//  Power
 //
-//  Created by Dong on 15-3-20.
-//  Copyright (c) 2015年 Grant. All rights reserved.
+//  Created by mac on 15/9/27.
+//  Copyright (c) 2015年 huiwei. All rights reserved.
 //
 
-#ifndef Bull_BullPch_pch
-#define Bull_BullPch_pch
+#ifndef Power_PowerHeader_pch
+#define Power_PowerHeader_pch
 
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #import "NavigationController.h"
 
@@ -18,7 +16,7 @@
 #import "UnitPath.h"
 #import "UtilsMacro.h"
 #import "PathUtilities.h"
-#import "ValidateUtil.h"  
+#import "ValidateUtil.h"
 
 #import "WaitingLoadingViewController.h"
 #import "AlertUtils.h"
@@ -60,7 +58,6 @@
 #define APPIDNUMBER @"1234567" //是否注册
 
 
-
 #define HISPOSITION  @"positiondoctor" //职称
 #define HISTORYLEVEL @"levelhistory" //是否注册
 #define HISTORYNAME  @"namehistory" //是否注册
@@ -79,5 +76,7 @@
 #define kUserDefaults [NSUserDefaults standardUserDefaults]
 
 #define kRGBAColor(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+
+
 
 #endif

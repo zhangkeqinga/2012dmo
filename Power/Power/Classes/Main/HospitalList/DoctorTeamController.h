@@ -7,11 +7,31 @@
 //  医院
 
 #import "BasedAFNetworkController.h"
+#import "HospitalModel.h"
+#import "ProCityPicker.h"
+#import "ProviceCityAirPicker.h"
+
+
+#import "DOPDropDownMenu.h"
 
 @interface DoctorTeamController : BasedAFNetworkController
-<UITableViewDataSource,UITableViewDelegate>
+<UITableViewDataSource,UITableViewDelegate,ProCityPickerDelegate,ProviceCityAirPickerDelegate>
+{
+    ProCityPicker *proCityPickView;
+    ProviceCityAirPicker *proCityAirPickView;
 
 
+}
+@property(nonatomic,strong) ProCityPicker *procityPickView;
+@property(nonatomic,strong) ProviceCityAirPicker *proCityAirPickView;
+
+@property(nonatomic,strong) UIView         *pickerView;
 @property (strong, nonatomic) IBOutlet UITableView *v_tableView;
+
+@property (nonatomic, strong) DOPDropDownMenu *menu;
+@property (nonatomic, copy) NSMutableArray *citys;
+@property (nonatomic, copy) NSMutableArray *ages;
+@property (nonatomic, copy) NSMutableArray *genders;
+
 
 @end

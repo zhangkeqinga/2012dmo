@@ -16,6 +16,7 @@
 @synthesize hiddenTextField;
 @synthesize delegate;
 @synthesize isShowTwoTime;
+@synthesize picker;
 
 
 #pragma mark - init

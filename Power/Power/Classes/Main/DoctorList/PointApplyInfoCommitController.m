@@ -8,8 +8,23 @@
 
 #import "PointApplyInfoCommitController.h"
 
+#import "AFHTTPSessionManager.h"
+
+
+
 @interface PointApplyInfoCommitController ()
 @property(nonatomic) CGPoint point;
+
+@property(nonatomic,strong)NSString *name;
+@property(nonatomic,strong)NSString *age;
+@property(nonatomic,strong)NSString *phone;
+@property(nonatomic,strong)NSString *section;
+@property(nonatomic,strong)NSString *illdesc;
+@property(nonatomic,strong)NSString *time;
+
+//@property(nonatomic,strong)NSString *name;
+//@property(nonatomic,strong)NSString *name;
+
 
 @end
 
@@ -19,6 +34,7 @@
 @synthesize tableArray;
 @synthesize imageArray;
 @synthesize appointModel;
+@synthesize doctorModel;
 
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -26,13 +42,22 @@
     [self setTitleBackItemImageAndTitle];
     self.tabBarController.tabBar.hidden=YES;
     
+}
+
+
+- (void)withMangerDic:(NSDictionary *)doctordic_{
+    
+    doctorModel = [[DoctorModel alloc]init];
+    doctorModel.doctorid = [doctordic_ objectForKey:@"id"];
     
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setTitleBackItemImageAndTitle];
+    self.title = @"预约";
     
     v_tableView.tableFooterView = [[UIView alloc] init];
     self.point=self.v_tableView.contentOffset;
@@ -120,10 +145,6 @@
             default:
                 break;
         }
-            
-
-            
-            
             
         }else{
             
@@ -277,48 +298,6 @@
     return YES;
 }
 
-- (IBAction)commmitAction:(id)sender{
-    
-    for (int i=0; i<5; i++) {
-        UITextField *textField=(UITextField *)[self.view viewWithTag:1000+i];
-        [textField resignFirstResponder];
-
-        if ([@"" isEqualToString:textField.text]) {
-            
-            NSString *string =[NSString stringWithFormat:@"请输入%@",[self.tableArray objectAtIndex:i]];
-            AlertUtils *alert = [AlertUtils sharedInstance];
-            [alert showWithText:string inView:self.view lastTime:1.0];
-
-            return ;
-        }
-
-        if (!self.imageArray || [self.imageArray count]<=0) {
-            AlertUtils *alert = [AlertUtils sharedInstance];
-            [alert showWithText:@"请选择影像图片" inView:self.view lastTime:1.0];
-            return ;
-        
-        }
-        
-        
-        
-    }
-
-    [UIView animateWithDuration:0.3 animations:^{
-        self.v_tableView.contentOffset=self.point;
-        
-    } completion:^(BOOL finished) {
-       
-        
-        //test
-//        [AlertUtil alertSuerAndCancelWithDelegate:@"已经成功预约" delegate:self];
-        [AlertUtil alertPromptInformationWithDelegate:@"已经成功预约" delegate:self];
-
-    }];
-
-    
-    DLog(@"提交");
-
-}
 
 //
 //
@@ -372,10 +351,8 @@
 {
     
     [self.imageArray addObject:image];
-    
     [self.v_tableView reloadData];
 
-    
 //    UIImageView * imageView = [[UIImageView alloc] initWithImage:image];
 //    imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
 //    [self.view addSubview:imageView];
@@ -386,12 +363,268 @@
 
 
 
-
 -(void)imagePickerControllerDIdCancel:(UIImagePickerController*)picker
 {
     [picker dismissViewControllerAnimated:YES completion:^{
         
     }];
 }
+
+- (IBAction)commmitAction:(id)sender{
+    
+    
+    for (int i=0; i<5; i++) {
+        UITextField *textField=(UITextField *)[self.view viewWithTag:1000+i];
+        [textField resignFirstResponder];
+        
+        if ([@"" isEqualToString:textField.text]) {
+            
+            NSString *string =[NSString stringWithFormat:@"请输入%@",[self.tableArray objectAtIndex:i]];
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:string inView:self.view lastTime:1.0];
+            return ;
+        }
+        
+        if (!self.imageArray || [self.imageArray count]<=0) {
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"请选择影像图片" inView:self.view lastTime:1.0];
+            
+            return ;
+            
+        }
+        
+        
+    }
+    
+    
+    //上传图片
+    [self initdataImage];
+    
+    
+//    [self initRequestPostImage];
+//    [self initReq];
+    
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.v_tableView.contentOffset=self.point;
+        
+    } completion:^(BOOL finished) {
+        
+//        [AlertUtil alertPromptInformationWithDelegate:@"已经成功预约" delegate:self];
+        
+    }];
+    
+    
+    DLog(@"提交");
+    
+}
+
+
+
+
+- (void)initdataImage{
+    
+    
+    NSDictionary *dict = @{ @"uid": [Users userId],
+                            @"tid": doctorModel.doctorid,
+                            @"diseaseInfo": appointModel.illInfo,
+                            //                            @"diseaseImgae": @"111",
+                            @"appointmentTime": [UnitPath currentDateFormater],
+                            @"token": @"",
+                            @"type": @"1"
+                            };
+
+    
+    DLog(@" 上传影像dict = %@",dict);
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer.timeoutInterval = 15.0;
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+  
+    NSString * kAccessToken = @"";
+    
+    [manager.requestSerializer setValue:[[NSUserDefaults standardUserDefaults] objectForKey:kAccessToken] forHTTPHeaderField:kAccessToken];
+    
+    
+    
+    [manager POST:appointMentUrl parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        for (int i = 0 ; i< [self.imageArray count]; i++){
+            
+            UIImage *images= [self.imageArray objectAtIndex:i];
+            NSData* imageData = UIImagePNGRepresentation(images);
+
+            [formData appendPartWithFileData:imageData
+                                        name:@"upload"
+                                    fileName:[NSString stringWithFormat:@"image%d.png",i]
+                                    mimeType:@"image/png"];
+            
+        }
+        
+        
+//        [formData appendPartWithFileData:fileData
+//                                    name:@"upload"
+//                                fileName:@"image.png"
+//                                mimeType:@"image/png"];
+        
+        
+        
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        DLog(@" 上传影像responseObject = %@",responseObject);
+        
+        if(responseObject)
+        {
+//            if(success == nil) return;
+//            success(responseObject);
+            
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        if(failure == nil) return;
+//        failure(error);
+    }];
+    
+    
+}
+
+
+//*
+- (void)initReq{
+    
+    
+    NSDictionary *dict = @{ @"uid": [Users userId],
+                            @"tid": doctorModel.doctorid,
+                            @"diseaseInfo": appointModel.illInfo,
+//                            @"diseaseImgae": @"111",
+                            @"appointmentTime": [UnitPath currentDateFormater],
+                            @"token": @"",
+                            @"type": @"1"
+                            };
+
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperation *operation = [manager POST:appointMentUrl
+                                           parameters:dict
+                            constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                                
+                                
+                                if (self.imageArray.count > 0) {
+                                    
+                                    NSObject *firstObj = [self.imageArray objectAtIndex:0];
+                                    
+                                    if ([firstObj isKindOfClass:[UIImage class]]) {     // 图片
+                                        
+                                        for(NSInteger i=0; i<self.imageArray.count; i++) {
+                                            
+                                            UIImage *eachImg = [self.imageArray objectAtIndex:i];
+                                            
+                                            NSData *eachImgData = UIImageJPEGRepresentation(eachImg, 0.5);
+                                           
+                                            [formData appendPartWithFileData:eachImgData name:[NSString stringWithFormat:@"img%ld", i+1] fileName:[NSString stringWithFormat:@"img%ld.jpg", i+1] mimeType:@"image/jpeg"];
+                                            
+                                            
+                                        }
+                                    }
+                                }
+                                
+                            } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                
+                                DLog(@"post Big success returnedDic=%@", responseObject);
+                                
+                            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                
+                                DLog(@"post big file fail error=%@", error);
+                                
+                            }];
+    
+    
+    
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        
+        NSLog(@"bytesWritten=%lu, totalBytesWritten=%lld, totalBytesExpectedToWrite=%lld", (unsigned long)bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
+        
+    }];
+    
+
+}
+
+
+ 
+ //*/
+
+#pragma mark- 上传影像 预约医生
+- (void)initRequestPostImage{
+    
+    
+    NSDictionary *dict = @{ @"uid": [Users userId],
+                            @"tid": doctorModel.doctorid,
+                            @"diseaseInfo": appointModel.illInfo,
+                            @"diseaseImgae": @"111",
+                            @"appointmentTime": [UnitPath currentDateFormater],
+                            @"token": @"",
+                            @"type": @"1"   
+                            };
+    
+    
+    DLog(@"消息dict==%@",dict);
+    [self showWaitLoading];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    
+    [manager POST:appointMentUrl parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        NSString * status=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        
+        if ([@"2001" isEqual:status]) { // 成功
+            
+            NSMutableArray * result=[responseObject objectForKey:@"result"];
+            NSString *string= [NSString stringWithFormat:@"%@",result];
+            
+            if (result && ![@"<null>" isEqualToString:string]) {
+                
+                tableArray = result;
+                DLog(@" tableArray= %@",tableArray);
+                
+                [self.v_tableView reloadData];
+            }
+            
+        }
+        else if ([@"5010" isEqual:status]) { //
+
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:messages inView:self.view lastTime:1.0];
+        
+        }
+        else{ //
+            
+            DLog(@" messages= %@",messages);
+        }
+        
+        [self hideWaitLoading];
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        
+        DLog(@"error＝%@", error);
+        [self hideWaitLoading];
+    }];
+    
+}
+
+
+
+
+
+
 
 @end

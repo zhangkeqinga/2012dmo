@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="eRm-WY-94E">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -46,7 +47,7 @@
             </objects>
             <point key="canvasLocation" x="-149" y="142"/>
         </scene>
-        <!--首页-->
+        <!--个人中心-->
         <scene sceneID="l6d-ch-OTQ">
             <objects>
                 <viewController storyboardIdentifier="FirstPageViewController" id="LR2-Lu-C2l" customClass="FirstPageViewController" sceneMemberID="viewController">
@@ -61,10 +62,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="TtY-MN-0De">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="LR2-Lu-C2l" id="2By-xM-i6E"/>
-                                    <outlet property="delegate" destination="LR2-Lu-C2l" id="J5Z-Gi-OI2"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -75,10 +72,9 @@
                             <constraint firstItem="TtY-MN-0De" firstAttribute="top" secondItem="SrL-fy-kML" secondAttribute="top" id="oiY-bM-O60"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="首页" id="puE-kY-xnc"/>
+                    <navigationItem key="navigationItem" title="个人中心" id="puE-kY-xnc"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="v_tableView" destination="TtY-MN-0De" id="6Mw-D8-3AV"/>
                         <outlet property="view" destination="SrL-fy-kML" id="8RS-7j-9B5"/>
                     </connections>
                 </viewController>

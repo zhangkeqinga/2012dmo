@@ -20,9 +20,6 @@
 @synthesize dics;
 
 
-- (void)withManger:(DoctorModel *)doctor_{
-    
-}
 - (void)withMangerDic:(NSDictionary *)doctordic_{
     dics = doctordic_;
     
@@ -34,8 +31,10 @@
     [self setTitleBackItemImageAndTitle];
     self.tabBarController.tabBar.hidden=YES;
 
+    self.title = @"医生介绍";
     
 }
+#pragma mark- viewDidLoad
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -102,10 +101,18 @@
         return 190;
     }
     else if (indexPath.section==1) {
-        return 45;
+        
+        NSString *strings=[self.dics objectForKey:@"doctorSpecial"];
+        CGSize sizeFrame = [UnitPath calculateFrameWithContent:strings];
+        return 20+sizeFrame.height;
     }
     else{
-        return 400;
+        
+        NSString *strings=[self.dics objectForKey:@"doctorInfo"];
+
+        CGSize sizeFrame = [UnitPath calculateFrameWithContent:strings];
+        return 20+sizeFrame.height;
+
     }}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,11 +129,10 @@
         
         UIImageView *ImagePhoto=[[UIImageView alloc]init];
         [cell addSubview:ImagePhoto];
-        ImagePhoto.image=[UIImage imageNamed:@"背景医院.png"];
         ImagePhoto.frame=CGRectMake((ScreenWidth-100)/2, 15, 100, 100);
-//        ImagePhoto.image=[UIImage imageNamed:[self.dics objectForKey:@"photoimage"]];
 
         NSString *stringUrl=[dics objectForKey:@"doctorImage"];
+        stringUrl = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)stringUrl, nil, nil, kCFStringEncodingUTF8));
         NSURL *url =[NSURL URLWithString:stringUrl];
         [ImagePhoto sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"product_DetailInfo"]];
 
@@ -157,8 +163,8 @@
         label1.textAlignment=NSTextAlignmentLeft;
         label1.text=@"科室";
         [cell addSubview:label1];
-//        label1.text=[NSString stringWithFormat:@"%@", [self.dics objectForKey:@"department"]];
-//        label1.text= [self.dics objectForKey:@"doctorSection"];
+//        label1.text=[NSString stringWithFormat:@"%@", [self.dics objectForKey:@"doctorSection"]];
+        label1.text= [NSString stringWithFormat:@"(%@)",[self.dics objectForKey:@"doctorSection"]];
         
         
         UIButton *pointBtn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -175,34 +181,37 @@
 
         
     }else     if (indexPath.section==1) {
+      
+        NSString *strings=[self.dics objectForKey:@"doctorSpecial"];
+        CGSize sizeFrame = [UnitPath calculateFrameWithContent:strings];
+
         UILabel *label=[[UILabel alloc]init];
         [cell addSubview:label];
         
-        label.frame=CGRectMake(25, 0, ScreenWidth-40, 45);
+        label.frame=CGRectMake(20, 0, ScreenWidth-40, 20+sizeFrame.height);
+        label.numberOfLines =100;
         label.font=[UIFont systemFontOfSize:14];
         label.textAlignment=NSTextAlignmentLeft;
         label.text=@"职业医院：北京阜外心血管医院";
-        
-//        label.text= [self.dics objectForKey:@"specialty"];
         label.text= [self.dics objectForKey:@"doctorSpecial"];
 
 
     }else {
         
-        UITextView *label=[[UITextView alloc]init];
+        NSString *strings=[self.dics objectForKey:@"doctorInfo"];
+        CGSize sizeFrame = [UnitPath calculateFrameWithContent:strings];
+
+        
+        UILabel *label=[[UILabel alloc]init];
         [cell addSubview:label];
         
-        label.frame=CGRectMake(20, 0, ScreenWidth-40, 400);
+        label.frame=CGRectMake(20, 5, ScreenWidth-40, 20+sizeFrame.height);
+        label.numberOfLines =200;
         label.font=[UIFont systemFontOfSize:14];
         label.textAlignment=NSTextAlignmentLeft;
-//        label.text=@"简介：冠心病搭桥，各种重症心脏瓣膜病手术、复杂先心病手术";
-        
+        label.text=@"医生详细介绍";
         label.text= [self.dics objectForKey:@"doctorInfo"];
-        
-//        label.text= [self.dics objectForKey:@"doctorInfo"];
-        
-        label.editable=NO;
-        
+
     }
     
     
@@ -221,13 +230,17 @@
     
 }
 
+
 - (IBAction)pointDoctor:(id)sender{
     NSLog(@"预约");
     
-        UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
-        PointApplyInfoCommitController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"PointApplyInfoCommitController"];
-        [self.navigationController pushViewController:doctor animated:YES];
-
+    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
+    PointApplyInfoCommitController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"PointApplyInfoCommitController"];
+    [doctor withMangerDic:self.dics];
+    [self.navigationController pushViewController:doctor animated:YES];
+    
+    
+    
 }
 
 

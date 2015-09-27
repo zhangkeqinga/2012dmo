@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="goM-UW-N6h">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -14,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="ReP-T0-bSB" kind="relationship" relationship="rootViewController" id="BNI-FW-pIg"/>
+                        <segue destination="ReP-T0-bSB" kind="relationship" relationship="rootViewController" id="FI3-g3-n8p"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pzK-RV-W9y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -34,20 +35,48 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="qLA-tA-ZRo">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="108" width="320" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="ReP-T0-bSB" id="gQn-Jb-5gt"/>
                                     <outlet property="delegate" destination="ReP-T0-bSB" id="enZ-Yf-pOB"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YIG-rL-Jom">
+                                <rect key="frame" x="235" y="64" width="85" height="44"/>
+                                <color key="backgroundColor" red="0.78932395531443944" green="0.79123904979761062" blue="0.82046313316993458" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="85" id="JLx-b4-Lz7"/>
+                                    <constraint firstAttribute="height" constant="44" id="tkN-5Y-18h"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="选择省市区">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectProviceAndCity:" destination="ReP-T0-bSB" eventType="touchUpInside" id="neQ-8k-lzW"/>
+                                </connections>
+                            </button>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="XEf-dE-LKt">
+                                <rect key="frame" x="0.0" y="64" width="235" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="SRH-mB-xd4"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="4qn-B5-i04" firstAttribute="top" secondItem="qLA-tA-ZRo" secondAttribute="bottom" id="Lle-7d-xPm"/>
-                            <constraint firstItem="qLA-tA-ZRo" firstAttribute="top" secondItem="VKo-j5-fSD" secondAttribute="top" id="QAr-rK-5HD"/>
-                            <constraint firstAttribute="trailing" secondItem="qLA-tA-ZRo" secondAttribute="trailing" id="fMa-I7-MDX"/>
-                            <constraint firstItem="qLA-tA-ZRo" firstAttribute="leading" secondItem="VKo-j5-fSD" secondAttribute="leading" id="l2u-zh-tLs"/>
+                            <constraint firstItem="qLA-tA-ZRo" firstAttribute="top" secondItem="YIG-rL-Jom" secondAttribute="bottom" id="46a-Qb-9d6"/>
+                            <constraint firstItem="qLA-tA-ZRo" firstAttribute="leading" secondItem="VKo-j5-fSD" secondAttribute="leading" id="HTe-sL-a7P"/>
+                            <constraint firstAttribute="trailing" secondItem="qLA-tA-ZRo" secondAttribute="trailing" id="TAe-WF-w9a"/>
+                            <constraint firstItem="XEf-dE-LKt" firstAttribute="top" secondItem="rgc-kN-pXw" secondAttribute="bottom" id="Ter-Ai-8ay"/>
+                            <constraint firstItem="XEf-dE-LKt" firstAttribute="leading" secondItem="VKo-j5-fSD" secondAttribute="leading" id="WUP-Wk-lRt"/>
+                            <constraint firstItem="YIG-rL-Jom" firstAttribute="leading" secondItem="XEf-dE-LKt" secondAttribute="trailing" id="Y6w-L8-yHQ"/>
+                            <constraint firstAttribute="trailing" secondItem="YIG-rL-Jom" secondAttribute="trailing" id="YLY-95-cAa"/>
+                            <constraint firstItem="YIG-rL-Jom" firstAttribute="top" secondItem="rgc-kN-pXw" secondAttribute="bottom" id="Zk0-DS-pp1"/>
+                            <constraint firstItem="4qn-B5-i04" firstAttribute="top" secondItem="qLA-tA-ZRo" secondAttribute="bottom" id="aQl-hf-kl1"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="医院" id="Byc-Pm-FUw"/>

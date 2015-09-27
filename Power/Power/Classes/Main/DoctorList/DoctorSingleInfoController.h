@@ -16,7 +16,6 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *v_tableView;
 
-- (void)withManger:(DoctorModel *)doctor_;
 - (void)withMangerDic:(NSDictionary *)doctordic_;
 
 @end

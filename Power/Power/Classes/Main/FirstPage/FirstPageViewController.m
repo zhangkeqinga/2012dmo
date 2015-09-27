@@ -20,6 +20,10 @@
 
 #define kRGBAColor(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
+
+#define addHight  20
+#define cellHight  ScreenWidth/3
+
 @interface FirstPageViewController ()
 
 @property (strong, nonatomic) EScrollerView  *scroller;
@@ -52,6 +56,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+
     
     dics = [[NSMutableDictionary alloc]init];
     
@@ -60,10 +65,93 @@
     
     NSMutableDictionary *plistDic=[PathUtilities readPlistWithFile:@"PropertyList"];
     self.funcArray = [plistDic objectForKey:@"FUNCFIRST"];
+    [self initView];
 
     [self initRequest];
     
+
+//    v_tableView.userInteractionEnabled = NO;
+    
 }
+
+
+
+
+- (void)initView{
+    
+    [self initProudctView];
+    [self.view addSubview:self.productView];
+    
+    for (int k =0; k<2; k++) {
+        
+    UIImageView *lineImageh=[[UIImageView alloc]init];
+    lineImageh.frame=CGRectMake(ScreenWidth/2, 140+cellHight*(k), 1, cellHight);
+    lineImageh.backgroundColor=[UIColor lightGrayColor];
+    [self.view addSubview:lineImageh];
+    
+        
+    for (NSInteger i=0; i<2; i++) {
+        
+        UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
+        UILabel *label=[[UILabel alloc]init];
+        UIImageView *typeImage=[[UIImageView alloc]init];
+        [self.view addSubview:label];
+        [self.view addSubview:typeImage];
+        [self.view addSubview:button];
+        
+        button.frame=CGRectMake(ScreenWidth/2*i , 140+cellHight*(k), ScreenWidth/2, cellHight);
+        [button addTarget:self action:@selector(selectFuncation:) forControlEvents:UIControlEventTouchUpInside];
+
+        
+        [typeImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).with.offset(140+cellHight*(k));
+            make.centerX.equalTo(button);
+            make.width.mas_equalTo(80);
+            make.height.mas_equalTo(80);
+            
+        }];
+        
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).with.offset(140+cellHight*(k)+75);
+            make.centerX.equalTo(button);
+            make.width.mas_equalTo(100);
+            make.height.mas_equalTo(30);
+            
+        }];
+        
+        
+        label.font=[UIFont systemFontOfSize:14];
+        label.textAlignment=NSTextAlignmentCenter;
+        
+        if ([self.funcArray count] > k*2+i) {
+            
+            UIImageView *lineImagev1=[[UIImageView alloc]init];
+            lineImagev1.backgroundColor=[UIColor lightGrayColor];
+            [self.view addSubview:lineImagev1];
+            
+            lineImagev1.frame=CGRectMake(i*ScreenWidth/2, 140+cellHight*(k+1)-1, ScreenWidth/2, 1);
+            
+            NSDictionary *dic = [self.funcArray objectAtIndex:k*2+i];
+            NSString *stringName=[dic objectForKey:@"name"];
+            NSString *imageName=[dic objectForKey:@"image"];
+            NSString *tag=[dic objectForKey:@"tag"];
+            
+            typeImage.image=[UIImage imageNamed:imageName];
+            label.text=stringName;
+            button.tag=[tag integerValue];
+            
+        }
+        
+        
+        
+    }
+    }
+
+    
+}
+
+
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -88,10 +176,10 @@
     
     self.productView =[[UIView alloc]init];
     if (ScreenHeight<=480) {
-        self.productView.frame=CGRectMake(0, 0, ScreenWidth, 200);
+        self.productView.frame=CGRectMake(0, 0, ScreenWidth, 140);
     }else{
         
-        self.productView.frame=CGRectMake(0, 0, ScreenWidth, 200);
+        self.productView.frame=CGRectMake(0, 0, ScreenWidth, 140);
     }
     
     [self.view addSubview:self.productView];
@@ -141,13 +229,11 @@
 }
 
 
-#define addHight  20
-#define cellHight  ScreenWidth/3
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.row==0){
-        return 200;
+        return 140;
         
     }else{
         return cellHight;
@@ -170,15 +256,9 @@
     else {
         
         UIImageView *lineImageh=[[UIImageView alloc]init];
-        UIImageView *lineImagev2=[[UIImageView alloc]init];
-        
         lineImageh.frame=CGRectMake(ScreenWidth/2, 0, 1, cellHight);
-
         lineImageh.backgroundColor=[UIColor lightGrayColor];
-        lineImagev2.backgroundColor=[UIColor lightGrayColor];
-
         [cell addSubview:lineImageh];
-        [cell addSubview:lineImagev2];
 
         for (NSInteger i=0; i<2; i++) {
             UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -217,7 +297,6 @@
                 lineImagev1.backgroundColor=[UIColor lightGrayColor];
                 [cell addSubview:lineImagev1];
                 lineImagev1.frame=CGRectMake(i*ScreenWidth/2, cellHight-1, ScreenWidth/2, 1);
-//                lineImagev2.frame=CGRectMake(ScreenWidth/2, cellHight-1, ScreenWidth/2, 1);
                 
                 NSDictionary *dic = [self.funcArray objectAtIndex:(indexPath.row-1)*2+i];
                 NSString *stringName=[dic objectForKey:@"name"];
@@ -256,24 +335,30 @@
     switch ([sender tag]) {
             
             
-        case 1100:  //我的消息
+        case 1100:  //我的消息 －－ 我的影像
         {
-            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
-            
-            PerNotificationVC *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"PerNotificationVC"];
-
-            [self.navigationController pushViewController:friendControl animated:YES];
+//            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
+//            
+//            PerNotificationVC *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"PerNotificationVC"];
+//
+//            [self.navigationController pushViewController:friendControl animated:YES];
   
+            
+            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
+            CheckVIewController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"CheckVIewController"];
+            [self.navigationController pushViewController:doctor animated:YES];
+
+            
             
         }
             break;
-        case 1101:  //我的影像
+        case 1101:  //我的预约
         {
             
             UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
             
             MedicalViewController *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"MedicalViewController"];
-            [friendControl withMangerInfo:@"我的影像"];
+            [friendControl withMangerInfo:@"我的预约"];
             [self.navigationController pushViewController:friendControl animated:YES];
             
         }

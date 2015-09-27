@@ -17,11 +17,11 @@
 		<array>
 			<dict>
 				<key>funName</key>
-				<string>影像病例查询</string>
+				<string>我的消息</string>
 				<key>funImg</key>
-				<string>IMG_0263_14.png</string>
+				<string>IMG_0263_06.png</string>
 				<key>funTag</key>
-				<string>5000</string>
+				<string>5007</string>
 			</dict>
 			<dict>
 				<key>funName</key>
@@ -197,9 +197,12 @@
 	<key>DOCTOR_LEVEL</key>
 	<array>
 		<string>所有职称</string>
-		<string>主治医师</string>
-		<string>副主任医师</string>
+		<string>教授</string>
+		<string>副教授</string>
 		<string>主任医师</string>
+		<string>副主任医师</string>
+		<string>主治医师</string>
+		<string>医师</string>
 	</array>
 	<key>DOCTOR_DKS</key>
 	<array>
@@ -359,7 +362,7 @@
 	<array>
 		<dict>
 			<key>name</key>
-			<string>我的消息</string>
+			<string>我的影像</string>
 			<key>func</key>
 			<string>1100</string>
 			<key>tag</key>
@@ -369,7 +372,7 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>我的影像</string>
+			<string>我的预约</string>
 			<key>func</key>
 			<string>1101</string>
 			<key>tag</key>

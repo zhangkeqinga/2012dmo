@@ -54,6 +54,9 @@
 
 
 
++(void)historySelect:(NSMutableArray *)dic withKey:(NSString *)key_;
++(NSMutableArray *)historySelectKey:(NSString *)key_;     //科室
+
 
 @end
 

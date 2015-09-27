@@ -39,6 +39,7 @@
 @property (nonatomic,strong) UITextField *hiddenTextField;
 @property (nonatomic,assign) id <YMDPickerControllerDelegate> delegate;
 @property (nonatomic,assign) BOOL isShowTwoTime;
+@property (nonatomic,strong) UIDatePicker *picker;
 
 /**
  * 显示

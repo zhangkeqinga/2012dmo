@@ -68,6 +68,9 @@
     }
     
     [self.window makeKeyAndVisible];
+    
+//    [self dispath_background_requestData];  //请求数据
+    
     return YES;
 }
 
@@ -127,6 +130,9 @@
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     
 }
+
+
+
 
 
 #pragma mark - 解锁

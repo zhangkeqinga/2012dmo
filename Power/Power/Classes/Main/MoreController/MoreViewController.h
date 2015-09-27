@@ -18,6 +18,11 @@
 #import "AppointlistController.h"
 
 @interface MoreViewController : BasedViewController<EScrollerViewDelegate>
+{
+//    CGRect keyboardBounds;
+//    BOOL keyboardIsShowing;
+//    CGFloat keyboardHeight;
 
+}
 
 @end

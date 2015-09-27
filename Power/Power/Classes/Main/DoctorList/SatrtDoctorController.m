@@ -74,13 +74,16 @@
     tableArray=[NSMutableArray array];
     
     NSMutableDictionary *plistDic=[PathUtilities readPlistWithFile:@"PropertyList"];
-    
-    
 //    tableArray=[plistDic objectForKey:@"DOCTOR_LIST"];
-    self.citys   = [plistDic objectForKey:@"DOCTOR_LEVEL"];
-    self.ages    = [plistDic objectForKey:@"DOCTOR_DKS"];
-    self.genders = [plistDic objectForKey:@"DOCTOR_HOS"];
     
+    self.citys   = [plistDic objectForKey:@"DOCTOR_HOS"];
+    self.ages    = [plistDic objectForKey:@"DOCTOR_DKS"];
+    self.genders = [plistDic objectForKey:@"DOCTOR_LEVEL"];
+    
+    
+//    self.citys   = [Users historySelectKey:HISPOSITION];
+//    self.ages    = [Users historySelectKey:HISTORYLEVEL];
+//    self.genders = [Users historySelectKey:HISTORYNAME];
     
     DOPDropDownMenu *menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:40];
     menu.dataSource = self;
@@ -88,9 +91,10 @@
     [self.view addSubview:menu];
     self.menu = menu;
     
-    
     //
     [self initRequest];
+    
+    [self dispath_background_requestData];
 
 }
 
@@ -201,9 +205,18 @@
 //    ImagePhoto.image=[UIImage imageNamed:[dic objectForKey:@"photoimage"]];
     
     NSString *stringUrl=[dic objectForKey:@"doctorImage"];
+    
+    //中文的url链接
+    stringUrl = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)stringUrl, nil, nil, kCFStringEncodingUTF8));
+    
+//    DLog(@"stringUrl==%@",stringUrl);
+
     NSURL *url =[NSURL URLWithString:stringUrl];
+    
+//    DLog(@"url==%@",url);
     [ImagePhoto sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"product_DetailInfo"]];
 
+    
     
     UILabel *label=[[UILabel alloc]init];
     [cell addSubview:label];
@@ -214,7 +227,7 @@
     label.text=@"徐建平";
 //    label.text=[dic objectForKey:@"name"];
     label.text=[dic objectForKey:@"doctorName"];
-
+    
     
     UILabel *label1=[[UILabel alloc]init];
     [cell addSubview:label1];
@@ -257,20 +270,12 @@
     [pointBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     pointBtn.titleLabel.font=[UIFont systemFontOfSize:14];
     [pointBtn addTarget:self action:@selector(pointDoctor:) forControlEvents:UIControlEventTouchUpInside];
+    pointBtn.tag = indexPath.row;
+    
     
     return cell;
 }
 
-
-- (IBAction)pointDoctor:(id)sender{
-    
-    NSLog(@"关注按钮");
-    
-    AlertUtils *alert = [AlertUtils sharedInstance];
-    [alert showWithText:@"已关注" inView:self.view lastTime:1.0];
-
-    
-}
 
 
 
@@ -282,6 +287,7 @@
 
     DoctorSingleInfoController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"DoctorSingleInfoController"];
     [doctor withMangerDic:dic];
+    
     [self.navigationController pushViewController:doctor animated:YES];
     
     
@@ -305,11 +311,83 @@
 }
 
 
+- (IBAction)pointDoctor:(id)sender{
+    
+    NSLog(@"关注按钮");
+    
+    NSDictionary *dic=[tableArray objectAtIndex:[sender tag]];
+
+    [self initAttentionRequest:[dic objectForKey:@"id"]];
+    
+    
+}
+
+
+
+#pragma mark- 取消关注
+- (void)initCancleAppointRequest{
+    
+}
+
+
+#pragma mark- 添加关注
+- (void)initAttentionRequest:(NSString *)doctorId{
+    
+    if (!doctorId) {
+        DLog(@"添加关注 添加关注 添加关注 添加关注 doctorId");
+    }
+    
+    if (![Users phoneNumber]) {
+        DLog(@"添加关注 添加关注 添加关注 添加关注 phoneNumber");
+    }
+    
+    
+    NSDictionary *dict = @{ @"doctorId": doctorId,
+                            @"userPhone": [Users phoneNumber],
+                            @"token": @"",
+                            @"type": @"1"
+                            };
+    
+    
+    DLog(@"添加关注dict==%@",dict);
+    [self showWaitLoading];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+    
+    
+    [manager POST:attentionUrl parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"] ];
+        NSString * status=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+        
+        if ([@"2001" isEqual:status]) { // 成功
+            
+            AlertUtils *alert = [AlertUtils sharedInstance];
+            [alert showWithText:@"已关注" inView:self.view lastTime:1.0];
+
+            [self.v_tableView reloadData];
+            
+        }else{ //
+            
+            DLog(@" messages= %@",messages);
+        }
+        
+        [self hideWaitLoading];
+        
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请求失败" inView:self.view lastTime:1.0];
+        
+        DLog(@"error＝%@", error);
+        [self hideWaitLoading];
+    }];
+
+}
+
 
 #pragma mark- 医生列表
 - (void)initRequest{
-    
-    
     
     NSDictionary *dict = @{ @"doctorTitle": @"",
                             @"doctorSection": @"",
@@ -339,6 +417,8 @@
             if (result && ![@"<null>" isEqualToString:string]) {
                 
                 tableArray = result;
+                DLog(@" tableArray= %@",tableArray);
+
                 [self.v_tableView reloadData];
             }
             
@@ -359,6 +439,153 @@
     }];
     
 }
+
+
+
+
+- (void)dispath_background_requestData{
+    
+    //  后台执行：
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        // something
+        
+//        [self requestData:@"1"];
+//        [self requestData:@"2"];
+//        [self requestData:@"3"];
+        
+    });
+    
+    
+    
+}
+
+
+
+- (void)requestData:(NSString *)typeString {
+    
+    
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?type=1",doctorMdmUrl]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation1 = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [operation1 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"Response: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Error: %@", error);
+        
+    }];
+    
+    NSURL *url2 = [NSURL URLWithString:[NSString stringWithFormat:@"%@?type=2",doctorMdmUrl]];
+    
+    NSURLRequest *request2 = [NSURLRequest requestWithURL:url2];
+    
+    AFHTTPRequestOperation *operation2 = [[AFHTTPRequestOperation alloc] initWithRequest:request2];
+    
+    [operation2 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"Response2: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Error: %@", error);
+        
+    }];
+    
+    
+    
+    NSURL *url3 = [NSURL URLWithString:[NSString stringWithFormat:@"%@?type=3",doctorMdmUrl]];
+    NSURLRequest *request3 = [NSURLRequest requestWithURL:url3];
+    AFHTTPRequestOperation *operation3 = [[AFHTTPRequestOperation alloc] initWithRequest:request3];
+    [operation3 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"Response3: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Error: %@", error);
+        
+    }];  
+    
+    
+    //同时请求
+//    NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
+//    [operationQueue setMaxConcurrentOperationCount:3];
+//    [operationQueue addOperations:@[operation1, operation2, operation3] waitUntilFinished:NO];
+    
+    
+    //operation2 在 operation1 请求完成后执行
+    NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
+    [operation2 addDependency:operation1];
+    [operationQueue addOperations:@[operation1, operation2, operation3] waitUntilFinished:NO];
+    
+    
+//    NSDictionary *dict = @{ @"type":typeString  };
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
+//    
+//    [manager POST:doctorMdmUrl parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+//        
+//        
+//        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"]];
+//        NSString * status=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
+//        
+//        if ([@"2001" isEqual:status]) { // 成功
+//            
+//            NSMutableArray * result=[responseObject objectForKey:@"result"];
+//            NSString *string= [NSString stringWithFormat:@"%@",result];
+//            
+//            if (result && ![@"<null>" isEqualToString:string]) {
+//                //                tableArray = result;
+//                
+//                if ([typeString isEqual:@"1"]) {
+//                    
+////                    DLog(@"1=responseObject==%@",responseObject);
+////                    [Users historySelect:result withKey:HISPOSITION];
+//                    self.citys   = result;
+//                }
+//                
+//                if ([typeString isEqual:@"2"]) {
+//                    
+////                    DLog(@"2=responseObject==%@",responseObject);
+////                    [Users historySelect:result withKey:HISTORYLEVEL];
+//                    self.ages    = result;
+//
+//                }
+//
+//                if ([typeString isEqual:@"3"]) {
+//                    
+////                    DLog(@"3=responseObject==%@",responseObject);
+////                    [Users historySelect:result withKey:HISTORYNAME];
+//                
+//                    self.genders = result;
+//
+//                }
+//                
+//            }else{
+//                
+//                
+//            }
+//            
+//        }else{ //
+//            
+//            DLog(@" messages= %@",messages);
+//        }
+//        
+//        
+//    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+//        
+//        
+//    }];
+    
+    
+    
+}
+
 
 
 //doctorTitle = "\U526f\U4e3b\U4efb\U533b\U5e08";

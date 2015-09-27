@@ -34,6 +34,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"我的影像";
+    
     [self setTitleBackItemImageAndTitle];
     self.point=self.backScrollview.contentOffset;
     
@@ -77,6 +79,9 @@
     } completion:^(BOOL finished) {
         UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
         MedicalViewController *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"MedicalViewController"];
+        friendControl.titleString =@"我的影像";
+        
+        
         [self.navigationController pushViewController:friendControl animated:YES];
         
 

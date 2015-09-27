@@ -63,7 +63,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CellHight;
+    return 44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -73,33 +73,24 @@
     UILabel *label=[[UILabel alloc]init];
     [cell addSubview:label];
     
-    label.frame=CGRectMake(15, 18, 200, 30);
+    label.frame=CGRectMake(15, 0, 200, 40);
     label.font=[UIFont systemFontOfSize:16];
     label.textAlignment=NSTextAlignmentLeft;
-    label.text=@"医生：徐建平";
     
     UILabel *label1=[[UILabel alloc]init];
     [cell addSubview:label1];
-    label1.frame=CGRectMake(15, CellHight/2, 200, 30);
+    label1.frame=CGRectMake(ScreenWidth/2, 0, ScreenWidth/2-20, 40);
     label1.font=[UIFont systemFontOfSize:14];
-    label1.textAlignment=NSTextAlignmentLeft;
+    label1.textAlignment=NSTextAlignmentRight;
     label1.text=@"科室: 心血管科";
     
     UILabel *labeltime=[[UILabel alloc]init];
-//    [cell addSubview:labeltime];
     labeltime.frame=CGRectMake(ScreenWidth-100-15,  18 , 100, 30);
     labeltime.font=[UIFont systemFontOfSize:14];
     labeltime.textAlignment=NSTextAlignmentRight;
     labeltime.text=@"2015-09-10";
-    
-//    label.text = [dic objectForKey:@"title"];
-//    label1.text = [dic objectForKey:@"content"];
-//    labeltime.text = [dic objectForKey:@"time"];
-    
     label.text = @"我的积分";
-    
     label1.text = @"";
-
     if (tableArray){
         if (tableArray.count>indexPath.row){
             

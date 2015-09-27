@@ -8,6 +8,7 @@
 
 #import "BasedAFNetworkController.h"
 #import "CheckVIewController.h"
+#import "HospitalModel.h"
 
 @interface DoctorListController : BasedAFNetworkController
 <UITableViewDataSource,UITableViewDelegate>
@@ -15,7 +16,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *v_tableView;
 @property (strong, nonatomic) NSMutableArray * tableArray;
-- (void)withManger:(DoctorModel *)doctor_;
+- (void)withManger:(HospitalModel *)hospital_;
 
 
 @end

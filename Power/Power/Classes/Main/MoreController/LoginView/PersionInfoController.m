@@ -46,13 +46,13 @@
     NSMutableDictionary *plistDic=[PathUtilities readPlistWithFile:@"PropertyList"];
     tableArray=[plistDic objectForKey:@"PERSONINFO"];
     
-    
     v_tableView.tableFooterView = [[UIView alloc] init];
     v_tableView.backgroundColor=[UIColor clearColor];
     v_tableView.tableFooterView.backgroundColor=BACKVIEWCOLOR;
 
+    [self setFreshNavigationBar];  //更新个人信息
     
-//    [self setFreshNavigationBar];
+    
 }
 
 
@@ -252,6 +252,8 @@
     ymdPicker = [[YMDPickerController alloc] init];
     ymdPicker.delegate = self;
     ymdPicker.isShowTwoTime=NO;
+    ymdPicker.picker.maximumDate = [UnitPath dateFromString: [UnitPath currentDateSecond]];
+    
     
 //    [ymdPicker setDateEnd:[UnitPath dateFromString:[UnitPath currentDateFormater]] animated:YES];
 //    [ymdPicker setDateEnd:[UnitPath dateFromString:[UnitPath currentDateFormater]] animated:YES];
@@ -357,8 +359,8 @@
                             @"sex": @"男",
                             @"birthday": @"2019-09-09",
                             @"token": @" "
-                            
                             };
+    
     
     DLog(@"消息dict==%@",dict);
     [self showWaitLoading];

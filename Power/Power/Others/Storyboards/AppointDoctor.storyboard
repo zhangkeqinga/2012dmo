@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rxx-fS-IqJ">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -22,7 +21,7 @@
             </objects>
             <point key="canvasLocation" x="-872" y="147"/>
         </scene>
-        <!--首页-->
+        <!--个人中心-->
         <scene sceneID="cOD-e6-RFq">
             <objects>
                 <viewController storyboardIdentifier="AppointDoctorController" id="t8e-uQ-2I7" customClass="AppointDoctorController" sceneMemberID="viewController">
@@ -51,7 +50,7 @@
                             <constraint firstItem="TQ8-aU-pZh" firstAttribute="top" secondItem="oQh-A9-V3P" secondAttribute="bottom" id="v3e-Vc-EGY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="首页" id="3vw-uw-jlE"/>
+                    <navigationItem key="navigationItem" title="个人中心" id="3vw-uw-jlE"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="v_tableView" destination="oQh-A9-V3P" id="nf2-da-Kpc"/>

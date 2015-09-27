@@ -273,17 +273,46 @@
     NSUserDefaults*defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setObject:[NSNumber numberWithBool:NO]  forKey:@"user_isLogin"];
-    
     [defaults setObject:[NSNumber numberWithBool:NO]  forKey:@"isPaySecrity"];
     [defaults setObject:[NSNumber numberWithBool:NO]  forKey:@"isGusterSecrity"];
     [defaults setObject:[NSNumber numberWithBool:NO]  forKey:@"isAddBank"];
-    
+    [defaults setObject:[NSNumber numberWithBool:NO]  forKey:@"id"];
+
     [defaults setObject:nil  forKey:@"user_detail"];
 
     [defaults synchronize];
     
     return YES;
 }
+
+
+
++(void)historySelect:(NSMutableArray *)dic withKey:(NSString *)key_;
+{
+    
+    NSData * dataobject = [NSKeyedArchiver archivedDataWithRootObject:dic];
+    NSUserDefaults*defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:dataobject  forKey:key_];
+//    [defaults synchronize];
+
+}
+
+
++(NSMutableArray *)historySelectKey:(NSString *)key_;     //科室 ....
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData * dataobject = [defaults objectForKey:key_];
+    NSMutableArray * arr = [NSKeyedUnarchiver unarchiveObjectWithData:dataobject];
+
+    return arr;
+    
+}
+
+
+
+
+
+
 
 
 @end

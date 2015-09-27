@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MainViewController : UITabBarController
+
 @property(nonatomic,assign) NSInteger indexNum;
 
 - (void)loginSuccess:(BOOL)isLogin ;

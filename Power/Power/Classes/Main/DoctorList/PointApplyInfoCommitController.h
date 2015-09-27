@@ -9,6 +9,13 @@
 #import "BasedAFNetworkController.h"
 #import "AppointMode.h"
 
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <ImageIO/ImageIO.h>
+
+#import "AFURLResponseSerialization.h"
+#import "AFSecurityPolicy.h"
+
+
 @interface PointApplyInfoCommitController : BasedAFNetworkController
 <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
@@ -17,5 +24,8 @@
 @property (strong, nonatomic) NSMutableArray *tableArray;
 @property (strong, nonatomic) NSMutableArray *imageArray;
 @property (strong, nonatomic) AppointMode *appointModel;
+@property (strong, nonatomic) DoctorModel *doctorModel;
+
+- (void)withMangerDic:(NSDictionary *)doctordic_;
 
 @end

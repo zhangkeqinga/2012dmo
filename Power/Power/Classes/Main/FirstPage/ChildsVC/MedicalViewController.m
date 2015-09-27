@@ -12,7 +12,10 @@
 
 
 @interface MedicalViewController ()
-
+{
+    NSInteger index_;
+    NSInteger pagesize_;
+}
 @end
 
 @implementation MedicalViewController
@@ -20,6 +23,8 @@
 @synthesize v_tableView;
 @synthesize tableArray;
 @synthesize titleString;
+
+
 
 - (void)withMangerInfo:(NSString*)title{
     
@@ -32,7 +37,7 @@
     
     [self setTitleBackItemImageAndTitle];
     self.tabBarController.tabBar.hidden=YES;
-    self.title= @"我的影像";
+    self.title= @"我的预约";
     self.title= titleString;
     
     v_tableView.tableFooterView = [[UIView alloc]init];
@@ -40,6 +45,9 @@
     [self setAddNavigationBar];
     
     tableArray=[NSMutableArray array];
+    
+    index_ = 1;
+    pagesize_ = 10;
     
     [self initRequest];
     
@@ -99,11 +107,10 @@
     
     UIImageView *ImagePhoto=[[UIImageView alloc]init];
     [cell addSubview:ImagePhoto];
-    ImagePhoto.image=[UIImage imageNamed:[imageArray objectAtIndex:indexPath.row]];
     
+    ImagePhoto.image=[UIImage imageNamed:[imageArray objectAtIndex:0]];
     ImagePhoto.frame=CGRectMake(10, 20, ScreenWidth-20, 260);
-    
-    
+
     UILabel *label=[[UILabel alloc]init];
     [cell addSubview:label];
     
@@ -148,8 +155,19 @@
 #pragma mark-
 - (void)initRequest{
     
-    NSDictionary *dict = @{ @"userPhone": [Users phoneNumber],
-                            @"token":@" "
+    
+    //pageIndex	false	String	分页页码
+    //pageSize	false	String	每页大小
+    //token	ture	String	签名标识
+    //id	ture	String	用户id
+    
+    NSString * indexs = [NSString stringWithFormat:@"%ld",(long)index_];
+    NSString * pagesizes = [NSString stringWithFormat:@"%ld",(long)pagesize_];
+    
+    NSDictionary *dict = @{ @"pageIndex": indexs,
+                            @"pageSize" : pagesizes,
+                            @"token": @" ",
+                            @"id"   : [Users userId]
                             };
     
     DLog(@"影像dict==%@",dict);
@@ -191,6 +209,24 @@
     
 }
 
+//code = 315;
+//createIp = "<null>";
+//createTime = "<null>";
+//createUser = "<null>";
+//createUserName = "<null>";
+//id = 29;
+//isDelete = 0;
+//name = "\U5fc3\U8840\U7ba1\U79d1";
+//order = "<null>";
+//page = "<null>";
+//rows = "<null>";
+//sort = "<null>";
+//type = 3;
+//updateIp = "<null>";
+//updateTime = "<null>";
+//updateUser = "<null>";
+//updateUserName = "<null>";
+//url = "<null>";
 
 
 @end

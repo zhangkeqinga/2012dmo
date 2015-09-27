@@ -531,7 +531,7 @@
         <image name="button_red.png" width="578" height="90"/>
         <image name="contactUs_phone.png" width="150" height="150"/>
         <image name="fun4006.png" width="44" height="44"/>
-        <image name="phone.png" width="125" height="125"/>
+        <image name="phone.png" width="437" height="220"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

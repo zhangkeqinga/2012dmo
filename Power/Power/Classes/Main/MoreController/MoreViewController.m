@@ -22,7 +22,11 @@
 #import "NotificationInfoController.h"
 #import "RewardViewController.h"
 
+
 #import "CheckVIewController.h"
+#import "RewardPointVC.h"
+#import "PerNotificationVC.h"
+
 
 
 @interface MoreViewController ()
@@ -59,6 +63,7 @@ UITableViewDelegate
     
     self.tabBarController.tabBar.hidden=NO;
 
+    
     [self setTitleBackItemNil];
     
     [self setup];
@@ -172,7 +177,7 @@ UITableViewDelegate
     
     NSString *stringImg=[NSString string];
     NSString *labelTxt= [[[_menuList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"funName"];
-   
+    
     cell.titles.text = labelTxt;
     stringImg=[[[_menuList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"funImg"];;
     cell.moreBtn.tag=[[[[_menuList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"funTag"] integerValue];
@@ -181,7 +186,7 @@ UITableViewDelegate
     
     
     cell.imgs.image=[UIImage imageNamed:stringImg];
-
+    
     //    cell.imgs.frame=CGRectMake(1, 6, 35, 31);
     //    cell.titles.frame=CGRectMake(44, 11, 300, 21);
     
@@ -304,10 +309,15 @@ UITableViewDelegate
         }
             break;
             
-        case 4110:
+        case 5007:  //我的消息
         {
+            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
             
+            PerNotificationVC *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"PerNotificationVC"];
             
+            [self.navigationController pushViewController:friendControl animated:YES];
+
+
             
         }
             break;
@@ -315,11 +325,19 @@ UITableViewDelegate
         case 5000:   //影像病例查询
         {
             
-            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
+//            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
+//            
+//            CheckVIewController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"CheckVIewController"];
+//            
+//            [self.navigationController pushViewController:doctor animated:YES];
             
-            CheckVIewController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"CheckVIewController"];
             
-            [self.navigationController pushViewController:doctor animated:YES];
+            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
+            
+            RewardPointVC *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"RewardPointVC"];
+            
+            [self.navigationController pushViewController:friendControl animated:YES];
+
             
             
         }
@@ -511,6 +529,11 @@ UITableViewDelegate
     NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc]initWithDictionary:[sbJsonParser objectWithString:str error:&error]];
     return tempDictionary;
 }
+
+
+
+
+
 
 
 @end
