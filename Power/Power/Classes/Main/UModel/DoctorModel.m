@@ -10,6 +10,8 @@
 
 @implementation DoctorModel
 
+@synthesize id;
+
 @synthesize doctorid;
 @synthesize position;
 @synthesize doctorName;

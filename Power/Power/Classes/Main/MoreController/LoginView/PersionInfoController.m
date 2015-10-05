@@ -55,9 +55,8 @@
     
 }
 
-
+#pragma mark- //更新个人信息
 - (void)freshPersionInfo{
-    
     [self initRequestChange];
 }
 
@@ -67,12 +66,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
 #define CellHight_Header  120
-
 #define CellHight  40
-
 #pragma mark- tableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -90,9 +85,7 @@
 #pragma mark- UITableView dataSource and delegate methods
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     return CellHight;
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -166,11 +159,9 @@
     switch (cell.tag) {
         case 3001:
         {
-            
             NameViewController *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"NameViewController"];
             friendControl.delegate=self;
             [self.navigationController pushViewController:friendControl animated:YES];
-            
             
         }
             break;
@@ -184,15 +175,12 @@
             break;
         case 3003:  //性别选择
         {
-            
             [self initViewPicker];
             [self initDatePicker];
-
         }
             break;
         case 3004:
         {
-            
             [self persionInfomation];
         }
             break;
@@ -350,8 +338,7 @@
 }
 
 
-
-#pragma mark- 医生列表
+#pragma mark- 更新个人信息
 - (void)initRequestChange{
     
     NSDictionary *dict = @{ @"userPhone": [Users phoneNumber],

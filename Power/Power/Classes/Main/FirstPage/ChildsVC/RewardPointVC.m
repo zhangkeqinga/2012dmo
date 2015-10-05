@@ -31,14 +31,21 @@
 //    NSMutableDictionary *plistDic=[PathUtilities readPlistWithFile:@"PropertyList"];
 //    tableArray=[plistDic objectForKey:@"REWARDPOINT"];
     
-    [self initRequest];
-    
     v_tableView.tableFooterView = [[UIView alloc] init];
     v_tableView.backgroundColor=[UIColor clearColor];
-    
     v_tableView.tableFooterView.backgroundColor=BACKVIEWCOLOR;
     
     
+    if ([Users isLoginSystem]){
+        [self initRequest];
+        
+    }else{
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请先登录" inView:self.view lastTime:1.0];
+        //                [AlertUtil alertSuerAndCancelWithDelegate:@"请先登录" delegate:self];
+        
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,7 +102,11 @@
         if (tableArray.count>indexPath.row){
             
             if (![@"<null>" isEqual:[tableArray objectAtIndex:indexPath.row]]){
-                label1.text = [tableArray objectAtIndex:indexPath.row];
+                
+                NSString *reward = [NSString stringWithFormat:@"%@分",[tableArray objectAtIndex:indexPath.row]];
+                
+                label1.text = reward;
+                
             }else{
                  label1.text = @"0";
             }

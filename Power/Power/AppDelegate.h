@@ -14,7 +14,13 @@
 
 @class Reachability;
 @class ICETutorialController;
-@class InstructionsController;
+//@class InstructionsController;
+//@class MainViewController;
+
+
+
+#import "MainViewController.h"
+#import "InstructionsController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,MJPasswordPopViewDelegate>
 
@@ -23,7 +29,9 @@
     InstructionsController *instruction;
     Reachability  *hostReach;
 }
+
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) MainViewController *mvc;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
@@ -40,6 +48,7 @@
 @property (nonatomic, strong) UISwipeGestureRecognizer *rightSwipeGestureRecognizer;
 
 - (void)selectMainControler:(NSInteger )indexNum;
+
 
 @end
 

@@ -11,7 +11,10 @@
 
 
 @interface AppointlistController ()
-
+{
+    NSInteger numberindex;
+    
+}
 @property (nonatomic , strong) NSString * attentionId;
 
 
@@ -29,14 +32,25 @@
     [self setTitleBackItemImageAndTitle];
     self.tabBarController.tabBar.hidden=YES;
     self.title= @"我的关注";
-
+    numberindex=0;
+    
     tableArray = [NSMutableArray array];
     
     v_tableView.tableFooterView = [[UIView alloc] init];
     v_tableView.backgroundColor=[UIColor clearColor];
     v_tableView.tableFooterView.backgroundColor=BACKVIEWCOLOR;
     
-    [self initRequest];
+    
+    if ([Users isLoginSystem]){
+        [self initRequest];
+        
+    }else{
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请先登录" inView:self.view lastTime:1.0];
+        //                [AlertUtil alertSuerAndCancelWithDelegate:@"请先登录" delegate:self];
+        
+    }
+
 
 }
 
@@ -210,14 +224,38 @@
     
 }
 
-- (IBAction)action2:(id)sender {
+//- (IBAction)action2:(id)sender {
+//    
+//    DLog(@"关注按钮");
+//    
+//    [AlertUtil alertSuerAndCancelWithDelegate:@"取消关注" delegate:self];
+//   
+//    NSDictionary *dicss=[tableArray objectAtIndex:[sender tag]];
+//    self.attentionId = [dicss objectForKey:@"attentionId"];
+//    
+//}
+//
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+//    
+//    if (buttonIndex==0) {
+//        
+//    }else{
+//        [self initCancleAppointRequest];
+//    }
+//    
+//}
+
+
+
+- (IBAction)action2:(id)sender{
     
-    DLog(@"关注按钮");
+    numberindex = [sender tag];
     
-    [AlertUtil alertSuerAndCancelWithDelegate:@"取消关注" delegate:self];
-   
     NSDictionary *dicss=[tableArray objectAtIndex:[sender tag]];
     self.attentionId = [dicss objectForKey:@"attentionId"];
+
+    [AlertUtil alertSuerAndCancelWithDelegate:@"取消预约" delegate:self];
+    
     
 }
 
@@ -226,12 +264,23 @@
     if (buttonIndex==0) {
         
     }else{
+        
         [self initCancleAppointRequest];
+        
+//        [self removetableArray];
     }
     
 }
 
-#pragma mark- 取消关注
+- (void)removetableArray{
+    
+    if (self.tableArray.count > numberindex ) {
+        [self.tableArray removeObjectAtIndex:numberindex];
+    }
+    [self.v_tableView reloadData];
+}
+
+#pragma mark- 取消关注 userid
 - (void)initCancleAppointRequest{
     
     NSDictionary *dict = @{ @"userPhone"   : [Users phoneNumber],
@@ -309,7 +358,7 @@
             
             if (doctor && ![@"<null>" isEqualToString:string]) {
                 
-                tableArray = doctor;
+                tableArray = [NSMutableArray arrayWithArray:doctor];
                 DLog(@"我关注= %@",tableArray);
 
                 [self.v_tableView reloadData];

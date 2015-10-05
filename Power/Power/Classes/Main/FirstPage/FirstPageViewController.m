@@ -10,9 +10,7 @@
 
 #import "DoctorListController.h"
 
-
-
-
+#import "AppDelegate.h"
 
 
 #define scrollivewHight  ScreenWidth/2
@@ -22,7 +20,8 @@
 
 
 #define addHight  20
-#define cellHight  ScreenWidth/3
+//#define cellHight  ScreenWidth/3
+#define cellHight  113
 
 @interface FirstPageViewController ()
 
@@ -80,12 +79,13 @@
 - (void)initView{
     
     [self initProudctView];
+    
     [self.view addSubview:self.productView];
     
     for (int k =0; k<2; k++) {
         
     UIImageView *lineImageh=[[UIImageView alloc]init];
-    lineImageh.frame=CGRectMake(ScreenWidth/2, 140+cellHight*(k), 1, cellHight);
+    lineImageh.frame=CGRectMake(ScreenWidth/2, self.productView.frame.size.height+cellHight*(k), 1, cellHight);
     lineImageh.backgroundColor=[UIColor lightGrayColor];
     [self.view addSubview:lineImageh];
     
@@ -99,12 +99,13 @@
         [self.view addSubview:typeImage];
         [self.view addSubview:button];
         
-        button.frame=CGRectMake(ScreenWidth/2*i , 140+cellHight*(k), ScreenWidth/2, cellHight);
+        
+        button.frame=CGRectMake(ScreenWidth/2*i , self.productView.frame.size.height+cellHight*(k), ScreenWidth/2, cellHight);
         [button addTarget:self action:@selector(selectFuncation:) forControlEvents:UIControlEventTouchUpInside];
-
+        
         
         [typeImage mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).with.offset(140+cellHight*(k));
+            make.top.equalTo(self.view).with.offset(self.productView.frame.size.height+cellHight*(k));
             make.centerX.equalTo(button);
             make.width.mas_equalTo(80);
             make.height.mas_equalTo(80);
@@ -112,7 +113,7 @@
         }];
         
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).with.offset(140+cellHight*(k)+75);
+            make.top.equalTo(self.view).with.offset(self.productView.frame.size.height+cellHight*(k)+75);
             make.centerX.equalTo(button);
             make.width.mas_equalTo(100);
             make.height.mas_equalTo(30);
@@ -129,7 +130,7 @@
             lineImagev1.backgroundColor=[UIColor lightGrayColor];
             [self.view addSubview:lineImagev1];
             
-            lineImagev1.frame=CGRectMake(i*ScreenWidth/2, 140+cellHight*(k+1)-1, ScreenWidth/2, 1);
+            lineImagev1.frame=CGRectMake(i*ScreenWidth/2, self.productView.frame.size.height+cellHight*(k+1)-1, ScreenWidth/2, 1);
             
             NSDictionary *dic = [self.funcArray objectAtIndex:k*2+i];
             NSString *stringName=[dic objectForKey:@"name"];
@@ -176,10 +177,10 @@
     
     self.productView =[[UIView alloc]init];
     if (ScreenHeight<=480) {
-        self.productView.frame=CGRectMake(0, 0, ScreenWidth, 140);
+        self.productView.frame=CGRectMake(0, 0, ScreenWidth, 141);
     }else{
         
-        self.productView.frame=CGRectMake(0, 0, ScreenWidth, 140);
+        self.productView.frame=CGRectMake(0, 0, ScreenWidth, 229);
     }
     
     [self.view addSubview:self.productView];
@@ -334,19 +335,28 @@
     
     switch ([sender tag]) {
             
-            
-        case 1100:  //我的消息 －－ 我的影像
+        case 1100:  //我的影像
         {
-//            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
-//            
-//            PerNotificationVC *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"PerNotificationVC"];
-//
-//            [self.navigationController pushViewController:friendControl animated:YES];
-  
+
+//            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
+//            CheckVIewController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"CheckVIewController"];
+//            [self.navigationController pushViewController:doctor animated:YES];
             
-            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
-            CheckVIewController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"CheckVIewController"];
-            [self.navigationController pushViewController:doctor animated:YES];
+            
+            if ([Users isLoginSystem]){
+
+                UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
+                CheckVIewController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"CheckVIewController"];
+                [self.navigationController pushViewController:doctor animated:YES];
+
+            }else{
+                
+                AlertUtils *alert = [AlertUtils sharedInstance];
+                [alert showWithText:@"请先登录" inView:self.view lastTime:1.0];
+
+//                [AlertUtil alertSuerAndCancelWithDelegate:@"请先登录" delegate:self];
+                
+            }
 
             
             
@@ -356,10 +366,22 @@
         {
             
             UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
-            
-            MedicalViewController *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"MedicalViewController"];
+            ReservationVC *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"ReservationVC"];
             [friendControl withMangerInfo:@"我的预约"];
             [self.navigationController pushViewController:friendControl animated:YES];
+
+           
+//            if ([Users isLoginSystem]){
+//   
+//            }else{
+//                
+//                AlertUtils *alert = [AlertUtils sharedInstance];
+//                [alert showWithText:@"请先登录" inView:self.view lastTime:1.0];
+//
+//    //            [AlertUtil alertSuerAndCancelWithDelegate:@"请先登录" delegate:self];
+//                
+//            }
+
             
         }
             break;
@@ -367,23 +389,42 @@
         case 1102://我的关注
         {
             
-            
+
             UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
             
             AppointlistController *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"AppointlistController"];
-            
             [self.navigationController pushViewController:friendControl animated:YES];
+            
+//            if ([Users isLoginSystem]){
+//  
+//            }else{
+//                
+//                
+//                AlertUtils *alert = [AlertUtils sharedInstance];
+//                [alert showWithText:@"请先登录" inView:self.view lastTime:1.0];
+//
+////                [AlertUtil alertSuerAndCancelWithDelegate:@"请先登录" delegate:self];
+//                
+//            }
+
 
         }
             break;
         case 1103:  //我的积分
         {
             
-            UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
             
-            RewardPointVC *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"RewardPointVC"];
+//            if ([Users isLoginSystem]){
             
-            [self.navigationController pushViewController:friendControl animated:YES];
+                UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
+                RewardPointVC *friendControl = [mainStoryboard instantiateViewControllerWithIdentifier:@"RewardPointVC"];
+                [self.navigationController pushViewController:friendControl animated:YES];
+//            }else{
+//                
+//                [AlertUtil alertSuerAndCancelWithDelegate:@"请先登录" delegate:self];
+//
+//            }
+            
             
         }
             break;
@@ -394,6 +435,17 @@
     
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex==0) {
+        
+    }else{
+        AppDelegate *app = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        [app.mvc selectViewController:3];
+        
+    }
+    
+}
 
 
 

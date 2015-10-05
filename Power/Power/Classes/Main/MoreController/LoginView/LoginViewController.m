@@ -49,6 +49,8 @@
     
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
     PointApplyInfoCommitController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"PointApplyInfoCommitController"];
+    [doctor withMangerInfo:@"预约医生"];
+    
     [self.navigationController pushViewController:doctor animated:YES];
 
     

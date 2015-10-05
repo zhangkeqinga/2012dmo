@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LTD-q8-dAs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LTD-q8-dAs">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -184,9 +184,9 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyM-jz-F1n">
-                                <rect key="frame" x="15" y="126" width="290" height="44"/>
+                                <rect key="frame" x="20" y="126" width="280" height="33"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="ClL-fZ-ewf"/>
+                                    <constraint firstAttribute="height" constant="33" id="ClL-fZ-ewf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="提 交" backgroundImage="button_red.png">
@@ -214,10 +214,10 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="rxb-zq-fYQ" secondAttribute="trailing" id="4Te-QD-i4a"/>
-                            <constraint firstAttribute="trailing" secondItem="wyM-jz-F1n" secondAttribute="trailing" constant="15" id="BeY-Xs-KY3"/>
+                            <constraint firstAttribute="trailing" secondItem="wyM-jz-F1n" secondAttribute="trailing" constant="20" id="BeY-Xs-KY3"/>
                             <constraint firstItem="wyM-jz-F1n" firstAttribute="top" secondItem="QmF-mJ-3u6" secondAttribute="bottom" constant="8" id="Jhd-aW-Cn4"/>
                             <constraint firstAttribute="trailing" secondItem="QmF-mJ-3u6" secondAttribute="trailing" constant="15" id="V3f-da-3Go"/>
-                            <constraint firstItem="wyM-jz-F1n" firstAttribute="leading" secondItem="X8f-wJ-j30" secondAttribute="leading" constant="15" id="WaL-Sq-erM"/>
+                            <constraint firstItem="wyM-jz-F1n" firstAttribute="leading" secondItem="X8f-wJ-j30" secondAttribute="leading" constant="20" id="WaL-Sq-erM"/>
                             <constraint firstItem="rxb-zq-fYQ" firstAttribute="leading" secondItem="X8f-wJ-j30" secondAttribute="leading" id="WmM-Uy-IWG"/>
                             <constraint firstItem="rxb-zq-fYQ" firstAttribute="top" secondItem="RPt-JZ-eYG" secondAttribute="bottom" constant="20" id="Y6v-Xg-cy3"/>
                             <constraint firstItem="QmF-mJ-3u6" firstAttribute="top" secondItem="rxb-zq-fYQ" secondAttribute="bottom" constant="8" id="sAf-ip-H8l"/>
@@ -281,9 +281,9 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztu-WA-A1s">
-                                <rect key="frame" x="15" y="144" width="290" height="44"/>
+                                <rect key="frame" x="20" y="144" width="280" height="33"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="XGC-fF-cbu"/>
+                                    <constraint firstAttribute="height" constant="33" id="XGC-fF-cbu"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="提 交" backgroundImage="button_red.png">
@@ -297,10 +297,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="ztu-WA-A1s" firstAttribute="leading" secondItem="jjc-1u-Zvh" secondAttribute="leading" constant="15" id="10e-Yf-Ifv"/>
+                            <constraint firstItem="ztu-WA-A1s" firstAttribute="leading" secondItem="jjc-1u-Zvh" secondAttribute="leading" constant="20" id="10e-Yf-Ifv"/>
                             <constraint firstItem="ztu-WA-A1s" firstAttribute="top" secondItem="1hC-lM-lxm" secondAttribute="bottom" constant="20" id="r5A-dF-SM2"/>
                             <constraint firstItem="1hC-lM-lxm" firstAttribute="top" secondItem="nty-Eb-7us" secondAttribute="bottom" constant="20" id="vL3-Xt-vXM"/>
-                            <constraint firstAttribute="trailing" secondItem="ztu-WA-A1s" secondAttribute="trailing" constant="15" id="xeg-hj-YzG"/>
+                            <constraint firstAttribute="trailing" secondItem="ztu-WA-A1s" secondAttribute="trailing" constant="20" id="xeg-hj-YzG"/>
                             <constraint firstItem="1hC-lM-lxm" firstAttribute="leading" secondItem="jjc-1u-Zvh" secondAttribute="leading" id="yCH-me-zGu"/>
                             <constraint firstAttribute="trailing" secondItem="1hC-lM-lxm" secondAttribute="trailing" id="z3a-0y-zQf"/>
                         </constraints>
@@ -318,7 +318,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="button_red.png" width="578" height="90"/>
+        <image name="button_red.png" width="300" height="69"/>
         <image name="个人中心背景.jpg" width="437" height="220"/>
         <image name="登录.png" width="280" height="80"/>
         <image name="预约.png" width="280" height="80"/>

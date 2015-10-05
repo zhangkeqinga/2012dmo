@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="28W-2h-1cx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="28W-2h-1cx">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--联系我们-->
@@ -406,16 +407,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ihv-NT-aVD">
-                                <rect key="frame" x="15" y="18" width="290" height="254"/>
+                                <rect key="frame" x="15" y="18" width="290" height="269"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TYk-8G-NpK">
-                                <rect key="frame" x="15" y="287" width="290" height="45"/>
+                                <rect key="frame" x="15" y="299" width="290" height="33"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="DOC-hK-vWd"/>
+                                    <constraint firstAttribute="height" constant="33" id="DOC-hK-vWd"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="提交" backgroundImage="button_red.png">
@@ -426,7 +427,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.9158761742" green="0.91461401909999995" blue="0.93666072489999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="TYk-8G-NpK" firstAttribute="top" secondItem="Ihv-NT-aVD" secondAttribute="bottom" constant="15" id="BcK-gr-K7d"/>
+                            <constraint firstItem="TYk-8G-NpK" firstAttribute="top" secondItem="Ihv-NT-aVD" secondAttribute="bottom" constant="12" id="BcK-gr-K7d"/>
                             <constraint firstItem="TYk-8G-NpK" firstAttribute="leading" secondItem="927-2f-SWJ" secondAttribute="leading" constant="15" id="MJ8-TU-Wb2"/>
                             <constraint firstAttribute="trailing" secondItem="Ihv-NT-aVD" secondAttribute="trailing" constant="15" id="PtC-0a-WDO"/>
                             <constraint firstItem="Ihv-NT-aVD" firstAttribute="leading" secondItem="927-2f-SWJ" secondAttribute="leading" constant="15" id="Uj9-7T-Vg0"/>
@@ -528,7 +529,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="button_red.png" width="578" height="90"/>
+        <image name="button_red.png" width="300" height="69"/>
         <image name="contactUs_phone.png" width="150" height="150"/>
         <image name="fun4006.png" width="44" height="44"/>
         <image name="phone.png" width="437" height="220"/>

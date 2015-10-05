@@ -10,6 +10,7 @@
 
 @interface DoctorModel : NSObject
 
+@property (nonatomic, strong) NSNumber *id	;//
 @property (nonatomic, strong) NSString *typeTag	;//
 @property (nonatomic, strong) NSString *doctorid ;
 @property (nonatomic, strong) NSString *position; //职称
@@ -21,7 +22,5 @@
 @property (nonatomic, strong) NSString *doctorProfessional;
 @property (nonatomic, strong) NSString *doctorIntroduce;
 @property (nonatomic, strong) NSString *doctorSpecialty;
-
-
 
 @end

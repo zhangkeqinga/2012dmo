@@ -57,6 +57,18 @@
     
 }
 
++(void) alertSuereAndCancelAndShowImageWithDelegate:(NSString *) info  delegate: (id) del withTag:(NSInteger)tag_
+{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:nil delegate:del cancelButtonTitle:@"取消" otherButtonTitles:@"预览影像",@"删除影像", nil];
+    
+    alert.tag=tag_;
+    
+    [alert show];
+    
+}
+
+
 
 
 + (void)alertViewAutoDissmiss:(UIAlertView *)alertView  withInfo:(NSString *)infoString  delegate: (id) del{

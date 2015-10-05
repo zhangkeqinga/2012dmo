@@ -27,7 +27,6 @@
 
 
 - (void)withMangerInfo:(NSString*)title{
-    
     titleString= title;
     
 }
@@ -37,20 +36,27 @@
     
     [self setTitleBackItemImageAndTitle];
     self.tabBarController.tabBar.hidden=YES;
-    self.title= @"我的预约";
     self.title= titleString;
     
     v_tableView.tableFooterView = [[UIView alloc]init];
     
-    [self setAddNavigationBar];
+//    [self setAddNavigationBar];
     
     tableArray=[NSMutableArray array];
     
     index_ = 1;
     pagesize_ = 10;
     
-    [self initRequest];
     
+    if ([Users isLoginSystem]){
+        [self initRequest];
+        
+    }else{
+        AlertUtils *alert = [AlertUtils sharedInstance];
+        [alert showWithText:@"请先登录" inView:self.view lastTime:1.0];
+        //                [AlertUtil alertSuerAndCancelWithDelegate:@"请先登录" delegate:self];
+        
+    }
     
 }
 
@@ -60,6 +66,8 @@
     
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
     PointApplyInfoCommitController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"PointApplyInfoCommitController"];
+    [doctor withMangerInfo:@"添加影像"];
+    
     [self.navigationController pushViewController:doctor animated:YES];
     
     
@@ -77,7 +85,8 @@
 
 #pragma mark- UITableView dataSource and delegate methods
 
-#define CellHight  310
+//#define CellHight  310
+#define CellHight  110
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -105,32 +114,54 @@
                          @"膀胱癌.jpg",
                          nil];
     
+    
     UIImageView *ImagePhoto=[[UIImageView alloc]init];
     [cell addSubview:ImagePhoto];
+    ImagePhoto.frame=CGRectMake(10, 20, 70, 70);
+    ImagePhoto.image=[UIImage imageNamed:[imageArray objectAtIndex:indexPath.row]];
     
-    ImagePhoto.image=[UIImage imageNamed:[imageArray objectAtIndex:0]];
-    ImagePhoto.frame=CGRectMake(10, 20, ScreenWidth-20, 260);
-
+    
     UILabel *label=[[UILabel alloc]init];
     [cell addSubview:label];
     
-    label.frame=CGRectMake(lableXdistance, 280, 200, 30);
+    label.frame=CGRectMake(110, 18, 200, 30);
     label.font=[UIFont systemFontOfSize:16];
     label.textAlignment=NSTextAlignmentLeft;
-    label.textColor=[UIColor orangeColor];
+    label.text=@"姓名";
     
-    label.text=@"科室: 心血管科";
+    UILabel *label1=[[UILabel alloc]init];
+    [cell addSubview:label1];
+    label1.frame=CGRectMake(110, CellHight/2-10, 200, 30);
+    label1.font=[UIFont systemFontOfSize:11];
+    label1.textAlignment=NSTextAlignmentLeft;
+    label1.text=@"年龄";
     
-    UILabel *labelm=[[UILabel alloc]init];
-    [cell addSubview:labelm];
+    UILabel *label11=[[UILabel alloc]init];
+    [cell addSubview:label1];
+    label11.frame=CGRectMake(210, CellHight/2-10, 200, 30);
+    label11.font=[UIFont systemFontOfSize:11];
+    label11.textAlignment=NSTextAlignmentLeft;
+    label11.text=@"科室";
     
-    labelm.frame=CGRectMake(lableXdistance+170, 280, 200, 30);
-    labelm.font=[UIFont systemFontOfSize:16];
-    labelm.textAlignment=NSTextAlignmentLeft;
-    labelm.textColor=[UIColor orangeColor];
+    UILabel *labeltime=[[UILabel alloc]init];
+    [cell addSubview:labeltime];
+    labeltime.frame=CGRectMake(210, 10, 100, 30);
+    labeltime.font=[UIFont systemFontOfSize:11];
+    labeltime.textAlignment=NSTextAlignmentRight;
+    labeltime.text=@"2015-09-10";
     
-    labelm.text=@"T官造影";
-
+    UILabel *label2=[[UILabel alloc]init];
+    [cell addSubview:label2];
+    label2.frame=CGRectMake(110,  CellHight/2-15+30 , 200, 30);
+    label2.font=[UIFont systemFontOfSize:12];
+    label2.textAlignment=NSTextAlignmentLeft;
+    label2.text=@"病情简述: 心血管疾病";
+    label2.textColor=[UIColor redColor];
+    
+    
+    
+    
+    
     return cell;
 }
 
@@ -138,11 +169,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     
-    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
-    
-    MedicalInfoController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"MedicalInfoController"];
-    
-    [self.navigationController pushViewController:doctor animated:YES];
+//    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"PersionInfo" bundle:nil];
+//    
+//    MedicalInfoController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"MedicalInfoController"];
+//    
+//    [self.navigationController pushViewController:doctor animated:YES];
     
     
     
@@ -154,7 +185,6 @@
 
 #pragma mark-
 - (void)initRequest{
-    
     
     //pageIndex	false	String	分页页码
     //pageSize	false	String	每页大小

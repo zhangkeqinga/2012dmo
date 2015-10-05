@@ -196,10 +196,7 @@
     
     DoctorSingleInfoController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"DoctorSingleInfoController"];
     [doctor withMangerDic:dic];
-    
     [self.navigationController pushViewController:doctor animated:YES];
-    
-    
     
     
 }
@@ -332,7 +329,7 @@
                     AlertUtils *alert = [AlertUtils sharedInstance];
                     [alert showWithText:@"暂无医生信息" inView:self.view lastTime:1.0];
                 }
-
+                
                 [self.v_tableView reloadData];
                 
             }else{

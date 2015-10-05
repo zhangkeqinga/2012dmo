@@ -29,11 +29,11 @@
 
 @property(nonatomic,strong)    UIPickerView *pickerView;
 
-@property (nonatomic, copy) NSMutableArray *citys;
-@property (nonatomic, copy) NSMutableArray *ages;
-@property (nonatomic, copy) NSMutableArray *genders;
-@property (nonatomic, copy) NSMutableArray *originalArray;
-@property (nonatomic, copy) NSMutableArray *results;
+@property (nonatomic, strong) NSMutableArray *citys;
+@property (nonatomic, strong) NSMutableArray *ages;
+@property (nonatomic, strong) NSMutableArray *genders;
+@property (nonatomic, strong) NSMutableArray *originalArray;
+@property (nonatomic, strong) NSMutableArray *results;
 
 @property (nonatomic, strong) DOPDropDownMenu *menu;
 
@@ -76,10 +76,33 @@
     NSMutableDictionary *plistDic=[PathUtilities readPlistWithFile:@"PropertyList"];
 //    tableArray=[plistDic objectForKey:@"DOCTOR_LIST"];
     
-    self.citys   = [plistDic objectForKey:@"DOCTOR_HOS"];
-    self.ages    = [plistDic objectForKey:@"DOCTOR_DKS"];
-    self.genders = [plistDic objectForKey:@"DOCTOR_LEVEL"];
+//    self.citys   = [plistDic objectForKey:@"DOCTOR_HOS"];
+//    self.ages    = [plistDic objectForKey:@"DOCTOR_DKS"];
+//    self.genders = [plistDic objectForKey:@"DOCTOR_LEVEL"];
     
+    self.citys = [NSMutableArray array];
+    self.ages  = [NSMutableArray array];
+    self.genders = [NSMutableArray array];
+    
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    
+    self.citys =[NSMutableArray arrayWithArray:[defaults rm_customObjectForKey:@"HOSPITAL"]];
+    self.ages = [defaults rm_customObjectForKey:@"DEPARTMENT"];
+    self.genders =[defaults rm_customObjectForKey:@"POSITION"];
+    
+    HospitalModel *model =[[HospitalModel alloc]init];
+    model.hospitalName = [NSString stringWithFormat:@"医院"];
+    
+    DepartmentModel *model1 =[[DepartmentModel alloc]init];
+    model1.name = [NSString stringWithFormat:@"科室"];
+    
+    PositionModel *model2 =[[PositionModel alloc]init];
+    model2.name = [NSString stringWithFormat:@"职称"];
+    
+    
+    [self.citys insertObject:model atIndex:0];
+    [self.ages insertObject:model1 atIndex:0];
+    [self.genders insertObject:model2 atIndex:0];
     
 //    self.citys   = [Users historySelectKey:HISPOSITION];
 //    self.ages    = [Users historySelectKey:HISTORYLEVEL];
@@ -94,7 +117,7 @@
     //
     [self initRequest];
     
-    [self dispath_background_requestData];
+//    [self dispath_background_requestData];
 
 }
 
@@ -125,32 +148,73 @@
 
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath {
     switch (indexPath.column) {
-        case 0: return self.citys[indexPath.row];
+        case 0:
+        {
+            
+            HospitalModel *model = [self.citys objectAtIndex:indexPath.row];
+            string1 = [NSString stringWithFormat:@"%@",model.hospitalName];
+            return string1;
+            
+        }
             break;
-        case 1: return self.ages[indexPath.row];
+        case 1:
+        {
+            DepartmentModel *model = [self.ages objectAtIndex:indexPath.row];
+            string2 = [NSString stringWithFormat:@"%@",model.name];
+            return string2;
+            
+            return @"asd";
+
+        }
             break;
-        case 2: return self.genders[indexPath.row];
+        case 2:
+        {
+            PositionModel *model = [self.genders objectAtIndex:indexPath.row];
+            string3 = [NSString stringWithFormat:@"%@",model.name];
+            return string3;
+            
+            return @"asd";
+
+
+        }
             break;
+            
         default:
+            
             return nil;
+            
             break;
     }
 }
+
+
 
 - (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
 
     switch (indexPath.column) {
         case 0:{
 
-            string1 = [self.citys objectAtIndex:indexPath.row];
+            HospitalModel *model = [self.citys objectAtIndex:indexPath.row];
+            string1 = [NSString stringWithFormat:@"%@",model.hospitalName];
+            
+//            string1 = [self.citys objectAtIndex:indexPath.row];
         }
             break;
         case 1:{
-            string2 = [self.ages objectAtIndex:indexPath.row];
+            
+            DepartmentModel *model = [self.ages objectAtIndex:indexPath.row];
+            string2 = [NSString stringWithFormat:@"%@",model.name];
+
+//            string2 = [self.ages objectAtIndex:indexPath.row];
         }
+            
             break;
         case 2:{
-            string3 = [self.genders objectAtIndex:indexPath.row];
+            
+            PositionModel *model = [self.genders objectAtIndex:indexPath.row];
+            string3 = [NSString stringWithFormat:@"%@",model.name];
+            
+//            string3 = [self.genders objectAtIndex:indexPath.row];
         }
             
         default:
@@ -464,8 +528,8 @@
 - (void)requestData:(NSString *)typeString {
     
     
-    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?type=1",doctorMdmUrl]];
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation1 = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
@@ -487,7 +551,7 @@
     
     [operation2 setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"Response2: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+        NSLog(@"Response2atart: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -511,77 +575,10 @@
     }];  
     
     
-    //同时请求
-//    NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
-//    [operationQueue setMaxConcurrentOperationCount:3];
-//    [operationQueue addOperations:@[operation1, operation2, operation3] waitUntilFinished:NO];
-    
-    
     //operation2 在 operation1 请求完成后执行
     NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
     [operation2 addDependency:operation1];
     [operationQueue addOperations:@[operation1, operation2, operation3] waitUntilFinished:NO];
-    
-    
-//    NSDictionary *dict = @{ @"type":typeString  };
-//    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    manager.responseSerializer = [AFJSONResponseSerializer serializer];//使用这个将得到的是JSON
-//    
-//    [manager POST:doctorMdmUrl parameters:dict success: ^(AFHTTPRequestOperation *operation, id responseObject) {
-//        
-//        
-//        NSString * messages=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"message"]];
-//        NSString * status=[ NSString stringWithFormat:@"%@",[responseObject objectForKey:@"status"] ];
-//        
-//        if ([@"2001" isEqual:status]) { // 成功
-//            
-//            NSMutableArray * result=[responseObject objectForKey:@"result"];
-//            NSString *string= [NSString stringWithFormat:@"%@",result];
-//            
-//            if (result && ![@"<null>" isEqualToString:string]) {
-//                //                tableArray = result;
-//                
-//                if ([typeString isEqual:@"1"]) {
-//                    
-////                    DLog(@"1=responseObject==%@",responseObject);
-////                    [Users historySelect:result withKey:HISPOSITION];
-//                    self.citys   = result;
-//                }
-//                
-//                if ([typeString isEqual:@"2"]) {
-//                    
-////                    DLog(@"2=responseObject==%@",responseObject);
-////                    [Users historySelect:result withKey:HISTORYLEVEL];
-//                    self.ages    = result;
-//
-//                }
-//
-//                if ([typeString isEqual:@"3"]) {
-//                    
-////                    DLog(@"3=responseObject==%@",responseObject);
-////                    [Users historySelect:result withKey:HISTORYNAME];
-//                
-//                    self.genders = result;
-//
-//                }
-//                
-//            }else{
-//                
-//                
-//            }
-//            
-//        }else{ //
-//            
-//            DLog(@" messages= %@",messages);
-//        }
-//        
-//        
-//    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-//        
-//        
-//    }];
-    
     
     
 }

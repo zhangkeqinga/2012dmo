@@ -25,8 +25,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
-      
+        
         hiddenTextField = [[UITextField alloc] initWithFrame:CGRectZero];
+        
         hiddenTextField.inputView = self.view;
         [self initView];
 
@@ -54,6 +55,7 @@
     [picker setDatePickerMode:UIDatePickerModeDate];
     [self.view addSubview:picker];
     [picker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
     [self createTextStatusBar];
 }
 
@@ -84,6 +86,20 @@
     buttonBar.items = [NSArray arrayWithObjects:leftItem,spaceItem,rightItem, nil];
     
     self.hiddenTextField.inputAccessoryView = buttonBar;
+}
+
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{ //当点触textField内部，开始编辑都会调用这个方法。textField将成为first responder
+    NSTimeInterval animationDuration = 0.30f;
+    CGRect frame = self.view.frame;
+    frame.origin.y -=216;
+    frame.size.height +=216;
+    self.view.frame = frame;
+    [UIView beginAnimations:@"ResizeView" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    self.view.frame = frame;
+    [UIView commitAnimations];
 }
 
 

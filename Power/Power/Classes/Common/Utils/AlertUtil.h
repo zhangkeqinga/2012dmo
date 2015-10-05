@@ -21,6 +21,7 @@
 +(void) alertSuerAndCancelWithDelegate:(NSString *) info  delegate: (id) del;
 
 +(void) alertSuerAndCancelWithDelegate:(NSString *) info  delegate: (id) del withTag:(NSInteger)tag_;
++(void) alertSuereAndCancelAndShowImageWithDelegate:(NSString *) info  delegate: (id) del withTag:(NSInteger)tag_;
 
 + (void)alertViewAutoDissmiss:(UIAlertView *)alertView  withInfo:(NSString *)infoString  delegate: (id) del;
 

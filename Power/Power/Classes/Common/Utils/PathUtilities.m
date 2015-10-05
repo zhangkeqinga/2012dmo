@@ -7,6 +7,8 @@
 //
 
 #import "PathUtilities.h"
+#import "AppDelegate.h"
+#import "FMDatabase.h"
 
 @implementation PathUtilities
 
@@ -127,22 +129,39 @@
 }
 
 
-
 + (NSString *)documentFilePathWithFileName:(NSString*)fileName{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                         NSUserDomainMask, YES);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:fileName];
     return filePath;
 }
 
 + (NSString *)libraryFilePathWithFileName:(NSString*)fileName{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
-                                                         NSUserDomainMask, YES);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:fileName];
     return filePath;
 }
+
+
+//+ (void) isHaveDatabaseWithFileName:(NSString*)fileName  SearchPathDirectory:(NSSearchPathDirectory)searchPathDirectory{
+//    
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    FMDatabase *db = [FMDatabase databaseWithPath:myDelegate.dbPath];
+//    
+//    if (![fileManager fileExistsAtPath:myDelegate.dbPath]) {
+//        NSLog(@"还未创建数据库，现在正在创建数据库");
+//        if ([db open]) {
+//            
+//            [db executeUpdate:@"create table if not exists StudentList (name text, address text, id text)"];
+//            
+//            [db close];
+//        }else{
+//            NSLog(@"database open error");
+//        }
+//    }
+//    NSLog(@"FMDatabase:---------%@",db);
+//}
 
 
 

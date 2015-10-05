@@ -25,15 +25,15 @@
 
 @synthesize procityPickView;  //省市区 选择的的pickerView
 @synthesize proCityAirPickView;
-
 @synthesize pickerView=_pickerView;
 
-
 @synthesize menu;
+
 @synthesize citys;
 @synthesize ages;
 @synthesize genders;
 
+@synthesize searchArray;
 
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -51,14 +51,13 @@
     string2 =[NSString string];
     string3 =[NSString string];
     
+    searchArray = [NSMutableArray array];
     NSMutableDictionary *plistDic=[PathUtilities readPlistWithFile:@"PropertyList"];
     //    tableArray=[plistDic objectForKey:@"DOCTOR_LIST"];
     
     self.citys   = [plistDic objectForKey:@"DOCTOR_HOS"];
     self.ages    = [plistDic objectForKey:@"DOCTOR_DKS"];
     self.genders = [plistDic objectForKey:@"DOCTOR_LEVEL"];
-
-    
     
     [self initRequest];
 
@@ -82,7 +81,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    
+    return [self.searchArray count];
+//    return 4;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,121 +94,95 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    NSArray *arryTitile=[NSArray arrayWithObjects:
-                      @"北京大学人民医院",
-                      @"武汉大学人民医院",
-                      @"合肥第一人民医院",
-                      @"蚌埠第一附属医院",
-                         
-                      nil];
-
-    
-    NSArray *arryImg=[NSArray arrayWithObjects:
-                      @"北京大学人民医院.png",
-                      @"武汉人民医院.png",
-                      @"合肥第一人民医院.png",
-//                      @"安徽省立医院.png",
-//                      @"太和县中医院.png",
-                      @"蚌埠第一附属医院.png",
-                       nil];
+//    NSArray *arryTitile=[NSArray arrayWithObjects:
+//                      @"北京大学人民医院",
+//                      @"武汉大学人民医院",
+//                      @"合肥第一人民医院",
+//                      @"蚌埠第一附属医院",
+//                         
+//                      nil];
+//    
+//    NSArray *arryImg=[NSArray arrayWithObjects:
+//                      @"北京大学人民医院.png",
+//                      @"武汉人民医院.png",
+//                      @"合肥第一人民医院.png",
+////                      @"安徽省立医院.png",
+////                      @"太和县中医院.png",
+//                      @"蚌埠第一附属医院.png",
+//                       nil];
     
     UITableViewCell *cell = [[UITableViewCell alloc]init];
     
     UIImageView *ImagePhoto=[[UIImageView alloc]init];
     [cell addSubview:ImagePhoto];
-    ImagePhoto.image=[UIImage imageNamed:[arryImg objectAtIndex:indexPath.row]];
-    
-    
+//    ImagePhoto.image=[UIImage imageNamed:[arryImg objectAtIndex:indexPath.row]];
     
     UIImageView *ImageTitle=[[UIImageView alloc]init];
     [cell addSubview:ImageTitle];
     ImageTitle.backgroundColor=[UIColor blackColor];
     ImageTitle.alpha =0.7;
 
-
     UILabel *label1=[[UILabel alloc]init];
     label1.font=[UIFont systemFontOfSize:16];
     label1.textAlignment=NSTextAlignmentLeft;
     label1.textAlignment = NSTextAlignmentLeft;
     label1.textColor = [UIColor whiteColor];
-    label1.text =[arryTitile objectAtIndex:indexPath.row];
+//    label1.text =[arryTitile objectAtIndex:indexPath.row];
     [cell addSubview:label1];
 
     
-    if (indexPath.row ==1000) {
-        ImagePhoto.frame=CGRectMake(0, 0, ScreenWidth, CellHight);
-        
-        ImageTitle.frame=CGRectMake(0, CellHight-30, ScreenWidth, 30);
-        label1.frame=CGRectMake(30, CellHight-30, ScreenWidth-30, 30);
-
-        
-    }else{
-        
+//    if (indexPath.row ==1000) {
+//        ImagePhoto.frame=CGRectMake(0, 0, ScreenWidth, CellHight);
+//        
+//        ImageTitle.frame=CGRectMake(0, CellHight-30, ScreenWidth, 30);
+//        label1.frame=CGRectMake(30, CellHight-30, ScreenWidth-30, 30);
+//
+//        
+//    }else{
+    
         ImagePhoto.frame=CGRectMake(15, 15, ScreenWidth-30, CellHight-15);
         ImageTitle.frame=CGRectMake(15, CellHight-30, ScreenWidth-30, 30);
         label1.frame=CGRectMake(15+30, CellHight-30, ScreenWidth-30, 30);
 
-        UILabel *label2=[[UILabel alloc]init];
-        label2.font=[UIFont systemFontOfSize:12];
-        label2.textAlignment=NSTextAlignmentLeft;
+//        UILabel *label2=[[UILabel alloc]init];
+//        label2.font=[UIFont systemFontOfSize:12];
+//        label2.textAlignment=NSTextAlignmentLeft;
+//        
+//        UILabel *label3=[[UILabel alloc]init];
+//        label3.font=[UIFont systemFontOfSize:12];
+//        label3.textAlignment=NSTextAlignmentLeft;
+//        
+//        UILabel *label4=[[UILabel alloc]init];
+//        label4.font=[UIFont systemFontOfSize:12];
+//        label4.textAlignment=NSTextAlignmentLeft;
+//        label4.textColor=[UIColor orangeColor];
+//        
+//        [cell addSubview:label2];
+//        [cell addSubview:label3];
+//        [cell addSubview:label4];
+//        
+//        label2.numberOfLines=2;
+//        label3.numberOfLines=2;
+    
+        
+        if ([self.searchArray count]>indexPath.row ) {  // 真实数据
+            NSDictionary *dic=[self.searchArray objectAtIndex:indexPath.row];
+            label1.text =[dic objectForKey:@"hospitalName"];
 
-        UILabel *label3=[[UILabel alloc]init];
-        label3.font=[UIFont systemFontOfSize:12];
-        label3.textAlignment=NSTextAlignmentLeft;
-        
-        UILabel *label4=[[UILabel alloc]init];
-        label4.font=[UIFont systemFontOfSize:12];
-        label4.textAlignment=NSTextAlignmentLeft;
-        label4.textColor=[UIColor orangeColor];
-        
-        [cell addSubview:label2];
-        [cell addSubview:label3];
-        [cell addSubview:label4];
+            
+            NSString *imageUrl = [dic objectForKey:@"hospitalImage"];
+            imageUrl = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)imageUrl, nil, nil, kCFStringEncodingUTF8));
+            
+            NSURL *url =[NSURL URLWithString:imageUrl];
 
-        label2.numberOfLines=2;
-        label3.numberOfLines=2;
+            NSString *defaultImageName = [NSString stringWithFormat:@"hospital_image_%d",indexPath.row];
+            [ImagePhoto sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:defaultImageName]];
 
-        
-//        label1.backgroundColor=[UIColor redColor];
-//        label2.backgroundColor=[UIColor redColor];
-//        label3.backgroundColor=[UIColor redColor];
-        
-        if ([self.tableArray count]>indexPath.row-1) {  // 真实数据
-//            NSDictionary *dic=[self.tableArray objectAtIndex:indexPath.row-1];
-//            label1.text =[dic objectForKey:@"hospitalName"];
-//            label2.text =[dic objectForKey:@"hospitalAddress"];
-//            label3.text=@"三甲医院";
-//            label4.text=@"点击进入";
 
         }
         
-//        if (indexPath.row%2==0) {
-//            ImagePhoto.frame=CGRectMake(15, 15, ScreenWidth/2, 120-15);
-//            
-//            
-//            label1.frame=CGRectMake(ScreenWidth/2+30,  15 ,  ScreenWidth/2-30, 30);
-//            label2.frame=CGRectMake(ScreenWidth/2+30,  15+30 , ScreenWidth/2-30, 30);
-//            label3.frame=CGRectMake(ScreenWidth/2+30,  15+60 , ScreenWidth/2-30, 30);
-//            label4.frame=CGRectMake(ScreenWidth/2+15+ScreenWidth/4,  15+60 , ScreenWidth/4, 30);
-//
-//        }else{
-//            ImagePhoto.frame=CGRectMake(ScreenWidth/2-15, 15, ScreenWidth/2, 120-15);
-//            
-//            label1.frame=CGRectMake(15,  15 ,  ScreenWidth/2-30, 30);
-//            label2.frame=CGRectMake(15,  15+30 , ScreenWidth/2-30, 30);
-//            label3.frame=CGRectMake(15,  15+60 , ScreenWidth/2-30, 30);
-//            label4.frame=CGRectMake(ScreenWidth/4,  15+60 , ScreenWidth/4, 30);
-//
-//
-//        }
-        
 
-    }
-    
-    
-    
-    
-    
+//    }
     
     return cell;
 }
@@ -216,20 +191,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     
-    
+    [self.searchBar resignFirstResponder];
     
     if (self.tableArray.count > indexPath.row  ) {
         
-    
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"AppointDoctor" bundle:nil];
     DoctorListController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"DoctorListController"];
-    
     
     NSDictionary *dic=[[NSDictionary alloc]init];
     dic = [self.tableArray objectAtIndex:indexPath.row];
     
     HospitalModel *model=[[HospitalModel alloc]init];
-    model.i_id = [dic objectForKey:@"id"];
+    model.id = [dic objectForKey:@"id"];
     model.hospitalName = [dic objectForKey:@"hospitalName"];
     [doctor withManger:model];
     
@@ -239,6 +212,7 @@
     }
 
     
+    
 //    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"StarDoctor" bundle:nil];
 //    SatrtDoctorController *doctor = [mainStoryboard instantiateViewControllerWithIdentifier:@"SatrtDoctorController"];
 //    DoctorModel *doctors=[[DoctorModel alloc]init];
@@ -247,6 +221,69 @@
 
     
 }
+
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.searchBar resignFirstResponder];
+}
+
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+
+//    NSLog(@"searchBar   p0 = %@",searchBar.text);
+//    NSLog(@"textDidChange0 = %@",searchText);
+    NSString * search = searchText.pinYin.lowercaseString;
+   
+    if (searchArray.count > 0) {
+        [self.searchArray removeAllObjects];
+        self.searchArray = nil;
+        searchArray = [NSMutableArray array];
+        
+    }
+    
+    for (int i = 0 ; i < [self.tableArray count]; i++ ) {
+        
+        NSDictionary *dic=[self.tableArray objectAtIndex:i];
+        NSString *sri =[dic objectForKey:@"hospitalName"];
+        NSString *sri1 = sri.pinYin;
+        NSString *sri2 = [UnitPath clearsSpecialString:@" " byString:sri1];
+        
+        if ([sri2.pinYin containsString:search]) {
+            [self.searchArray addObject:dic];
+        }
+    }
+    
+    if ([@"" isEqualToString:  searchText  ]) {
+        self.searchArray = [NSMutableArray arrayWithArray:self.tableArray];
+    }
+    
+    [self.v_tableView reloadData];
+    
+    
+    
+    
+}
+
+//- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text NS_AVAILABLE_IOS(3_0); {
+//   
+//    NSLog(@"searchBar   p1 = %@",searchBar.text);
+//    NSLog(@"textDidChange1 = %@",text);
+//    NSLog(@"rangelength   = %d",range.length);
+//    NSLog(@"rangelocation = %d",range.location);
+//
+//    return YES;
+//}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar;{
+    [self.searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar;{
+    [self.searchBar resignFirstResponder];
+}
+
+
 
 
 #pragma mark-
@@ -271,9 +308,9 @@
             
             NSMutableArray * result=[responseObject objectForKey:@"result"];
             self.tableArray = result;
+            self.searchArray = [NSMutableArray arrayWithArray:result];
             
             DLog(@"医院 = %@",self.tableArray);
-
             [self.v_tableView reloadData];
             
         }else{ //
@@ -366,7 +403,8 @@
 
 
 //省市区的选择
-- (void)pickerTownDone:(ProviceCityAirPicker *)viewController provice:(NSString *)_provice city:(NSString *)_city town:(NSString *)_town{
+- (void)pickerTownDone:(ProviceCityAirPicker *)viewController provice:(NSString *)_provice city:(NSString *)_city town:(NSString *)_town
+{
     
     DLog(@" _provice= %@ _city = %@ _Town = %@",_provice,_city,_town);
     

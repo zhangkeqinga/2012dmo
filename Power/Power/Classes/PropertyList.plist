@@ -177,16 +177,9 @@
 			<string>收益计算</string>
 		</dict>
 	</array>
-	<key>BANKNANME</key>
-	<dict>
-		<key>招商银行</key>
-		<string>bank_logo_2@2x.png</string>
-		<key>工商银行</key>
-		<string>bank_logo_1@2x.png</string>
-	</dict>
 	<key>DOCTOR_HOS</key>
 	<array>
-		<string>所有医院</string>
+		<string>医院</string>
 		<string>北京大学人民医院</string>
 		<string>武汉大学人民医院</string>
 		<string>上海交通大学医学院附属仁济医院</string>
@@ -196,7 +189,7 @@
 	</array>
 	<key>DOCTOR_LEVEL</key>
 	<array>
-		<string>所有职称</string>
+		<string>职称</string>
 		<string>教授</string>
 		<string>副教授</string>
 		<string>主任医师</string>
@@ -206,7 +199,7 @@
 	</array>
 	<key>DOCTOR_DKS</key>
 	<array>
-		<string>所有科室</string>
+		<string>科室</string>
 		<string>全科</string>
 		<string>耳鼻喉科</string>
 		<string>心血管科</string>

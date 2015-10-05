@@ -73,16 +73,13 @@
 //token	true	string	签名信息
 #define appointUrl [NSString stringWithFormat:@"%@/diagnose/user/getAttention.do",headUrltest]
 
-
 #pragma mark-10－科室－－－－－－
 //type	true int	1:医生职称, 2:医院级别, 3:医院科室
 #define doctorMdmUrl [NSString stringWithFormat:@"%@/diagnose/mdm/getMdm.do",headUrltest]
 
-
 #pragma mark-10-医生列表－－－－－－test1
 //teamId	True	String	团队id       缺少条件
 #define doctorListUrl [NSString stringWithFormat:@"%@/diagnose/user/searchDoctorList.do",headUrltest]
-
 
 #pragma mark-21-医生列表－－－－－－test1
 //doctorTitle	false	string	医生职称

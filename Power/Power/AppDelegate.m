@@ -9,18 +9,16 @@
 #import "AppDelegate.h"
 
 
-#import "MainViewController.h"
-#import "InstructionsController.h"
-
 //第三方框架
 #import "AFHTTPRequestOperationManager.h"
 
 //token  保存7天
 
 
+
+
 @interface AppDelegate ()<InstructionsControllerDelegate>
 
-@property  MainViewController *mvc;
 
 @end
 
@@ -31,6 +29,7 @@
 @synthesize viewController;
 
 @synthesize leftSwipeGestureRecognizer,rightSwipeGestureRecognizer;
+@synthesize mvc=_mvc;
 
 
 
@@ -38,6 +37,7 @@
 {
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     
     //1、检查网络
     [self realTimeNetWorking];
@@ -72,6 +72,13 @@
 //    [self dispath_background_requestData];  //请求数据
     
     return YES;
+}
+
+//禁止第三方的键盘使用
+- (BOOL)application:(UIApplication *)application
+shouldAllowExtensionPointIdentifier:(NSString *)extensionPointIdentifier
+{
+    return NO;
 }
 
 
@@ -367,7 +374,7 @@
     
     if (index==800) {
         self.window.rootViewController = _mvc;
-        [_mvc selectViewController:2];
+        [_mvc selectViewController:3];
     }
     
     if (index==900) {
